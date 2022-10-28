@@ -7,7 +7,6 @@ const Signin = () => {
       <div class='mt-4'>
         <img src={logo} alt="logo" class='w-48 h-24' />
         {/* <img src={back} alt="" /> */}
-
       </div>
     </div>
   )
