@@ -1,4 +1,4 @@
-import logo from '../../assests/logo.jpg';
+import logo from '../../assests/logo.jpeg';
 import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
@@ -9,8 +9,8 @@ const Navbar = () => {
 
   return (
     <div class="main flex gap-x-5 w-full" >
-      <div class='w-1/5 '>
-        <img src={logo} alt='logo' class="h-full w-full " />
+      <div class='w-max h-max '>
+        <img src={logo} alt='logo' class="h-2/3 w-2/3" />
       </div>
       <div class='flex items-center justify-around w-4/5 '>
         <ul class='flex gap-x-20 cursor-pointer ' >
