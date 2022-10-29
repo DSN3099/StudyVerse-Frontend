@@ -60,12 +60,12 @@ const Signup = () => {
   }
 
   return (
-    <div class='flex w-full' >
-      <div class='w-max h-max' >
-        <img src={logo} alt="logo" class='w-5/6 h-5/6' />
+    <div class='flex flex-col w-full items-center ' >
+      <div class='w-max h-max sm:justify-center sm:w-full sm:flex'>
+        <img src={logo} alt="logo" class='w-5/6 h-5/6 sm:w-3/6'/>
       </div>
       <div class='flex justify-center items-center w-full h-full'>
-        <div class='flex flex-col w-1/2 h-1/2 p-5 gap-2.5'>
+        <div class='flex flex-col w-1/2 h-1/2 sm:w-full sm:h-full md:w-5/6 md:gap-5 lg:w-4/6 lg:gap-5 p-5 gap-2.5'>
           <div class='font-sans text-2xl font-bold'>Sign Up</div>
           <div class='flex flex-col gap-2'>
             <div class='flex w-full gap-1 rounded-md bg-blue-600 text-white items-center p-2 justify-center cursor-pointer'>
@@ -87,7 +87,7 @@ const Signup = () => {
             <div class='w-1/2 h-px bg-slate-300'></div>
           </div>
           <form onSubmit={handleSubmit}>
-            <div class='flex flex-col gap-2'>
+            <div class='flex flex-col gap-2 md:gap-5 lg:gap-5'>
               <div class='flex gap-5 w-full'>
                 <div class='flex flex-col w-full'>
                   <div>First name</div>
