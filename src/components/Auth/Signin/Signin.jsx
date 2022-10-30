@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../../assests/logo1.jpg';
+import logo from '../../../assets/logo1.jpg';
 import { useNavigate } from 'react-router-dom';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';

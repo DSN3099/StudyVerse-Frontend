@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../../assests/logo.jpg'
+import logo from '../../../assets/logo.jpg'
 const Signup = () => {
   return (
     <div class = 'flex w-full' >
