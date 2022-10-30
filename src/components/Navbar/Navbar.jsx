@@ -1,3 +1,4 @@
+import logo from '../../assets/logo.jpg';
 import logo from '../../assets/logo.jpeg';
 import search from '../../assets/search.svg'
 import { useNavigate } from 'react-router-dom';

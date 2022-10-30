@@ -1,3 +1,5 @@
+import React from 'react';
+import logo from '../../../assets/logo.jpg'
 import React, { useState } from 'react';
 import logo from '../../../assets/logo.jpeg'
 import GoogleIcon from '@mui/icons-material/Google';
@@ -7,7 +9,6 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import validator from 'validator';
 import { useNavigate } from 'react-router-dom';
-
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [states, setStates] = useState({
