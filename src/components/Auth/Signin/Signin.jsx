@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from '../../../assests/logo.jpg';
-import back from '../../../assests/back.svg';
+import logo from '../../../assets/logo.jpg';
+import back from '../../../assets/back.svg';
 const Signin = () => {
   return (
     <div class='flex-col h-full'>

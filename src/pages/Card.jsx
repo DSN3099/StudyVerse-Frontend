@@ -16,7 +16,7 @@ const Card = () => {
           </button>
         </div>
         <div class="text-md font-bold ">
-          Grow Yor Video Editing Skills from Experts
+          Grow Your Video Editing Skills from Experts
         </div>
         <div class="flex justify-between ">
           <div class=" flex items-center gap-1 mb-1">

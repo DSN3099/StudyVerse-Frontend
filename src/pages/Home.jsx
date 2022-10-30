@@ -11,8 +11,8 @@ const Home = () => {
           <h2 class='text-black-200 font-bold text-xl'>Recommended for you</h2>
           <h4 class='text-blue-500'>View all {`>`}</h4>
         </div>
-        {/* first card boxes */}
-        <Card/>
+       {/* first card boxes */}
+       <Card/>
 
     </div>
   )
