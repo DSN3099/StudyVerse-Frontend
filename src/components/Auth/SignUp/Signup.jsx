@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from '../../../assests/logo.jpeg'
+import logo from '../../../assets/logo.jpeg'
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import AppleIcon from '@mui/icons-material/Apple';
