@@ -20,11 +20,20 @@ const Navbar = () => {
             <div class="w-3/4 flex h-max self-start pl-1 ">
               <img src={logo} alt="" class="w-full h-full " />
             </div>
+
             <div class="w-full h-max ">
               <ul class="flex flex-col pl-5 gap-2.5 cursor-pointer ">
                 <li class="hover:text-pink-500">Home</li>
                 <li class="hover:text-blue-500">Academics</li>
                 <li class="hover:text-blue-500">About</li>
+
+            <div class='w-full h-max '>
+              <ul class='flex flex-col pl-5 gap-2.5 cursor-pointer ' >
+                <li>Home</li>
+                <li>Academics</li>
+                <li>About</li>
+                <li>Contact Us</li>
+
               </ul>
             </div>
             <button
@@ -56,11 +65,20 @@ const Navbar = () => {
             <MenuIcon />
           </div>
         </div>
+
         <div class="flex items-center justify-around w-4/5 sm:hidden ">
           <ul class="flex gap-20 lg:gap-10 cursor-pointer font-medium ">
             <li class="hover:text-pink-500">Home</li>
             <li class="hover:text-pink-500">Academics</li>
             <li class="hover:text-pink-500">About</li>
+
+        <div class='flex items-center justify-around w-4/5 sm:hidden '>
+          <ul class='flex gap-20 lg:gap-10 cursor-pointer font-medium ' >
+            <li class='hover:text-pink-500'>Home</li>
+            <li class='hover:text-pink-500'>Academics</li>
+            <li class='hover:text-pink-500'>About</li>
+            <li class='hover:text-pink-500'>Contact Us</li>
+
           </ul>
           <div>
             <div class="flex bg-gray-100 p-1 rounded-md items-center gap-1">
@@ -72,12 +90,16 @@ const Navbar = () => {
               />
             </div>
           </div>
+
           <button
             onClick={handleSignup}
             class="border border-2 font-semibold border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white px-2 py-1 rounded-lg transition ease-in duration-500"
           >
             Login/Register
           </button>
+
+          <button onClick={handleSignup} class='border-2 font-semibold border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white px-2 py-1 rounded-lg transition ease-in duration-500'>Login/Register</button>
+
         </div>
       </div>
     </>
