@@ -22,9 +22,10 @@ const Navbar = () => {
             </div>
             <div class='w-full h-max '>
               <ul class='flex flex-col pl-5 gap-2.5 cursor-pointer ' >
-                <li class='hover:text-pink-500'>Home</li>
-                <li class='hover:text-blue-500'>Academics</li>
-                <li class='hover:text-blue-500'>About</li>
+                <li>Home</li>
+                <li>Academics</li>
+                <li>About</li>
+                <li>Contact Us</li>
               </ul>
             </div>
             <button onClick={handleSignup} class='border-2 border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white mt-5 w-5/6 text-white px-2 py-1 rounded-full'>Login/Register</button>
@@ -51,6 +52,7 @@ const Navbar = () => {
             <li class='hover:text-pink-500'>Home</li>
             <li class='hover:text-pink-500'>Academics</li>
             <li class='hover:text-pink-500'>About</li>
+            <li class='hover:text-pink-500'>Contact Us</li>
           </ul>
           <div>
             <div class='flex bg-gray-100 p-1 rounded-md items-center gap-1'>
@@ -58,7 +60,7 @@ const Navbar = () => {
               <input type="text" placeholder='Search...' class='focus:outline-none bg-gray-100 text-gray-500' />
             </div>
           </div>
-          <button onClick={handleSignup} class='border border-2 font-semibold border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white px-2 py-1 rounded-lg transition ease-in duration-500'>Login/Register</button>
+          <button onClick={handleSignup} class='border-2 font-semibold border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white px-2 py-1 rounded-lg transition ease-in duration-500'>Login/Register</button>
         </div>
       </div>
     </>
