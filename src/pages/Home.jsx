@@ -46,7 +46,6 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-
       <div class="flex justify-around  ">
         <h2 class="text-black-200 font-bold text-xl">Recommended for you</h2>
         <h4 class="text-blue-500">View all {`>`}</h4>
@@ -66,12 +65,17 @@ const Home = () => {
           )
         })}
       </div>
-
       {/* course carausel */}
       <div class="">
         <Caraousel />
       </div>
-
+        <Navbar/>
+        <div class='flex justify-around '>
+          <h2 class='text-black-200 font-bold text-xl'>Recommended for you</h2>
+          <h4 class='text-blue-500'>View all {`>`}</h4>
+        </div>
+       {/* first card boxes */}
+       <Card/>
       {/* popular courses */}
       <div class='flex justify-around'>
         <h2 class="text-black-200 font-bold text-xl">Poular Courses</h2>

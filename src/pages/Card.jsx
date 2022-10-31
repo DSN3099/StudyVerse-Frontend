@@ -17,6 +17,7 @@ const Card = ({title,course,rating,level,img}) => {
         </div>
         <div class="text-md font-bold ">
           {title}
+          Grow Your Video Editing Skills from Experts
         </div>
         <div class="flex justify-between ">
           <div class=" flex items-center gap-1 mb-1">

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// import logo from '../../../assets/logo.jpg'
 import logo from '../../../assets/logo.jpeg'
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
@@ -7,7 +8,6 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import validator from 'validator';
 import { useNavigate } from 'react-router-dom';
-
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [states, setStates] = useState({
@@ -65,7 +65,7 @@ const Signup = () => {
         <img src={logo} alt="logo" class='w-5/6 h-5/6 sm:w-3/6'/>
       </div>
       <div class='flex justify-center items-center w-full h-full'>
-        <div class='flex flex-col w-1/2 h-1/2 sm:w-full sm:h-full md:w-5/6 md:gap-5 lg:w-4/6 lg:gap-5 p-5 gap-2.5'>
+        <div class='flex flex-col w-1/2 h-1/2 sm:w-full sm:h-full md:w-5/6 md:gap-5 lg:w-4/6 lg:gap-5 gap-2.5'>
           <div class='font-sans text-2xl font-bold'>Sign Up</div>
           <div class='flex flex-col gap-2'>
             <div class='flex w-full gap-1 rounded-md bg-blue-600 text-white items-center p-2 justify-center cursor-pointer'>
