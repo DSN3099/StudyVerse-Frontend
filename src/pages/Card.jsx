@@ -4,7 +4,7 @@ import card from '../assets/card.jpg'
 
 const Card = ({title,course,rating,level,img}) => {
   return (
-    <div class="flex flex-col bg-white-300 h-max w-64 rounded-md gap-2.5 border border-slate-500 shadow-lg shadow-indigo-500/40">
+    <div class="flex flex-col bg-white-300 h-max w-64 rounded-md gap-2.5 border border-slate-500 shadow-lg shadow-teal-500/40  transform transition duration-500 hover:scale-110">
       <div class="w-full h-2/3">
         <img class="w-full h-full" src={img} alt="cardIMG" />
       </div>
