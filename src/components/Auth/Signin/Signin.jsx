@@ -1,6 +1,4 @@
 import React from 'react';
-import logo from '../../../assets/logo.jpg';
-import back from '../../../assets/back.svg';
 import logo from '../../../assets/logo.jpeg';
 import { useNavigate } from 'react-router-dom';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';

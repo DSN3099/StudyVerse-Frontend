@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import logo from '../../../assets/logo.jpg'
 import logo from '../../../assets/logo.jpeg'
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';

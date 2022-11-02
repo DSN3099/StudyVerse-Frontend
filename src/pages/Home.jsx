@@ -12,7 +12,7 @@ const Home = () => {
       course: 'React',
       rating: '4.5',
       level: 'Beginner',
-      img: { card },
+      img: `${card}`,
       description: 'A very light weight library for building user interfaces',
     },
     {
@@ -21,7 +21,7 @@ const Home = () => {
       course: 'React',
       rating: '4.5',
       level: 'Advanced',
-      img: { card },
+      img: `${ card }`,
       description: 'A very light weight library for building user interfaces',
     },
     {
@@ -30,7 +30,7 @@ const Home = () => {
       course: 'React',
       rating: '4.5',
       level: 'Beginner',
-      img: { card },
+      img: `${ card }`,
       description: 'A very light weight library for building user interfaces',
     },
     {
@@ -39,7 +39,7 @@ const Home = () => {
       course: 'React',
       rating: '4.5',
       level: 'Beginner',
-      img: { cartton },
+      img: `${ card }`,
       description: 'A very light weight library for building user interfaces',
     },
   ]
@@ -69,13 +69,6 @@ const Home = () => {
       <div class="">
         <Caraousel />
       </div>
-        <Navbar/>
-        <div class='flex justify-around '>
-          <h2 class='text-black-200 font-bold text-xl'>Recommended for you</h2>
-          <h4 class='text-blue-500'>View all {`>`}</h4>
-        </div>
-       {/* first card boxes */}
-       <Card/>
       {/* popular courses */}
       <div class='flex justify-around'>
         <h2 class="text-black-200 font-bold text-xl">Poular Courses</h2>
