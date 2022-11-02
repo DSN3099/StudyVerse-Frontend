@@ -15,6 +15,7 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import klara from '../assets/klara.jpg'
 import images from '../images'
 import Card from './Card';
+import Footer from '../components/Footer';
 
 export const ratingData = [
     { id: 1, img: `${images.jay}`, rating: 5, name: 'Jay Rutherford' },
@@ -176,22 +177,24 @@ const CourseInfo = () => {
                             <NavigateNextIcon sx={{ color: '#535CE8FF', width: '20px', height: '20px' }} />
                         </div>
                     </div>
-                    <div class = 'flex gap-5'>
+                    <div class='flex gap-5'>
                         {
                             cardData.map((item, i) => (
-                                <Card
-                                    title={item.title}
-                                    course={item.course}
-                                    rating={item.rating}
-                                    level={item.level}
-                                    img={item.img}
-                                />
+                                <div class = 'cursor-pointer'>
+                                    <Card
+                                        title={item.title}
+                                        course={item.course}
+                                        rating={item.rating}
+                                        level={item.level}
+                                        img={item.img}
+                                    />
+                                </div>
                             ))
                         }
                     </div>
                 </div>
             </div>
-            <footer />
+            <Footer />
         </div>
     )
 }

@@ -1,5 +1,6 @@
 import React from 'react'
-import logo from '../assets/logo.jpeg'
+import logoद from '../assets/logo.jpeg'
+import logo from '../assets/logo.png'
 import facebook from '../assets/facebook.svg'
 import twitter from '../assets/Twitter.svg'
 import youtube from '../assets/Youtube.svg'
@@ -7,7 +8,7 @@ import linkedin from '../assets/Linkedin.svg'
 
 const Footer = () => {
   return (
-    <div className="bg-gray-100  flex flex-col ">
+    <div className="bg-gray-200/40  flex flex-col ">
       <div class="flex justify-evenly mt-9">
         {/* logo */}
         <div class="h-full w-1/5">
@@ -42,7 +43,7 @@ const Footer = () => {
             <input
               type="text"
               placeholder="Enter your email"
-              class="border border-gray-300 rounded-md px-8 "
+              class="border border-gray-300 rounded-md px-8 focus:outline-none "
             />
             <button class="bg-indigo-700 text-white rounded-md p-2">
               Subscribe
@@ -51,10 +52,10 @@ const Footer = () => {
         </div>
       </div>
       {/* border line */}
-      <div class="border-t-2 border-black-300 mt-9"></div>
+      <div class="border-t border-black-300 mt-9"></div>
       <div class="flex justify-around">
         {/* privacy */}
-        <div class=" m-7 p-3 h-full border border-gray-500  rounded-md ">
+        <div class=" m-7 px-3 py-2 h-full border border-gray-500  rounded-md ">
           English
         </div>
         <div class="flex items-center  gap-4 cursor-pointer">
