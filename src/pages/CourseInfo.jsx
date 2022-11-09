@@ -18,10 +18,12 @@ import Card from './Card';
 import Footer from '../components/Footer';
 
 export const ratingData = [
-    { id: 1, img: `${images.jay}`, rating: 5, name: 'Jay Rutherford' },
-    { id: 2, img: `${images.annie}`, rating: 4.5, name: 'Annie Haley' },
-    { id: 2, img: `${images.jevon}`, rating: 5, name: 'Jevon Raynor' },
-    { id: 2, img: `${images.emily}`, rating: 5, name: 'Emily Rowey' },
+    { id: 1, img: `${images.jay}`, rating: 5, name: 'Jay Rutherford', review:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Error delectus ut dolorum at cum neque quod fugit dolore rem cumque!' },
+    { id: 2, img: `${images.annie}`, rating: 4.5, name: 'Annie Haley', review:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Error delectus ut dolorum at cum neque quod fugit dolore rem cumque!' },
+    { id: 3, img: `${images.jevon}`, rating: 5, name: 'Jevon Raynor', review:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Error delectus ut dolorum at cum neque quod fugit dolore rem cumque!' },
+    { id: 4, img: `${images.emily}`, rating: 5, name: 'Emily Rowey', review:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Error delectus ut dolorum at cum neque quod fugit dolore rem cumque!' },
+    { id: 5, img: `${images.jevon}`, rating: 5, name: 'Jevon Raynor', review:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Error delectus ut dolorum at cum neque quod fugit dolore rem cumque!' },
+    { id: 6, img: `${images.emily}`, rating: 5, name: 'Emily Rowey', review:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Error delectus ut dolorum at cum neque quod fugit dolore rem cumque!' },
 ]
 
 export const cardData = [
@@ -38,6 +40,9 @@ const CourseInfo = () => {
         reviews: false,
         relCourse: false,
     })
+
+    const [showAll, setShowAll] = useState(false)
+
     return (
         <div class='w-full h-full flex flex-col scroll-smooth'>
             <Navbar />
@@ -153,7 +158,7 @@ const CourseInfo = () => {
                         </div>
                     </div>
                     <div class='flex flex-wrap gap-10 w-full'>
-                        {ratingData.map((val, i) => (
+                        {ratingData.slice(0, showAll?ratingData.length:4).map((val, i) => (
                             <div class='flex flex-col gap-2 w-2/5'>
                                 <div class='flex items-center gap-2'>
                                     <img src={val.img} alt="" class='rounded-full w-9 h-9' />
@@ -162,12 +167,12 @@ const CourseInfo = () => {
                                         <Rating readOnly precision={0.5} defaultValue={val.rating} size='small' />
                                     </div>
                                 </div>
-                                <div class='text-sm'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error delectus ut dolorum at cum neque quod fugit dolore rem cumque!</div>
+                                <div class='text-sm'>{val.review}</div>
                             </div>
                         ))
                         }
                     </div>
-                    <button class='flex border-2 border-blue-500 w-max px-4 py-2 rounded-md text-blue-500 font-medium hover:bg-blue-500 hover:text-white transition ease-out duration-300'>Show all reviews</button>
+                    <button class='flex border-2 border-blue-500 w-max px-4 py-2 rounded-md text-blue-500 font-medium hover:bg-blue-500 hover:text-white transition ease-out duration-300' onClick = {()=>{setShowAll(!showAll)}}>{showAll? 'Show less' : 'Show more'}</button>
                 </div>
                 <div id='relCourse' class='flex flex-col gap-5'>
                     <div class='flex justify-between'>
