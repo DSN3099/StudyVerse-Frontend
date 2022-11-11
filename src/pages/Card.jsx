@@ -1,5 +1,6 @@
-import React from 'react'
-import star from '../assets/star.png'
+
+import React from 'react';
+import star from '../assets/star.png';
 
 const Card = ({title,course,rating,level,img}) => {
   return (
@@ -16,7 +17,6 @@ const Card = ({title,course,rating,level,img}) => {
         </div>
         <div class="text-md font-bold ">
           {title}
-          Grow Your Video Editing Skills from Experts
         </div>
         <div class="flex justify-between ">
           <div class=" flex items-center gap-1 mb-1">
@@ -30,4 +30,4 @@ const Card = ({title,course,rating,level,img}) => {
   )
 }
 
-export default Card
+export default Card;
