@@ -1,3 +1,4 @@
+
 import React from 'react';
 import star from '../assets/star.png';
 
@@ -29,4 +30,4 @@ const Card = ({title,course,rating,level,img}) => {
   )
 }
 
-export default Card
+export default Card;

@@ -45,10 +45,10 @@ const Home = () => {
   ]
   return (
     <div>
-      <Navbar />
+      <Navbar type = 'verified' />
       <div class="flex justify-between px-14  ">
         <h2 class="text-black-200 font-bold text-xl">Recommended for you</h2>
-        <h4 class="text-blue-500 cursor-pointer">View all {`>`}</h4>
+        <h4 class="text-blue-500 cursor-pointer">View all &gt;</h4>
       </div>
       {/* first card boxes */}
       <div class="flex  justify-around  p-10">

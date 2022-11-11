@@ -1,9 +1,9 @@
-import React, { useRef } from 'react'
-import logo from '../assets/logo.png'
-import facebook from '../assets/facebook.svg'
-import twitter from '../assets/Twitter.svg'
-import youtube from '../assets/Youtube.svg'
-import linkedin from '../assets/Linkedin.svg'
+import React, { useRef } from 'react';
+import logo from '../assets/logo.png';
+import facebook from '../assets/facebook.svg';
+import twitter from '../assets/Twitter.svg';
+import youtube from '../assets/Youtube.svg';
+import linkedin from '../assets/Linkedin.svg';
 import emailjs from '@emailjs/browser';
 
 const Footer = () => {
