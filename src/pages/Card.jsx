@@ -1,6 +1,5 @@
 import React from 'react'
 import star from '../assets/star.png'
-import card from '../assets/card.jpg'
 
 const Card = ({title,course,rating,level,img}) => {
   return (
