@@ -23,7 +23,7 @@ const Landing = () => {
     }
     return (
         <div class='w-full '>
-            <Navbar />
+            <Navbar type='notVerified'/>
             <div class='flex max-h-full'>
                 <div class='flex flex-col w-2/3 '>
                     <div class='p-10'>

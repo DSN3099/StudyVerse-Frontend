@@ -21,7 +21,7 @@ const Footer = () => {
 
 
   return (
-    <div className="bg-gray-200/40  flex flex-col ">
+    <div className="bg-gray-200/40  flex flex-col " id='form'>
       <div class="flex justify-evenly mt-9">
         {/* logo */}
         <div class="h-full w-1/5">
