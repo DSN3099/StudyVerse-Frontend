@@ -5,7 +5,8 @@ import star from '../assets/star.png';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import DoneIcon from '@mui/icons-material/Done';
-import { green } from '@mui/material/colors';
+import { useState } from 'react';
+
 
 
 
@@ -13,32 +14,32 @@ import { green } from '@mui/material/colors';
 const sessionArray = [
     {   
         id : 1 ,
-        name : "Lorem Ipsum is simply dummy text of  ",
+        name : "Lorem Ipsum is simply dummy text of  1",
         url : "https://www.youtube.com/watch?v=5SXK__rm6DM&list=PLSzsOkUDsvds51lVJYzKWhqr4Ie6UHLx7&index=1"
     },
     {   
         id : 2 ,
-        name : "Lorem Ipsum is simply dummy text of  ",
-        url : "https://www.youtube.com/watch?v=tWslE3uejuI&list=PLSzsOkUDsvds51lVJYzKWhqr4Ie6UHLx7&index=2"
+        name : "Lorem Ipsum is simply dummy text of  2",
+        url :'Videos/video2.mp4'
     },
     {   
         id : 3 ,
-        name : "Lorem Ipsum is simply dummy text of ",
-        url : "https://www.youtube.com/watch?v=tWslE3uejuI&list=PLSzsOkUDsvds51lVJYzKWhqr4Ie6UHLx7&index=3"
+        name : "Lorem Ipsum is simply dummy text of 3",
+        url : "Videos/videoplayback.mp4"
     },
     {   
         id : 4 ,
-        name : "Lorem Ipsum is simply dummy text of",
-        url : "https://www.youtube.com/watch?v=tWslE3uejuI&list=PLSzsOkUDsvds51lVJYzKWhqr4Ie6UHLx7&index=4"
+        name : "Lorem Ipsum is simply dummy text of 4",
+        url : "Videos/video3.mp4"
     },
     {   
         id : 5 ,
-        name : "Lorem Ipsum is simply dummy text of",
+        name : "Lorem Ipsum is simply dummy text of 5",
         url : "https://www.youtube.com/watch?v=tWslE3uejuI&list=PLSzsOkUDsvds51lVJYzKWhqr4Ie6UHLx7&index=5"
     },
     {   
         id : 6 ,
-        name : "Lorem Ipsum is simply dummy text of ",
+        name : "Lorem Ipsum is simply dummy text of 6",
         url : "https://www.youtube.com/watch?v=tWslE3uejuI&list=PLSzsOkUDsvds51lVJYzKWhqr4Ie6UHLx7&index=6"
     }
 ];
@@ -46,6 +47,11 @@ const sessionArray = [
 
 
 function Study(){
+const [url , setUrl] = useState("https://www.youtube.com/watch?v=7xEgFfpUeEs");
+const [color , setColor] = useState(false);
+
+
+
     return(
        <div> 
         <Navbar type = "verified"></Navbar>
@@ -69,8 +75,9 @@ function Study(){
                     </div>
             </div>       
             <div className='flex flex-row'>
+                
                 <div className='course_player '>
-                   <ReactPlayer width={808} height = {416} controls url = {sessionArray[0].url}></ReactPlayer>
+                   <ReactPlayer width={808} height = {416} controls url = {url}></ReactPlayer>
                 </div>
                 <div className='sessions ml-20'>
                     <div className='sessions_header flex'>
@@ -81,7 +88,9 @@ function Study(){
                     
                     <div className="session_list mt-5" style={{width : '400px' , height : 'auto'  }}>
                         {sessionArray.map(session => (
-                           <div className='p-3.5  text-sm my-1.5 hover:border-[3px] hover:border-indigo-500' >0{session.id}. {session.name} <DoneIcon className='ml-12 mr-0' style={{fill:green}}></DoneIcon></div>
+                          <button className='p-3.5  text-sm my-1.5 hover:border-[3px] hover:border-indigo-500' onClick={()=>{setUrl(session.url); setColor(true);console.log(url); }}>
+                            0{session.id}. {session.name} <DoneIcon className={color ? "bg-green-500" : "bg-violet-500" }></DoneIcon></button>
+
                            ) )}
                     </div>
                  </div>
