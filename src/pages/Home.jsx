@@ -1,10 +1,10 @@
-import React from 'react'
-import Navbar from '../components/Navbar/Navbar'
-import Card from './Card'
-import card from '../assets/card.jpg'
-import cartton from '../assets/cartton.jpg'
-import Caraousel from '../components/Caraousel'
-import Footer from '../components/Footer'
+import React from 'react';
+import Navbar from '../components/Navbar/Navbar';
+import Card from './Card';
+import card from '../assets/card.jpg';
+import Caraousel from '../components/Caraousel';
+import Footer from '../components/Footer';
+import Coursecard from '../components/Coursecard';
 const Home = () => {
   const data = [
     {
@@ -13,7 +13,7 @@ const Home = () => {
       course: 'React',
       rating: '4.5',
       level: 'Beginner',
-      img: { card },
+      img: `${card}`,
       description: 'A very light weight library for building user interfaces',
     },
     {
@@ -22,7 +22,7 @@ const Home = () => {
       course: 'React',
       rating: '4.5',
       level: 'Advanced',
-      img: { card },
+      img: `${card}`,
       description: 'A very light weight library for building user interfaces',
     },
     {
@@ -31,7 +31,7 @@ const Home = () => {
       course: 'React',
       rating: '4.5',
       level: 'Beginner',
-      img: { card },
+      img: `${card}`,
       description: 'A very light weight library for building user interfaces',
     },
     {
@@ -40,16 +40,36 @@ const Home = () => {
       course: 'React',
       rating: '4.5',
       level: 'Beginner',
-      img: { cartton },
+      img: `${card}`,
       description: 'A very light weight library for building user interfaces',
     },
   ]
   return (
-    <div>
-      <Navbar />
+    <div id='home'>
+      <Navbar type='verified' />
+      <div class='px-14 mb-4 flex flex-col gap-4'>
+        <h7 class="text-black-200 font-bold text-xl">My Courses</h7>
+        <div class='flex justify-evenly'>
+        {
+          data.map((item) => {
+            return (
+              <Coursecard
+                key={item.id}
+                title={item.title}
+                course={item.course}
+                rating={item.rating}
+                level={item.level}
+                img={item.img}
+              />
+            )
+
+          })
+        }
+        </div>
+      </div>
       <div class="flex justify-between px-14  ">
         <h2 class="text-black-200 font-bold text-xl">Recommended for you</h2>
-        <h4 class="text-blue-500 cursor-pointer">View all {`>`}</h4>
+        <h4 class="text-blue-500 cursor-pointer">View all &gt;</h4>
       </div>
       {/* first card boxes */}
       <div class="flex  justify-around  p-10">
@@ -70,7 +90,6 @@ const Home = () => {
       <div class="">
         <Caraousel />
       </div>
-
       {/* popular courses */}
       <div class="flex justify-between px-14">
         <h2 class="text-black-200 font-bold text-xl">Poular Courses</h2>
@@ -110,7 +129,7 @@ const Home = () => {
         })}
       </div>
       {/* footer component */}
-      <Footer/>
+      <Footer />
     </div>
   )
 }

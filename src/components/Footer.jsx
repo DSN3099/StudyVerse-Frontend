@@ -1,36 +1,31 @@
-import React from 'react'
-import logo from '../assets/logo.jpeg'
-import facebook from '../assets/facebook.svg'
-import twitter from '../assets/Twitter.svg'
-import youtube from '../assets/Youtube.svg'
-import linkedin from '../assets/Linkedin.svg'
+import React, { useRef } from 'react';
+import logo from '../assets/logo.png';
+import facebook from '../assets/facebook.svg';
+import twitter from '../assets/Twitter.svg';
+import youtube from '../assets/Youtube.svg';
+import linkedin from '../assets/Linkedin.svg';
+import emailjs from '@emailjs/browser';
 
 const Footer = () => {
+  const form = useRef()
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm('service_b4b4jnf', 'template_6ta3ezl', form.current, 'XuuqRCTrlefmvazYZ')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+  };
+
+
   return (
-    <div className="bg-gray-100  flex flex-col ">
+    <div className="bg-gray-200/40  flex flex-col " id='form'>
       <div class="flex justify-evenly mt-9">
         {/* logo */}
         <div class="h-full w-1/5">
           <img src={logo} alt="" />
-        </div>
-        {/* Footer items */}
-        <div class="grid grid-col-3 grid-flow-col gap-7 ">
-          <div class="font-bold flex flex-col gap-y-4">
-            Product
-            <div class="font-thin">Features</div>
-            <div class="font-thin">Pricing</div>
-          </div>
-          <div class="font-bold flex flex-col gap-y-4">
-            Resource
-            <div class="font-thin">Blog</div>
-            <div class="font-thin">User Guides</div>
-            <div class="font-thin">Webinars</div>
-          </div>
-          <div class="font-bold flex flex-col gap-y-4">
-            Comapny
-            <div class="font-thin">About Us</div>
-            <div class="font-thin">Join Us</div>
-          </div>
         </div>
         {/* newsletter */}
         <div class="flex flex-col gap-y-4">
@@ -39,22 +34,25 @@ const Footer = () => {
             Subscribe to our newsletter to get the latest news and updates
           </div>
           <div class="flex justify-around">
-            <input
-              type="text"
-              placeholder="Enter your email"
-              class="border border-gray-300 rounded-md px-8 "
-            />
-            <button class="bg-indigo-700 text-white rounded-md p-2">
-              Subscribe
-            </button>
+            <form ref={form} onSubmit={sendEmail} class='flex gap-2'>
+              <input
+                type="text"
+                placeholder="Enter your email"
+                name='user-name'
+                class="border border-gray-300 rounded-md px-8 py-2 focus:outline-none "
+              />
+              <button class="bg-indigo-700 text-white rounded-md p-2" >
+                Subscribe
+              </button>
+            </form>
           </div>
         </div>
       </div>
       {/* border line */}
-      <div class="border-t-2 border-black-300 mt-9"></div>
+      <div class="border-t border-black-300 mt-9"></div>
       <div class="flex justify-around">
         {/* privacy */}
-        <div class=" m-7 p-3 h-full border border-gray-500  rounded-md ">
+        <div class=" m-7 px-3 py-2 h-full border border-gray-500  rounded-md ">
           English
         </div>
         <div class="flex items-center  gap-4 cursor-pointer">
@@ -67,7 +65,7 @@ const Footer = () => {
         <div class="flex items-center gap-3 cursor-pointer  ">
           <img class='h-8 w-8  transform transition duration-500 hover:scale-110' src={twitter} alt="twitter" />
           <img class='h-8 w-8  transform transition duration-500 hover:scale-110' src={facebook} alt="" />
-          <img  class='h-8 w-8  transform transition duration-500 hover:scale-110' src={linkedin} alt="" />
+          <img class='h-8 w-8  transform transition duration-500 hover:scale-110' src={linkedin} alt="" />
           <img class='h-8 w-8  transform transition duration-500 hover:scale-110' src={youtube} alt="" />
         </div>
       </div>
