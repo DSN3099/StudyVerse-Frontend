@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useRef } from 'react';
@@ -6,6 +6,7 @@ import file from '../assets/file.png';
 // import loader from '../assets/loader1.gif';
 import edit from '../assets/editvideos.svg';
 import DeleteIcon from '@mui/icons-material/Delete';
+import axios from 'axios';
 
 const Courseupload = () => {
 
@@ -23,6 +24,7 @@ const Courseupload = () => {
         { id: 11, name: 'FileName:11', size: "20Mb" },
     ]
 
+    const [fileupload,setFileupload] = useState();
     const [edittitle, setEdittitle] = useState(false);
     const [editid,setEditid] = useState();
     const [editname,setEditname] = useState();
@@ -38,7 +40,7 @@ const Courseupload = () => {
                             <span class='text-[12px] text-[#A0A0A0] '>File should be mp4</span>
                         </div>
                         <div class=' h-[274px] bg-[#FBFBFF] rounded-md flex items-center'>
-                            <input type="file" hidden ref={choose} accept='video/*' />
+                            <input type="file" hidden ref={choose} accept='video/*'/>
                             <Button variant='contained' sx={{ textTransform: 'capitalize', cursor: 'pointer' }} onClick={() => { choose.current.click() }}>Upload Files</Button>
                         </div>
                     </div>
@@ -83,5 +85,3 @@ const Courseupload = () => {
         </div>
     )
 }
-
-export default Courseupload
