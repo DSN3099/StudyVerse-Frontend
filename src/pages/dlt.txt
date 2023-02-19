@@ -1,0 +1,79 @@
+<div className="leaderboard absolute my-6 right-8 font-bold">
+          <h3>LEADERRBOARD</h3>
+        </div>
+        <div class="flex justify-between ... mx-10 my-24 list-none font-bold text-xl">
+          <div class="order-last">
+            Name
+            <div className="namelist font-normal my-6 font-serif ">
+              <hr />
+              <li className="my-2">You</li>
+              <hr />
+              <li className="my-2">Abram Bator</li>
+              <hr />
+              <li className="my-2">Philip Stanton</li>
+              <hr />
+              <li className="my-2">Randy Rosser</li>
+              <hr />
+              <li className="my-2">Skylar Geidt</li>
+              <hr />
+              <li className="my-2">Erin Carder</li>
+              <hr />
+              <li className="my-2">Terry Geidt</li>
+              <hr />
+              <li className="my-2">Davis Curtis</li>
+            </div>
+          </div>
+          <div className="order-last">
+            Rank
+            <div className="ranklist font-normal my-6 font-serif ">
+              <li className="my-2">#10</li>
+              <hr />
+              <li className="my-2">#1</li>
+              <hr />
+              <li className="my-2">#2</li>
+              <hr />
+              <li className="my-2">#3</li>
+              <hr />
+              <li className="my-2">#4</li>
+              <hr />
+              <li className="my-2">#5</li>
+              <hr />
+              <li className="my-2">#6</li>
+              <hr />
+              <li className="my-2">#7</li>
+              <hr />
+            </div>
+          </div>
+          <div className="order-last">
+            Score
+            <div className="scorelist font-normal my-6 font-serif ">
+              <li className="my-2">4500</li>
+              <hr />
+              <li className="my-2">4500</li>
+              <hr />
+              <li className="my-2">4500</li>
+              <hr />
+              <li className="my-2">4500</li>
+              <hr />
+              <li className="my-2">4500</li>
+              <hr />
+              <li className="my-2">4500</li>
+              <hr />
+              <li className="my-2">4500</li>
+              <hr />
+              <li className="my-2">4500</li>
+              <hr />
+            </div>
+          </div>
+        </div>
+
+        const leaderboardata = [
+  { id: 1, name: "You", rank: "#10", score: "4500" },
+  { id: 2, name: "Abram Bator", rank: "#01", score: "4500" },
+  { id: 3, name: "Philip Stanton", rank: "#02", score: "4500" },
+  { id: 4, name: "Randy Rosser", rank: "#03", score: "4500" },
+  { id: 5, name: "Skylar Geidt", rank: "#04", score: "4500" },
+  { id: 6, name: "Erin Carde", rank: "#05", score: "4500" },
+  { id: 7, name: "Terry Geidt", rank: "#06", score: "4500" },
+  { id: 8, name: "Davis Curtis", rank: "#07", score: "4500" },
+];
