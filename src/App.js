@@ -5,6 +5,7 @@ import Signup from './components/Auth/SignUp/Signup';
 import Signin from './components/Auth/Signin/Signin';
 import CourseInfo from './pages/CourseInfo';
 import Landing from './pages/Landing';
+import Courseupload from './pages/Courseupload';
 import Study from "./pages/StudyPage";
 import CreateCourse from './components/CreateCourse';
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path="/signin" element={<Signin />}></Route>
           <Route path="/study" element={<Study />}></Route>
           <Route path='/createcourse' element = {<CreateCourse />}></Route>
+          <Route path='/courseupload' element = {<Courseupload />}></Route>
         </Routes>
     </div>
   );
