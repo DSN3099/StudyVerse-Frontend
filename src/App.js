@@ -13,13 +13,13 @@ function App() {
     <div className="App ">
         <Routes>
           <Route exact path="/" element={<Landing />}></Route>
-          <Route exact path="/courseinfo:id" element={<CourseInfo />}></Route>
+          <Route exact path="/courseinfo/:id" element={<CourseInfo />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/home" element={<Home />}></Route>
           <Route path="/signin" element={<Signin />}></Route>
-          <Route path="/study" element={<Study />}></Route>
+          <Route path="/video/:id" element={<Study />}></Route>
           <Route path='/createcourse' element = {<CreateCourse />}></Route>
-          <Route path='/courseupload' element = {<Courseupload />}></Route>
+          <Route path='/videoupload/:id' element = {<Courseupload />}></Route>
         </Routes>
     </div>
   );
