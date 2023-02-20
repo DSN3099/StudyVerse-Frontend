@@ -5,55 +5,64 @@ import card from '../assets/card.jpg';
 import Caraousel from '../components/Caraousel';
 import Footer from '../components/Footer';
 import Coursecard from '../components/Coursecard';
+import spinner from '../assets/Spinner.gif'
 import banner from '../assets/banner.jpeg'
 import coaching from '../assets/coaching.jpg'
 import learn from '../assets/learn.jpg'
+import axios from 'axios';
 const Home = () => {
   const images = [
     { id: 0, img: banner },
     { id: 1, img: coaching },
     { id: 2, img: learn },
   ]
+
   const data = [
     {
       id: '1',
       title: 'Introduction to React',
-      course: 'React',
+      category: 'React',
       rating: '4.5',
       level: 'Beginner',
-      img: `${card}`,
+      image: card,
+      price:0,
       description: 'A very light weight library for building user interfaces',
     },
     {
       id: '2',
       title: 'Introduction to React',
-      course: 'React',
+      category: 'React',
       rating: '4.5',
       level: 'Advanced',
-      img: `${card}`,
+      image: card,
+      price:0,
       description: 'A very light weight library for building user interfaces',
     },
     {
       id: '3',
       title: 'Introduction to Python',
-      course: 'React',
+      category: 'React',
       rating: '4.5',
       level: 'Beginner',
-      img: `${card}`,
+      image: card,
+      price:0,
       description: 'A very light weight library for building user interfaces',
     },
     {
       id: '4',
       title: 'Introduction to React',
-      course: 'React',
+      category: 'React',
       rating: '4.5',
       level: 'Beginner',
-      img: `${card}`,
+      image: card,
+      price:0,
       description: 'A very light weight library for building user interfaces',
     },
   ]
 
   const [current, setCurrent] = useState(0)
+  const [myCourse, setMyCourse] = useState([])
+  const [loading, setLoading] = useState(true)
   const [initial, setInitial] = useState(true)
   const timeOutRef = useRef(null)
 
@@ -62,6 +71,19 @@ const Home = () => {
       clearTimeout(timeOutRef.current)
     }
   }
+
+  const getCourses = async() =>{
+    const {data} = await axios.get('http://localhost:5000/api/course/')
+    console.log(data)
+    setLoading(false)
+    setMyCourse(data)
+  }
+  useEffect(()=>{
+    if(initial){
+      getCourses()
+    }
+  },[initial])
+
   useEffect(() => {
     if (initial) {
       setInitial(false)
@@ -69,7 +91,6 @@ const Home = () => {
     else {
       resetTimeOut();
       timeOutRef.current = setTimeout(() => {
-        console.log('oops')
         setCurrent(prev => prev === 2 ? 0 : prev + 1)
       }, 3000)
     }
@@ -95,18 +116,22 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <h7 class="text-black-200 font-bold text-xl">My Courses</h7>
-        <div class='flex justify-evenly gap-5'>
+        <h6 class="text-black-200 font-bold text-xl">My Courses</h6>
+        <div class='flex gap-5 items-center'>
+          {loading && 
+            <img src={spinner} alt="" />
+          }
           {
-            data.map((item) => {
+            myCourse?.map((item) => {
               return (
-                <Coursecard
-                  key={item.id}
+                <Card
+                  id={item._id}
                   title={item.title}
-                  course={item.course}
+                  course={item.category}
                   rating={item.rating}
                   level={item.level}
-                  img={item.img}
+                  img={item.image}
+                  price = {item.price}
                 />
               )
             })
@@ -122,12 +147,13 @@ const Home = () => {
         {data.map((item) => {
           return (
             <Card
-              key={item.id}
+              id={item.id}
               title={item.title}
-              course={item.course}
+              course={item.category}
               rating={item.rating}
               level={item.level}
-              img={item.img}
+              img={item.image}
+              price = {item.price}
             />
           )
         })}
@@ -145,12 +171,13 @@ const Home = () => {
         {data.map((item) => {
           return (
             <Card
-              key={item.id}
+              id={item.id}
               title={item.title}
-              course={item.course}
+              course={item.category}
               rating={item.rating}
               level={item.level}
-              img={item.img}
+              img={item.image}
+              price = {item.price}
             />
           )
         })}
@@ -164,12 +191,13 @@ const Home = () => {
         {data.map((item) => {
           return (
             <Card
-              key={item.id}
+              id={item.id}
               title={item.title}
-              course={item.course}
+              course={item.category}
               rating={item.rating}
               level={item.level}
-              img={item.img}
+              img={item.image}
+              price = {item.price}
             />
           )
         })}
