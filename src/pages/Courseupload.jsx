@@ -11,6 +11,12 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../Firebase.js"
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 
 const Courseupload = () => {
 
@@ -19,7 +25,11 @@ const Courseupload = () => {
     const [coursedata, setCoursedata] = useState()
     const [initial, setInitial] = useState(true)
     const [edittitle, setEdittitle] = useState(false);
+    const [opendialog, setOpendialog] = useState(false);
+    const [dialog, setDialog] = useState(false)
     const [editid, setEditid] = useState();
+    const [deleteid, setDeleteid] = useState();
+    const [deleteindex, setDeleteindex] = useState();
     const [editname, setEditname] = useState();
 
     const navigate = useNavigate();
@@ -31,16 +41,15 @@ const Courseupload = () => {
         try {
             const { data } = await axios.post(`http://localhost:5000/api/video/${id}`, Data)
             console.log(data)
-
         } catch (err) {
             console.log(err)
         }
     }
     const handleChange = async (e) => {
         const file = e.target.files[0];
-        setFileupload([...fileupload, file])
-        // console.log(fileupload)
         const fileid = v4()
+        setFileupload([...fileupload, { id: fileid, name: file.name, size: file.size }])
+        // console.log(fileupload)
         const storageref = ref(storage, `video/${file.name + fileid}`)
         await uploadBytes(storageref, file)
         const url = await getDownloadURL(storageref)
@@ -67,6 +76,28 @@ const Courseupload = () => {
             setInitial(false)
         }
     }, [initial])
+
+    const editvideos = async (i) => {
+        try {
+            const { data } = await axios.patch(`http://localhost:5000/api/video/${id}`, { videoname: editname, id: editid })
+            fileupload[i].name = editname
+            setFileupload([...fileupload])
+            console.log(data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const deletevideos = async () => {
+        try {
+            console.log(deleteid)
+            const { data } = await axios.delete(`http://localhost:5000/api/video/${id}`, { id:deleteid })
+            fileupload.splice(deleteindex,1)
+            console.log(data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     const choose = useRef();
     return (
@@ -102,14 +133,14 @@ const Courseupload = () => {
                                             </div>
                                         </div>
                                         <div class='flex gap-1 items-center'>
-                                            <img src={edit} alt="edit" class='w-[35px] h-[35px] cursor-pointer' onClick={() => { setEdittitle(!edittitle) }} />
-                                            <DeleteIcon color='primary' sx={{ width: '30px', height: "30px", cursor: 'pointer' }} />
+                                            <img src={edit} alt="edit" class='w-[35px] h-[35px] cursor-pointer' onClick={() => { setEdittitle(!edittitle); setEditname(values.name) }} />
+                                            <DeleteIcon color='primary' sx={{ width: '30px', height: "30px", cursor: 'pointer' }} onClick={() => { setOpendialog(true); setDialog(true) ;setDeleteindex(i);setDeleteid(values.id) }} />
                                         </div>
                                     </div>
                                     {edittitle && (values.id === editid) &&
                                         <div class='w-full flex gap-2 mt-2'>
-                                            <TextField size="small" label='Edit here' sx={{ width: "100%" }} onChange={(e) => { setEditname(e.target.values) }}></TextField>
-                                            <Button variant='contained' sx={{ textTransform: "capitalize", padding: '6px 20px' }} onClick={() => { setEdittitle(false) }}>Update</Button>
+                                            <TextField size="small" label='Edit here' sx={{ width: "100%" }} value={editname} onChange={(e) => { setEditname(e.target.value) }}></TextField>
+                                            <Button variant='contained' sx={{ textTransform: "capitalize", padding: '6px 20px' }} onClick={() => { setEdittitle(false); editvideos(i) }}>Update</Button>
                                         </div>
                                     }
                                 </div>
@@ -118,6 +149,21 @@ const Courseupload = () => {
                         <div class='flex justify-end'>
                             <Button variant='contained' sx={{ padding: '8px 30px' }} onClick={() => { navigate(`/video/${id}`) }}>Go to Course</Button>
                         </div>
+                        {dialog &&
+                            <Dialog
+                                open={opendialog}>
+                                <DialogTitle>{"Delete the video"}</DialogTitle>
+                                <DialogContent>
+                                    <DialogContentText id="alert-dialog-slide-description">
+                                        {"Are you sure you want to delete the video!"}
+                                    </DialogContentText>
+                                </DialogContent>
+                                <DialogActions>
+                                    <Button onClick={() => { setOpendialog(false) }}>Cancel</Button>
+                                    <Button onClick={() => {deletevideos();setDialog(false)}}>OK</Button>
+                                </DialogActions>
+                            </Dialog>
+                        }
                     </div>
                 </div>
 
