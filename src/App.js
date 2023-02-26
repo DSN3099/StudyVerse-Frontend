@@ -8,11 +8,13 @@ import Landing from './pages/Landing';
 import Courseupload from './pages/Courseupload';
 import Study from "./pages/StudyPage";
 import CreateCourse from './components/CreateCourse';
+import TeachersPage from './pages/TeachersPage';
 function App() {
   return (
     <div className="App ">
         <Routes>
-          <Route exact path="/" element={<Landing />}></Route>
+          {/* <Route exact path="/" element={<Landing />}></Route> */}
+          <Route exact path="/" element={<TeachersPage/>}></Route>
           <Route exact path="/courseinfo/:id" element={<CourseInfo />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/home" element={<Home />}></Route>
