@@ -46,36 +46,41 @@ const Courseupload = () => {
         }
     }
     const handleChange = async (e) => {
-        const file = e.target.files[0];
-        const fileid = v4()
-        setFileupload([...fileupload, { id: fileid, name: file.name, size: file.size }])
-        // console.log(fileupload)
-        const storageref = ref(storage, `video/${file.name + fileid}`)
-        await uploadBytes(storageref, file)
-        const url = await getDownloadURL(storageref)
-        const Data = { id: fileid, name: file.name, size: file.size, url }
-        // console.log(url)
-        addvideos(Data)
-        alert('uploaded..')
+        const files = [...e.target.files]
+        console.log(files)
+        files.forEach(async(file)=>{
+            const fileid = v4()
+            fileupload.push({ id: fileid, name: file.name, size: file.size })
+            setFileupload([...fileupload])
+            // console.log(fileupload)
+            const storageref = ref(storage, `video/${file.name + fileid}`)
+            await uploadBytes(storageref, file)
+            const url = await getDownloadURL(storageref)
+            const Data = { id: fileid, name: file.name, size: file.size, url }
+            // console.log(url)
+            addvideos(Data)
+            alert('uploaded..')
+        })
     }
 
-    const getvideos = async () => {
-        try {
-            const { data } = await axios.get(`http://localhost:5000/api/course/${id}`)
-            setFileupload(data.lessons)
-            setCoursedata(data)
-            console.log(data)
-        } catch (err) {
-            console.log(err)
-        }
-    }
+    
 
     useEffect(() => {
+        const getvideos = async () => {
+            try {
+                const { data } = await axios.get(`http://localhost:5000/api/course/${id}`)
+                setFileupload(data.lessons)
+                setCoursedata(data)
+                console.log(data)
+            } catch (err) {
+                console.log(err)
+            }
+        }
         if (initial) {
             getvideos()
             setInitial(false)
         }
-    }, [initial])
+    }, [id, initial])
 
     const editvideos = async (i) => {
         try {
@@ -90,9 +95,9 @@ const Courseupload = () => {
 
     const deletevideos = async () => {
         try {
-            console.log(deleteid)
-            const { data } = await axios.delete(`http://localhost:5000/api/video/${id}`, { id:deleteid })
+            const { data } = await axios.delete(`http://localhost:5000/api/video/${id}/${deleteid}`)
             fileupload.splice(deleteindex,1)
+            setFileupload([...fileupload])
             console.log(data)
         } catch (err) {
             console.log(err)
@@ -111,7 +116,7 @@ const Courseupload = () => {
                             <span class='text-[12px] text-[#A0A0A0] '>File should be mp4</span>
                         </div>
                         <div class=' h-[274px] bg-[#FBFBFF] rounded-md flex items-center'>
-                            <input type="file" hidden ref={choose} accept='video/*' onChange={handleChange} />
+                            <input type="file" multiple hidden ref={choose} accept='video/*' onChange={handleChange} />
                             <Button variant='contained' sx={{ textTransform: 'capitalize', cursor: 'pointer' }} onClick={() => { choose.current.click() }}>Upload Files</Button>
                         </div>
                     </div>
@@ -122,7 +127,7 @@ const Courseupload = () => {
                         <span class='text-[#A0A0A0] text-[14px]  font-[400]'>Uploaded Files</span>
                         <div class='flex flex-col gap-3 overflow-y-auto h-[550px]'>
                             {fileupload.map((values, i) => (
-                                <div class='border-2 border-[#698AFF] p-2 rounded-md ' onClick={() => { setEditid(values.id) }}>
+                                <div class='border-2 border-[#698AFF] p-2 rounded-md ' key={values.id} onClick={() => { setEditid(values.id) }}>
                                     <div class='flex justify-between'>
                                         <div class='flex gap-1'>
                                             <img src={file} alt="file" />

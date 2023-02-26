@@ -73,10 +73,15 @@ const Home = () => {
   }
 
   const getCourses = async() =>{
-    const {data} = await axios.get('http://localhost:5000/api/course/')
-    console.log(data)
-    setLoading(false)
-    setMyCourse(data)
+    try{
+      const {data} = await axios.get('http://localhost:5000/api/course/')
+      console.log(data)
+      setLoading(false)
+      setMyCourse(data)
+    }
+    catch(err){
+      console.log(err)
+    }
   }
   useEffect(()=>{
     if(initial){
