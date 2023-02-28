@@ -7,6 +7,7 @@ import { useState } from 'react'
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import images from '../../images'
 import LogoutIcon from '@mui/icons-material/Logout';
+import Dropdown from './Dropdown'
 
 const Navbar = ({ type }) => {
   const navigate = useNavigate()
@@ -26,7 +27,9 @@ const Navbar = ({ type }) => {
   return (
     <>
       {overlay && (
+
         <div class="hidden sm:flex sm:w-full sm:z-20 sm:h-full sm:absolute ">
+        <Dropdown />
           <div class="flex flex-col w-2/3 h-full items-center gap-2.5 bg-white">
             <div class="w-3/4 flex h-max self-start pl-1 ">
               <img src={logo} alt="" class="w-full h-full " />
@@ -37,6 +40,7 @@ const Navbar = ({ type }) => {
                   <li> Home</li>
                   <li>Academics</li>
                   <li>Contact Us</li>
+                  
                 </ul>
               </div>
               {type === 'notVerified' && <button onClick={handleSignup} class='border-2 border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white mt-5 w-5/6 px-2 py-1 rounded-full'>Login/Register</button>}
@@ -85,7 +89,8 @@ const Navbar = ({ type }) => {
             <li class='hover:text-pink-500'>Academics</li>
             <li class='hover:text-pink-500'><a href='#form'>Contact Us</a></li>
           </ul>
-          <div>
+          <Dropdown />
+          <div className='flex gap-9'>
             <div class="flex bg-gray-100 p-1 rounded-md items-center gap-1">
               <img src={search} alt="search" class="w-5" />
               <input

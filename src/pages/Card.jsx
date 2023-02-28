@@ -1,12 +1,13 @@
-
 import React from 'react';
 import star from '../assets/star.png';
+import { useNavigate } from 'react-router-dom';
 
-const Card = ({title,course,rating,level,img}) => {
+const Card = ({title,course,rating,level,img,price,id}) => {
+  const navigate = useNavigate()
   return (
-    <div class="flex flex-col bg-white-300 h-max w-64 rounded-md gap-2.5 border border-slate-500 shadow-lg shadow-teal-500/40  transform transition duration-500 hover:scale-110">
-      <div class="w-full h-2/3">
-        <img class="w-full h-full" src={img} alt="cardIMG" />
+    <div class="flex flex-col bg-white-300 h-max w-64 rounded-md gap-2.5 border border-slate-500 shadow-lg shadow-teal-500/40  transform transition duration-500 hover:scale-110 cursor-pointer" onClick={()=>{navigate(`/courseinfo/${id}`)}}>
+      <div class="w-full h-[172px] overflow-clip">
+        <img class="w-full h-full object-cover" src={img} alt="cardIMG" />
       </div>
       <div class="flex flex-col gap-2.5 px-2 ">
         <div class="flex justify-between text-sm">
@@ -23,7 +24,7 @@ const Card = ({title,course,rating,level,img}) => {
             <img class="h-4" src={star} alt="" />
             <h4>{rating}</h4>
           </div>
-          <div>Free</div>
+          <div>{price===0 ?'Free':`₹${price}`}</div>
         </div>
       </div>
     </div>

@@ -27,10 +27,10 @@ export const ratingData = [
 ]
 
 export const cardData = [
-    { id: 1, title: 'Digital Poster Design: Best Practices', course: 'Graphic Design', img: `${images.card}`, level: 'Beginner', rating: '4.5' },
-    { id: 2, title: 'Digital Poster Design: Best Practices', course: 'Graphic Design', img: `${images.card}`, level: 'Beginner', rating: '4.5' },
-    { id: 3, title: 'Digital Poster Design: Best Practices', course: 'Graphic Design', img: `${images.card}`, level: 'Beginner', rating: '4.5' },
-    { id: 4, title: 'Digital Poster Design: Best Practices', course: 'Graphic Design', img: `${images.card}`, level: 'Beginner', rating: '4.5' },
+    { id: 1, title: 'Digital Poster Design: Best Practices', course: 'Graphic Design', img: `${images.card}`, level: 'Beginner', rating: '4.5',price : 0 },
+    { id: 2, title: 'Digital Poster Design: Best Practices', course: 'Graphic Design', img: `${images.card}`, level: 'Beginner', rating: '4.5',price : 0 },
+    { id: 3, title: 'Digital Poster Design: Best Practices', course: 'Graphic Design', img: `${images.card}`, level: 'Beginner', rating: '4.5',price : 0 },
+    { id: 4, title: 'Digital Poster Design: Best Practices', course: 'Graphic Design', img: `${images.card}`, level: 'Beginner', rating: '4.5',price : 0 },
 ]
 
 const CourseInfo = () => {
@@ -187,11 +187,13 @@ const CourseInfo = () => {
                             cardData.map((item, i) => (
                                 <div class = 'cursor-pointer'>
                                     <Card
+                                        id={item.id}
                                         title={item.title}
                                         course={item.course}
                                         rating={item.rating}
                                         level={item.level}
                                         img={item.img}
+                                        price={item.price}
                                     />
                                 </div>
                             ))

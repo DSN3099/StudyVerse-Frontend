@@ -1,8 +1,8 @@
-import { Button, TextField } from '@mui/material';
+import { Button, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { useRef, useState } from 'react';
 import Navbar from './Navbar/Navbar';
 import axios from 'axios'
-import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { useNavigate } from 'react-router-dom';
 import { storage } from '../Firebase';
 
@@ -23,9 +23,8 @@ const CreateCourse = () => {
     }
   }
   const inputImage = useRef()
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const handleChange = async (e) => {
-    e.preventDefault()
     const file = e.target.files[0];
     setCourseData({
       ...courseData,
@@ -33,20 +32,34 @@ const CreateCourse = () => {
     })
     document.getElementById('show').innerHTML = file.name;
   }
-  const postData = async() =>{
+  const postData = async (post) => {
     try {
       console.log(courseData)
-      const { data } = await axios.post('http://localhost:5000/api/course/', courseData, config)
-      alert(data)
+      const { data } = await axios.post('http://localhost:5000/api/course/', post, config)
+      console.log(data)
+      navigate(`/videoupload/${data._id}`)
     } catch (err) {
       console.log(err)
     }
   }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const url = await uploadBytes(storageRef,courseData.image)
+    let url = ""
+    if (courseData.image) {
+      await uploadBytes(storageRef, courseData.image)
+      url = await getDownloadURL(storageRef)
+    }
+    const data = {
+      title: courseData.title,
+      price: courseData.price,
+      level: courseData.level,
+      category: courseData.category,
+      image: url,
+      description: courseData.description,
+    }
+    postData(data)
     console.log(url)
-    alert('uploaded...')
   }
   return (
     <div className='flex w-full flex-col items-center '>
@@ -54,20 +67,29 @@ const CreateCourse = () => {
       <form onSubmit={handleSubmit} className='w-full' id='form'>
         <div className='flex flex-col w-full gap-2 p-5 items-center'>
           <div className='flex w-1/2 justify-between gap-5'>
-            <TextField required sx={{ width: "50%" }} value={courseData.title} onChange={(e) => setCourseData({ ...courseData, title: e.target.value })} size='small' type={"text"} label="Title" />
-            <TextField required sx={{ width: "50%" }} value={courseData.category}
-              onChange={(e) => setCourseData({ ...courseData, category: e.target.value })} size='small' type={"text"} label="Catergory" />
+            <TextField autoComplete='false' sx={{ width: "50%" }} required value={courseData.title} onChange={(e) => setCourseData({ ...courseData, title: e.target.value })} size='small' type={"text"} label="Title" />
+            <TextField select autoComplete='false' required sx={{ width: "50%" }} value={courseData.category}
+              onChange={(e) => setCourseData({ ...courseData, category: e.target.value })} size='small' type={"text"} label="Catergory">
+                <MenuItem value = {'Frontend'}>Frontend</MenuItem>
+                <MenuItem value = {'Backend'}>Backend</MenuItem>
+                <MenuItem value = {'DSA'}>DSA</MenuItem>
+                <MenuItem value = {'CP'}>Competitive Programming</MenuItem>
+            </TextField>
           </div>
           <div className='flex w-1/2 justify-between gap-5'>
-            <TextField required sx={{ width: "50%" }} size='small' type={"text"} value={courseData.price} onChange={(e) => setCourseData({ ...courseData, price: e.target.value })} label="Price" />
-            <TextField sx={{ width: "50%" }} size='small' type={"text"} label="Level" value={courseData.level} onChange={(e) => setCourseData({ ...courseData, level: e.target.value })} />
+            <TextField autoComplete='false' required sx={{ width: "50%" }} size='small' type={"text"} value={courseData.price} onChange={(e) => setCourseData({ ...courseData, price: e.target.value })} label="Price" />
+            <TextField required select autoComplete='false' sx={{ width: "50%" }} size='small' type={"text"} label="Level" value={courseData.level} onChange={(e) => setCourseData({ ...courseData, level: e.target.value })}>
+              <MenuItem value = 'Beginner'>Beginner</MenuItem>
+              <MenuItem value = 'Intermediate'>Intermediate</MenuItem>
+              <MenuItem value = 'Advance'>Advance</MenuItem>
+            </TextField>
           </div>
           <div className='flex gap-2.5 border border-gray-300 w-1/2 p-1.5'>
-            <input type="file" onChange={handleChange} accept='image/*' hidden ref={inputImage} />
-            <button onClick={() => inputImage.current.click()}>Choose Image</button>
+            <input type="file" required onChange={handleChange} accept='image/*' hidden ref={inputImage} />
+            <button type='button' onClick={() => inputImage.current.click()}>Choose Image *</button>
             <div id='show'></div>
           </div>
-          <TextField required sx={{ width: "50%" }} multiline maxRows={4} type={"text"} value={courseData.description} onChange={(e) => setCourseData({ ...courseData, description: e.target.value })} label="Description" />
+          <TextField autoComplete='false' required sx={{ width: "50%" }} multiline maxRows={4} type={"text"} value={courseData.description} onChange={(e) => setCourseData({ ...courseData, description: e.target.value })} label="Description" />
           <div className='flex w-1/2 justify-end'>
             <Button variant='contained' sx={{ padding: "0.5rem 2rem", textTransform: "capitalize", fontSize: '16px' }} className='border border-gray-300' type='submit'>Create</Button>
           </div>
@@ -78,16 +100,3 @@ const CreateCourse = () => {
   )
 }
 export default CreateCourse;
-
-function convertToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(file);
-    fileReader.onload = () => {
-      resolve(fileReader.result)
-    };
-    fileReader.onerror = (error) => {
-      reject(error)
-    }
-  })
-}
