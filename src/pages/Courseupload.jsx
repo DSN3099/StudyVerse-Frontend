@@ -27,6 +27,8 @@ const Courseupload = () => {
     const [edittitle, setEdittitle] = useState(false);
     const [opendialog, setOpendialog] = useState(false);
     const [dialog, setDialog] = useState(false)
+    const [loading,setLoading] = useState(false)
+    const [loaderindex,setLoaderindex] = useState()
     const [editid, setEditid] = useState();
     const [deleteid, setDeleteid] = useState();
     const [deleteindex, setDeleteindex] = useState();
@@ -45,10 +47,13 @@ const Courseupload = () => {
             console.log(err)
         }
     }
+
     const handleChange = async (e) => {
         const files = [...e.target.files]
         console.log(files)
-        files.forEach(async(file)=>{
+        files.forEach(async(file,i)=>{
+            setLoaderindex(fileupload.length-i)
+            setLoading(true)
             const fileid = v4()
             fileupload.push({ id: fileid, name: file.name, size: file.size })
             setFileupload([...fileupload])
@@ -59,9 +64,11 @@ const Courseupload = () => {
             const Data = { id: fileid, name: file.name, size: file.size, url }
             // console.log(url)
             addvideos(Data)
-            alert('uploaded..')
+            setLoading(false)
         })
     }
+
+    
 
     
 
@@ -115,7 +122,7 @@ const Courseupload = () => {
                             <span class='text-[22px] font-bold text-[#292929]'>Upload the videos</span>
                             <span class='text-[12px] text-[#A0A0A0] '>File should be mp4</span>
                         </div>
-                        <div class=' h-[274px] bg-[#FBFBFF] rounded-md flex items-center'>
+                        <div class=' h-[274px] rounded-md flex items-center'>
                             <input type="file" multiple hidden ref={choose} accept='video/*' onChange={handleChange} />
                             <Button variant='contained' sx={{ textTransform: 'capitalize', cursor: 'pointer' }} onClick={() => { choose.current.click() }}>Upload Files</Button>
                         </div>
@@ -133,14 +140,16 @@ const Courseupload = () => {
                                             <img src={file} alt="file" />
                                             <div class='flex flex-col justify-center'>
                                                 <span class='text-[14px] text-[#001356] font-[400]'>{values.name}</span>
-                                                {/* <img src={loader} alt="loader" class='w-1/2 h-'  /> */}
-                                                <span class='text-[12px] text-[#001356] font-[400]'>{Math.round((values.size) / 1000000)}MB</span>
+                                                {loading && (i === loaderindex) && <img src={loader} alt="loader" class='w-1/2 h-'  />}
+                                                {!(loading && (i === loaderindex)) && <span class='text-[12px] text-[#001356] font-[400]'>{Math.round((values.size) / 1000000)}MB</span>}
                                             </div>
                                         </div>
+                                        {!(loading && (i === loaderindex)) &&
                                         <div class='flex gap-1 items-center'>
                                             <img src={edit} alt="edit" class='w-[35px] h-[35px] cursor-pointer' onClick={() => { setEdittitle(!edittitle); setEditname(values.name) }} />
                                             <DeleteIcon color='primary' sx={{ width: '30px', height: "30px", cursor: 'pointer' }} onClick={() => { setOpendialog(true); setDialog(true) ;setDeleteindex(i);setDeleteid(values.id) }} />
                                         </div>
+                                        }
                                     </div>
                                     {edittitle && (values.id === editid) &&
                                         <div class='w-full flex gap-2 mt-2'>
@@ -152,6 +161,7 @@ const Courseupload = () => {
                             ))}
                         </div>
                         <div class='flex justify-end'>
+                            {/* <Button variant='outlined' sx={{ padding: '8px 30px' }} onClick={() => { navigate(`/video/${id}`) }}>Upload Files</Button> */}
                             <Button variant='contained' sx={{ padding: '8px 30px' }} onClick={() => { navigate(`/video/${id}`) }}>Go to Course</Button>
                         </div>
                         {dialog &&
