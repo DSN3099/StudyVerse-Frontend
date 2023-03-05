@@ -73,10 +73,15 @@ const Home = () => {
   }
 
   const getCourses = async() =>{
-    const {data} = await axios.get('http://localhost:5000/api/course/')
-    console.log(data)
-    setLoading(false)
-    setMyCourse(data)
+    try{
+      const {data} = await axios.get('http://localhost:5000/api/course/')
+      console.log(data)
+      setLoading(false)
+      setMyCourse(data)
+    }
+    catch(err){
+      console.log(err)
+    }
   }
   useEffect(()=>{
     if(initial){
@@ -98,7 +103,7 @@ const Home = () => {
 
   return (
     <div id='home'>
-      <Navbar type='verified' />
+      <Navbar type='verified' page='Student' />
       <div class='px-14 mb-4 w-full flex flex-col gap-4'>
         <div className='w-full overflow-hidden relative'>
           <div className='w-full items-center whitespace-nowrap transition duration-[1000] ease ' style={{ transform: `translate3d(${-current * 100}%, 0, 0)` }}>

@@ -6,7 +6,7 @@ const Card = ({title,course,rating,level,img,price,id}) => {
   const navigate = useNavigate()
   return (
     <div class="flex flex-col bg-white-300 h-max w-64 rounded-md gap-2.5 border border-slate-500 shadow-lg shadow-teal-500/40  transform transition duration-500 hover:scale-110 cursor-pointer" onClick={()=>{navigate(`/courseinfo/${id}`)}}>
-      <div class="w-full h-[172px] overflow-clip">
+      <div class="w-[254px] h-[172px] overflow-clip">
         <img class="w-full h-full object-cover" src={img} alt="cardIMG" />
       </div>
       <div class="flex flex-col gap-2.5 px-2 ">
@@ -16,7 +16,7 @@ const Card = ({title,course,rating,level,img,price,id}) => {
           {level}
           </button>
         </div>
-        <div class="text-md font-bold ">
+        <div class="text-md font-bold overflow-hidden whitespace-nowrap text-ellipsis max-w-[200px]">
           {title}
         </div>
         <div class="flex justify-between ">
