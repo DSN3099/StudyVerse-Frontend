@@ -43,10 +43,13 @@ const Courseupload = () => {
       console.log(err)
     }
   }
+
   const handleChange = async (e) => {
-    //multiple inputs
     const files = [...e.target.files]
-    files.forEach(async (file) => {
+    console.log(files)
+    files.forEach(async (file, i) => {
+      setLoaderindex(fileupload.length - i)
+      setLoading(true)
       const fileid = v4()
       fileupload.push({ id: fileid, name: file.name, size: file.size })
       setFileupload([...fileupload])
@@ -57,36 +60,37 @@ const Courseupload = () => {
       const Data = { id: fileid, name: file.name, size: file.size, url }
       // console.log(url)
       addvideos(Data)
-      alert('uploaded..')
+      setLoading(false)
     })
-  }
-  const getvideos = async () => {
-    try {
-      const { data } = await axios.get(`http://localhost:5000/api/course/${id}`)
-      setFileupload(data.lessons)
-      setCoursedata(data)
-      console.log(data)
-    } catch (err) {
-      console.log(err)
-    }
   }
 
   useEffect(() => {
+    const getvideos = async () => {
+      try {
+        const { data } = await axios.get(
+          `http://localhost:5000/api/course/${id}`,
+        )
+        setFileupload(data.lessons)
+        setCoursedata(data)
+        console.log(data)
+      } catch (err) {
+        console.log(err)
+      }
+    }
     if (initial) {
       getvideos()
       setInitial(false)
     }
-  }, [initial])
+  }, [id, initial])
 
   const editvideos = async (i) => {
     try {
-      const { data } = await axios.patch(
-        `http://localhost:5000/api/video/${id}`,
-        {
-          videoname: editname,
-          id: editid,
-        },
-      )
+      const {
+        data,
+      } = await axios.patch(`http://localhost:5000/api/video/${id}`, {
+        videoname: editname,
+        id: editid,
+      })
       fileupload[i].name = editname
       setFileupload([...fileupload])
       console.log(data)
@@ -97,12 +101,9 @@ const Courseupload = () => {
 
   const deletevideos = async () => {
     try {
-      console.log(deleteid)
       const { data } = await axios.delete(
         `http://localhost:5000/api/video/${id}/${deleteid}`,
       )
-      //splice to delete the video from the array
-      //   const index = fileupload.findIndex((item) => item.id === deleteid)
       fileupload.splice(deleteindex, 1)
       setFileupload([...fileupload])
       console.log(data)
