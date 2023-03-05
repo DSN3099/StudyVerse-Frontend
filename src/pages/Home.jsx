@@ -98,7 +98,7 @@ const Home = () => {
 
   return (
     <div id='home'>
-      <Navbar type='verified' />
+      <Navbar type='verified' page='Student' />
       <div class='px-14 mb-4 w-full flex flex-col gap-4'>
         <div className='w-full overflow-hidden relative'>
           <div className='w-full items-center whitespace-nowrap transition duration-[1000] ease ' style={{ transform: `translate3d(${-current * 100}%, 0, 0)` }}>
