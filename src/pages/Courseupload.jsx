@@ -24,17 +24,15 @@ const Courseupload = () => {
   const [edittitle, setEdittitle] = useState(false);
   const [opendialog, setOpendialog] = useState(false);
   const [dialog, setDialog] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [editid, setEditid] = useState()
+  const [deleteid, setDeleteid] = useState()
+  const [deleteindex, setDeleteindex] = useState()
+  const [editname, setEditname] = useState()
   const [loaderindex, setLoaderindex] = useState()
-  const [editid, setEditid] = useState();
-  const [deleteid, setDeleteid] = useState();
-  const [deleteindex, setDeleteindex] = useState();
-  const [editname, setEditname] = useState();
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate();
-
-
-
+  
   const { id } = useParams();
   const addvideos = async (Data) => {
     try {
@@ -86,12 +84,13 @@ const Courseupload = () => {
 
   const editvideos = async (i) => {
     try {
-      const {
-        data,
-      } = await axios.patch(`http://localhost:5000/api/video/${id}`, {
-        videoname: editname,
-        id: editid,
-      })
+      const { data } = await axios.patch(
+        `http://localhost:5000/api/video/${id}`,
+        {
+          videoname: editname,
+          id: editid,
+        },
+      )
       fileupload[i].name = editname
       setFileupload([...fileupload])
       console.log(data)
