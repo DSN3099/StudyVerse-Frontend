@@ -30,7 +30,7 @@ const Signin = () => {
               <span class='text-2xl text-white'>Sign in with Google.</span>
 
             </button>
-            <button class="flex justify-center flex-row gap-2 bg-indigo-800 w-full p-2.5 rounded-md">
+            {/* <button class="flex justify-center flex-row gap-2 bg-indigo-800 w-full p-2.5 rounded-md">
               <img
                 class="w-8 h-8"
                 src="https://img.icons8.com/ios-glyphs/30/ffffff/facebook-new.png"
@@ -45,7 +45,7 @@ const Signin = () => {
                 alt="apple"
               />
               <span class="text-2xl text-white">Sign in with Apple.</span>
-            </button>
+            </button> */}
           </div>
           <div class="flex items-center justify-center">
             <div class="border-x-8 bg-slate-500 h-px w-1/2"> </div>
@@ -83,7 +83,7 @@ const Signin = () => {
 
               </div>
             </form>
-            <div class='flex justify-between w-full'>
+            <div class='flex justify-between w-full sm:gap-24'>
               <div class='flex items-center  gap-2'>
                 <input class='w-4 h-4 ' type="checkbox" />
                 <span class='text-xl text-slate-600'>Remember Me</span>
