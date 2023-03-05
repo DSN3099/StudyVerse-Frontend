@@ -45,7 +45,7 @@ const CourseInfo = () => {
 
     return (
         <div class='w-full h-full flex flex-col scroll-smooth'>
-            <Navbar />
+            <Navbar type={'verified'} />
             <div class='w-full h-full flex flex-col px-20 py-4 gap-5'>
                 <div class='font-normal text-gray-500 text-sm'>Home/Design/ <span class='font-normal text-black'>UI/UX Design</span></div>
                 <div class='font-bold text-2xl'>UI Design, A User-Centered Approach</div>

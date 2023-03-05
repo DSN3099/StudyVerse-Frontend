@@ -19,8 +19,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 
 const Courseupload = () => {
-
-
     const [fileupload, setFileupload] = useState([]);
     const [coursedata, setCoursedata] = useState()
     const [initial, setInitial] = useState(true)
@@ -140,7 +138,7 @@ const Courseupload = () => {
                                             <img src={file} alt="file" />
                                             <div class='flex flex-col justify-center'>
                                                 <span class='text-[14px] text-[#001356] font-[400]'>{values.name}</span>
-                                                {loading && (i === loaderindex) && <img src={loader} alt="loader" class='w-1/2 h-'  />}
+                                                {loading && (i === loaderindex) && <img src={loader} alt="loader" class='w-1/2'  />}
                                                 {!(loading && (i === loaderindex)) && <span class='text-[12px] text-[#001356] font-[400]'>{Math.round((values.size) / 1000000)}MB</span>}
                                             </div>
                                         </div>
