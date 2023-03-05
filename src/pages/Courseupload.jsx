@@ -28,6 +28,8 @@ const Courseupload = () => {
   const [deleteid, setDeleteid] = useState()
   const [deleteindex, setDeleteindex] = useState()
   const [editname, setEditname] = useState()
+  const [loaderindex, setLoaderindex] = useState()
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
 
@@ -85,12 +87,13 @@ const Courseupload = () => {
 
   const editvideos = async (i) => {
     try {
-      const {
-        data,
-      } = await axios.patch(`http://localhost:5000/api/video/${id}`, {
-        videoname: editname,
-        id: editid,
-      })
+      const { data } = await axios.patch(
+        `http://localhost:5000/api/video/${id}`,
+        {
+          videoname: editname,
+          id: editid,
+        },
+      )
       fileupload[i].name = editname
       setFileupload([...fileupload])
       console.log(data)
@@ -167,41 +170,47 @@ const Courseupload = () => {
                   <div class="flex justify-between">
                     <div class="flex gap-1">
                       <img src={file} alt="file" />
-                      <div class="flex flex-col justify-center">
+                      <div class="flex flex-col  justify-center">
                         <span class="text-[14px] text-[#001356] font-[400]">
                           {values.name}
                         </span>
-                        {/* <img src={loader} alt="loader" class='w-1/2 h-'  /> */}
-                        <span class="text-[12px] text-[#001356] font-[400]">
-                          {Math.round(values.size / 1000000)}MB
-                        </span>
+                        {loading && i === loaderindex && (
+                          <img src={loader} alt="loader" class="w-1/2 " />
+                        )}
+                        {!(loading && i === loaderindex) && (
+                          <span class="text-[12px] text-[#001356] font-[400]">
+                            {Math.round(values.size / 1000000)}MB
+                          </span>
+                        )}
                       </div>
                     </div>
-                    <div class="flex gap-1 items-center">
-                      <img
-                        src={edit}
-                        alt="edit"
-                        class="w-[35px] h-[35px] cursor-pointer"
-                        onClick={() => {
-                          setEdittitle(!edittitle)
-                          setEditname(values.name)
-                        }}
-                      />
-                      <DeleteIcon
-                        color="primary"
-                        sx={{
-                          width: '30px',
-                          height: '30px',
-                          cursor: 'pointer',
-                        }}
-                        onClick={() => {
-                          setOpendialog(true)
-                          setDialog(true)
-                          setDeleteindex(i)
-                          setDeleteid(values.id)
-                        }}
-                      />
-                    </div>
+                    {!(loading && i === loaderindex) && (
+                      <div class="flex gap-1 items-center">
+                        <img
+                          src={edit}
+                          alt="edit"
+                          class="w-[35px] h-[35px] cursor-pointer"
+                          onClick={() => {
+                            setEdittitle(!edittitle)
+                            setEditname(values.name)
+                          }}
+                        />
+                        <DeleteIcon
+                          color="primary"
+                          sx={{
+                            width: '30px',
+                            height: '30px',
+                            cursor: 'pointer',
+                          }}
+                          onClick={() => {
+                            setOpendialog(true)
+                            setDialog(true)
+                            setDeleteindex(i)
+                            setDeleteid(values.id)
+                          }}
+                        />
+                      </div>
+                    )}
                   </div>
                   {edittitle && values.id === editid && (
                     <div class="w-full flex gap-2 mt-2">
