@@ -1,5 +1,5 @@
-import './App.css';
-import {Route,Routes} from 'react-router-dom';
+import './App.css'
+import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Signup from './components/Auth/SignUp/Signup';
 import Signin from './components/Auth/Signin/Signin';
@@ -30,4 +30,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
