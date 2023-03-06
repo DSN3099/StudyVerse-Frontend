@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../../../assets/logo.jpeg'
 import GoogleIcon from '@mui/icons-material/Google';
-// import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
-// import AppleIcon from '@mui/icons-material/Apple';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import validator from 'validator';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
+
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false)
+  const [validated, setValidated] = useState(false)
   const [states, setStates] = useState({
     fname: '',
     lname: '',
@@ -34,7 +35,7 @@ const Signup = () => {
     }
     const res = !states.passerr && validator.isEmail(states.email)
     if (res)
-      console.log(states)
+    setValidated(true)
     else
       console.log('Please fill the details properly...')
   }
@@ -58,6 +59,22 @@ const Signup = () => {
     }
   }
 
+  useEffect(()=>{
+    const handleSignin = async() =>{
+      try{
+        const data = await axios.post('http://localhost:5000/api/auth/register',states)
+        console.log(data)
+        navigate('/loader')
+      }
+      catch(err){
+        console.log(err)
+      }
+    }
+    if(validated){
+      handleSignin()
+    }
+  },[validated,navigate,states])
+
   return (
     <div class='flex flex-col gap-8 w-full items-center ' >
       <div class='w-max h-max sm:justify-center mt-4 sm:w-full sm:flex'>
@@ -71,14 +88,6 @@ const Signup = () => {
               <GoogleIcon style={{ color: 'white', width: '30px', height: '30px' }} />
               <div class='text-2xl '>Sign up with Google</div>
             </div>
-            {/* <div class='flex w-full gap-1 rounded-md bg-indigo-800 text-white items-center p-2 justify-center cursor-pointer'>
-              <FacebookRoundedIcon style={{ color: 'white', width: '30px', height: '30px' }} />
-              <div class='text-2xl'>Sign up with Facebook</div>
-            </div>
-            <div class='flex w-full gap-1 rounded-md bg-black text-white items-center p-2 justify-center cursor-pointer'>
-              <AppleIcon style={{ color: 'white', width: '30px', height: '30px' }} />
-              <div class='text-2xl'>Sign up with Apple</div>
-            </div> */}
           </div>
           <div class='flex gap-2 items-center justify-center'>
             <div class='w-1/2 h-px bg-slate-300'></div>

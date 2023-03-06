@@ -16,9 +16,10 @@ const CreateCourse = () => {
     description: '',
   })
   const storageRef = ref(storage, `courseImage/${courseData.image.name}`);
+  const Token = sessionStorage.getItem('token')
   const config = {
     headers: {
-      // 'Authorization': 'bearer ',
+      'Authorization': `Bearer ${Token}`,
       'Content-Type': 'application/json'
     }
   }
