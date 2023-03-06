@@ -71,8 +71,8 @@ const Home = () => {
 
   const Token = sessionStorage.getItem('token')
   const config = {
+    withCredentials:true,
     headers: {
-      'Access-Control-Allow-Origin': '*',
       'Authorization': `bearer ${Token}`,
       'Content-Type': 'application/json'
     }
@@ -148,12 +148,12 @@ const Home = () => {
           </div>
         </div>
         <h6 class="text-black-200 font-bold text-xl">My Courses</h6>
-        <div class='flex gap-11 items-center'>
+        <div class='flex gap-11 items-center overflow-x-scroll'>
           {loading &&
             <img src={spinner} alt="" width={'10%'} />
           }
           {
-            myCourse?.slice(0, 4).map((item) => {
+            myCourse?.map((item) => {
               return (
                 <Card
                   id={item._id}

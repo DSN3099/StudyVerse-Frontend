@@ -1,27 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import cpgirl from '../assets/cpgirl.jpg'
-import videocreation from '../assets/videocreation.jpg'
 import Footer from '../components/Footer'
-
 import { useNavigate } from 'react-router-dom'
+import Alert from '../components/Alert'
 
 const TeachersPage = () => {
   const [checked, setChecked] = useState(false)
   const [disabled, setDisabled] = useState(true)
+  const [alert,setAlert] = useState(false)
   const checkfunction = () => {
     setChecked(!checked)
-    
+    if(!checked) setAlert(true)
   }
   useEffect(() => {
     if (checked ) {
       setDisabled(false)
-      alert('You can create your course now')
     }else{
       setDisabled(true)
     }
   }, [checked])
-  const dstyle = 'text-2xl font-medium bg-red-600 p-5 rounded-md text-white '
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      setAlert(false)
+    },3000)
+  })
+
+  const dstyle = 'text-2xl font-medium bg-blue-600 opacity-50 cursor-not-allowed p-5 rounded-md text-white '
   const style = 'text-2xl font-medium bg-blue-600 p-5 rounded-md text-white '
 
   const navigate = useNavigate()
@@ -31,6 +37,9 @@ const TeachersPage = () => {
 
       {/* course creation button */}
       <div className="course-creation flex justify-between items-center  bg-white-100 shadow-lg shadow-slate-300 p-11 m-24 ">
+        {alert && 
+          <Alert msg='You can now create your course' type = 'SUCCESS' />
+        }
         <h1 className=" text-2xl font-bold">Jump Into Course Creation</h1>
         <button
           className={disabled ? dstyle : style}
@@ -50,8 +59,6 @@ const TeachersPage = () => {
       <div className="course-creation flex bg-white-100 shadow-lg shadow-slate-300 rounded-md justify-evenly items-center  p-11 mx-20 my-10">
         <img src={cpgirl} alt="" className=" mb-20" />
         <div className="gap-5 flex  flex-col mb-24 w-1/2  p-5">
-          <h1 className="text-2xl font-medium "></h1>
-
           <ul style={{ listStyleType: 'disc' }} className='text-2xl'>
             <li>The data you provide should be valid at all cost .</li>
             <li>
@@ -67,10 +74,8 @@ const TeachersPage = () => {
         </div>
       </div>
       <div className="flex justify-center items-center mb-5">
-        <a
-          className="flex gap-2 justify-center items-center "
-          
-        >
+        <div
+          className="flex gap-2 justify-center items-center ">
           <input
             style={{ width: '20px', height: '20px' }}
             type="checkbox"
@@ -85,7 +90,7 @@ const TeachersPage = () => {
           <div className="text-xl">
             "I hereby agree to all the above rules and regulations."
           </div>
-        </a>
+        </div>
       </div>
       {/* rules checkbox */}
 

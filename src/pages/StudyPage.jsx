@@ -42,7 +42,7 @@ function Study() {
                 const { data } = await axios.get(`http://localhost:5000/api/course/${id}`)
                 console.log(data)
                 setCoursedata(data)
-                setUrl(data.lessons[0].url)
+                setUrl(data.lessons[1].url)
             }
             catch (err) {
                 console.log(err)
@@ -59,7 +59,7 @@ function Study() {
         <div className='flex flex-col w-full'>
             <Navbar type="verified"></Navbar>
             <div className='studyPage flex gap-5 justify-between px-10'>
-                <div className="left flex flex-col w-[70%]">
+                <div className="left flex flex-col w-[70%] gap-2.5">
                     {/* <div className='text-sm'>My course/In Progress</div> */}
                     <div className='course_header flex items-center'>
                         <div class='font-bold text-2xl mb-1 flex-1'>{courseData?.title}</div>
@@ -75,7 +75,7 @@ function Study() {
                         <ReactPlayer width={"100%"} height={"100%"} controls playing={playing} onPlay={() => { setPlaying(true) }} onPause={() => { setPlaying(false) }} url={url} onEnded={() => handleColor}></ReactPlayer>
                     </div>
                     <div>
-                        <div className='flex flex-row my-2 mx-10'>
+                        <div className='flex flex-row mx-10'>
                             <button className='flex flex-row m-8 hover:bg-slate-200 p-4'>Summary</button>
                             <button className='flex flex-row m-8 hover:bg-slate-200 p-4' onClick={() => { setdiscussion(true) }}>Reviews</button>
                             <button className='flex flex-row m-8 hover:bg-slate-200 p-4'>Resources & documents</button>

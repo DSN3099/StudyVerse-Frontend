@@ -20,10 +20,10 @@ const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const {data} = await axios.post('http://localhost:5000/api/auth/login', states)
+      const {data} = await axios.post('http://localhost:5000/api/auth/login', states ,{withCredentials:true})
       console.log(data)
       sessionStorage.setItem('signedin','true');
-      sessionStorage.setItem('token',JSON.stringify(data.token))
+      sessionStorage.setItem('token',data.token)
       navigate('/home')
     } catch (err) {
       setError(err.response.data)

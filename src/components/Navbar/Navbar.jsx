@@ -8,17 +8,32 @@ import NotificationsIcon from '@mui/icons-material/Notifications'
 import images from '../../images'
 import LogoutIcon from '@mui/icons-material/Logout'
 import Dropdown from './Dropdown'
+import axios from 'axios'
 
-const Navbar = ({ type,page }) => {
+const Navbar = ({ type, page }) => {
   const navigate = useNavigate()
   const [overlay, isOverlay] = useState(false)
   const [colour, setColour] = useState(false)
   const handleSignup = () => {
     navigate('/signin')
   }
-  const handleLogout = () => {
-    sessionStorage.clear()
-    navigate('/signin')
+  const Token = sessionStorage.getItem('token')
+  const config = {
+    withCredentials:true,
+    headers: {
+      'Authorization': `bearer ${Token}`,
+      'Content-Type': 'application/json'
+    }
+  }
+  const handleLogout = async() => {
+    try{
+      await axios.get('http://localhost:5000/api/auth/logout',config)
+      console.log("first")
+      sessionStorage.clear()
+      navigate('/signin')
+    }catch(err){
+      console.log(err)
+    }
   }
   const handleFill = () => {
     setColour(!colour)
@@ -37,7 +52,7 @@ const Navbar = ({ type,page }) => {
             <div class="w-full h-max ">
               <div class="w-full h-max ">
                 <ul class="flex flex-col pl-5 gap-2.5 cursor-pointer ">
-                  <li> Home</li>
+                  <li onClick={() => { navigate('/home') }}> Home</li>
                   <li>Academics</li>
                   <li>Contact Us</li>
                 </ul>
@@ -65,7 +80,7 @@ const Navbar = ({ type,page }) => {
           </div>
         </div>
       )}
-          
+
       {type === 'notVerified' && (
         <div class="main flex gap-5 w-full sm:px-2 px-5 justify-between items-center">
           <div class="flex w-60 sm:w-max h-max">
@@ -97,15 +112,13 @@ const Navbar = ({ type,page }) => {
           </div>
           <div class="flex items-center justify-between w-4/5 sm:hidden ">
             <ul class="flex gap-16 lg:gap-10 cursor-pointer font-medium ">
-              <li class="hover:text-pink-500">
-                <a href="#home">Home</a>
-              </li>
+              <li onClick={() => { navigate('/home') }} class="hover:text-pink-500">Home</li>
               <li class="hover:text-pink-500">Academics</li>
               <li class="hover:text-pink-500">
                 <a href="#form">Contact Us</a>
               </li>
             </ul>
-           
+
             <div className="flex gap-9">
               <div class="flex bg-gray-100 p-1 rounded-md items-center gap-1">
                 <img src={search} alt="search" class="w-5" />
@@ -117,7 +130,9 @@ const Navbar = ({ type,page }) => {
               </div>
             </div>
             <div class="flex gap-5 items-center">
-            <Dropdown page={page} />
+              {page &&
+                <Dropdown page={page} />
+              }
               <div class="cursor-pointer">
                 <NotificationsIcon
                   style={colour ? colorStyle : null}
