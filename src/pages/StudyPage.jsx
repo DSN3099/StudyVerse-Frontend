@@ -1,82 +1,116 @@
-
 import Navbar from '../components/Navbar/Navbar';
 import ReactPlayer from "react-player";
 import star from '../assets/star.png';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import ShareIcon from '@mui/icons-material/Share';
+import DoneIcon from '@mui/icons-material/Done';
+import { useEffect, useState } from 'react';
+import axios from 'axios'
+import PauseIcon from '@mui/icons-material/Pause';
+import { useParams } from 'react-router-dom';
+import Discussion from './Discussion';
 
+function Study() {
+    const [color, setColor] = useState(false);
+    const [active, setActive] = useState(0);
+    const [playing, setPlaying] = useState(false);
+    const [courseData, setCoursedata] = useState([])
+    const [url, setUrl] = useState(0);
+    const [progress, setProgress] = useState(0);
+    const [initial, setInitial] = useState(true);
+    const [discussion,setdiscussion] = useState(true);
 
-
-
-const sessionArray = [
-    {   
-        id : 1 ,
-        name : "Lorem Ipsum is simply dummy text of  "
-    },
-    {   
-        id : 2 ,
-        name : "Lorem Ipsum is simply dummy text of  "
-    },
-    {   
-        id : 3 ,
-        name : "Lorem Ipsum is simply dummy text of "
-    },
-    {   
-        id : 4 ,
-        name : "Lorem Ipsum is simply dummy text of"
-    },
-    {   
-        id : 5 ,
-        name : "Lorem Ipsum is simply dummy text of"
-    },
-    {   
-        id : 6 ,
-        name : "Lorem Ipsum is simply dummy text of "
+    const handleColor = (level) => {
+        setColor(!color);
     }
-];
+    const handlePlay = (url, level) => {
+        if (active === level) {
+            setPlaying(!playing);
+        }
+        else {
+            setPlaying(true)
+            setUrl(url);
+        }
+        setActive(level);
+    }
+    const { id } = useParams()
 
+    useEffect(() => {
+        const getCourse = async () => {
+            try {
+                const { data } = await axios.get(`http://localhost:5000/api/course/${id}`)
+                console.log(data)
+                setCoursedata(data)
+                setUrl(data.lessons[1].url)
+            }
+            catch (err) {
+                console.log(err)
+            }
+        }
+        if (initial) {
+            getCourse()
+        } else {
+            setInitial(false)
+        }
+    }, [initial, id])
 
+    return (
+        <div className='flex flex-col w-full'>
+            <Navbar type="verified"></Navbar>
+            <div className='studyPage flex gap-5 justify-between px-10'>
+                <div className="left flex flex-col w-[70%] gap-2.5">
+                    {/* <div className='text-sm'>My course/In Progress</div> */}
+                    <div className='course_header flex items-center'>
+                        <div class='font-bold text-2xl mb-1 flex-1'>{courseData?.title}</div>
+                    </div>
+                    {/* <div class='flex w-full items-center justify-between mb-3'>
+                        <div class='flex gap-1 w-max'>
+                            <div class='text-blue-600 cursor-pointer border-r-2 pr-1'>Klara Weaver</div>
+                            <img src={star} alt="" style={{ width: '20px', height: '20px' }} className="mx-2" />
+                            <div class='flex font-bold'>4.5<span class='font-normal text-gray-500 border-r px-2'>(99 reviews)</span></div>
+                        </div>
+                    </div> */}
+                    <div className='course_player flex w-[100%] h-[400px]'>
+                        <ReactPlayer width={"100%"} height={"100%"} controls playing={playing} onPlay={() => { setPlaying(true) }} onPause={() => { setPlaying(false) }} url={url} onEnded={() => handleColor}></ReactPlayer>
+                    </div>
+                    <div>
+                        <div className='flex flex-row mx-10'>
+                            <button className='flex flex-row m-8 hover:bg-slate-200 p-4'>Summary</button>
+                            <button className='flex flex-row m-8 hover:bg-slate-200 p-4' onClick={() => { setdiscussion(true) }}>Reviews</button>
+                            <button className='flex flex-row m-8 hover:bg-slate-200 p-4'>Resources & documents</button>
+                            <button className='flex flex-row m-8 hover:bg-slate-200 p-4'>Transcript</button>
+                        </div>
+                    </div>
+                    {discussion &&
+                        <div>
+                            <Discussion />
+                        </div>}
+                </div>
+                <div className='right flex mt-5 gap-6 flex-col w-[300px]'>
+                    {/* <div className='flex w-full justify-center'>
+                        <button className=' bg-indigo-200 hover:bg-indigo-700 hover:text-white text-[#535CE8FF] font-bold py-2 rounded  w-[97px] h-[36px] text-[14px]'>< ShareIcon className='pr-2 pb-1'></ShareIcon>Share</button>
 
-function Study(){
-    return(
-        
-        <div className='studyPage mx-20'>
-            <Navbar type = "verified"></Navbar>
-            <div className='mb-4 text-sm'>My course/In Progress</div>
-            <div className='course_header flex'>
-               <div class='font-bold text-4xl mb-1 flex-1'>UI Design ,A User Centered Approach</div>
-               <div className='button_grp flex-1 flex  justify-end pr-5 w-80'>
-                            <button className=' bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded w-24 '>Share</button>
-                            <button className='ml-4 bg-indigo-200 hover:bg-indigo-700 hover:text-white text-[#535CE8FF] font-bold py-2 px-4 rounded w-24'>Save</button>
+                        <button className='ml-2 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 rounded w-[92px] h-[36px] text-[14px] '><FavoriteIcon className='pr-2 pb-1'></FavoriteIcon>Save</button>
+                    </div> */}
+                    <div className="flex flex-col w-full sticky top-0">
+                        <div className='sessions_header flex justify-between bg-white w-full'>
+                            <div className='text-[20px] text-[#535CE8FF] pl-2.5 font-bold'>Lectures</div>
+                        </div>
+                        <div className='flex flex-col w-full max-h-[380px] overflow-scroll'>
+                            {courseData?.lessons?.map((session, i) => (
+                                <div className='flex py-2 px-2 gap-2 cursor-pointer items-center text-sm my-1.5 hover:bg-gray-200 hover:rounded-md' onClick={() => handlePlay(session.url, session.id)}>
+                                    <div>{i + 1}.</div>
+                                    <div className='whitespace-nowrap overflow-hidden text-ellipsis w-full max-w-[200px]'>{session.name}</div>
+                                    <div>
+                                        {(playing && active === session.id) ? <PauseIcon color='standard' /> : <PlayArrowIcon color='primary' />}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
-           
-            <div class='flex w-full items-center justify-between mb-3'>
-                    <div class='flex gap-1 w-max p-2'>
-                        <div class='text-blue-600 cursor-pointer border-r-2 pr-2'>Klara Weaver</div>
-                        <img src={star} alt="" style={{ width: '20px', height: '20px' }} className="mx-2"/>
-                        <div class='flex font-bold'>4.5<span class='font-normal text-gray-500 border-r px-2'>(99 reviews)</span></div>
-                        
-                    </div>
-            </div>       
-            <div className='flex flex-row'>
-                <div className='course_player '>
-                   <ReactPlayer width={808} height = {416} controls url = "https://www.youtube.com/watch?v=-6_7NywjE6I"></ReactPlayer>
-                </div>
-                <div className='sessions ml-20'>
-                    <div className='sessions_header flex'>
-                        <div className= 'flex-1 text-xl text-[#535CE8FF] pl-2.5'>Sessions</div>
-                        <div className='flex-1 text-sm pt-1 font-bold'>3/12 Completed</div>
-                       
-                    </div>
-                    
-                    <div className="session_list mt-5" style={{width : '400px' , height : 'auto'  }}>
-                        {sessionArray.map(session => (
-                           <div className='p-3.5  text-sm my-1.5 hover:border-[3px] hover:border-indigo-500' >0{session.id}. {session.name}</div>
-                           ) )}
-                    </div>
-                 </div>
-                 
-            </div>
-            
         </div>
     )
 };

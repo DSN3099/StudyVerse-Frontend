@@ -21,14 +21,14 @@ const Footer = () => {
 
 
   return (
-    <div className="bg-gray-200/40  flex flex-col " id='form'>
-      <div class="flex justify-evenly mt-9">
+    <div className="bg-gray-200/40 w-full flex flex-col " id='form'>
+      <div class="flex px-5 mt-9">
         {/* logo */}
         <div class="h-full w-1/5">
           <img src={logo} alt="" />
         </div>
         {/* newsletter */}
-        <div class="flex flex-col gap-y-4">
+        <div class="flex flex-col items-center justify-center w-full gap-y-4">
           <div class="font-bold">Newsletter</div>
           <div class="font-thin">
             Subscribe to our newsletter to get the latest news and updates
