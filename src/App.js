@@ -3,13 +3,11 @@ import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Signup from './components/Auth/SignUp/Signup';
 import Signin from './components/Auth/Signin/Signin';
-import TeachersPage from './pages/TeachersPage';
 import CourseInfo from './pages/CourseInfo';
 import Landing from './pages/Landing';
 import CreateCourse from './components/CreateCourse'
 import Courseupload from './pages/Courseupload';
 import Study from "./pages/StudyPage";
-import CreateCourse from './components/CreateCourse';
 import TeachersPage from './pages/TeachersPage';
 import Loader from './components/Auth/SignUp/Loader';
 
