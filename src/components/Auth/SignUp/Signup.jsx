@@ -34,7 +34,7 @@ const Signup = () => {
     }
     const res = !states.passerr && validator.isEmail(states.email)
     if (res)
-      console.log(states)
+      navigate("/loader");
     else
       console.log('Please fill the details properly...')
   }
