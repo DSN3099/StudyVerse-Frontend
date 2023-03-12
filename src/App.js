@@ -9,7 +9,6 @@ import Landing from './pages/Landing';
 import CreateCourse from './components/CreateCourse'
 import Courseupload from './pages/Courseupload';
 import Study from "./pages/StudyPage";
-import Loader from './components/Auth/SignUp/Loader';
 
 function App() {
   return (
@@ -17,7 +16,6 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Landing />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
-          <Route path="/loader" element={<Loader />}></Route>
           <Route path="/signin" element={<Signin />}></Route>
           <Route path="/home" element={<Home />}></Route>
           <Route exact path="/teacher" element={<TeachersPage />}></Route>

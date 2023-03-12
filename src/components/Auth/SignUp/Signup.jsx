@@ -64,7 +64,8 @@ const Signup = () => {
       try{
         const data = await axios.post('http://localhost:5000/api/auth/register',states)
         console.log(data)
-        navigate('/loader')
+        sessionStorage.setItem('isSignUp','true')
+        navigate('/signin')
       }
       catch(err){
         console.log(err)

@@ -1,16 +1,7 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import spinner from '../../../assets/Spinner.gif'
 
 const Loader = () => {
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        setTimeout(() => {
-            navigate("/signin")
-        }, 5000);
-    }, [navigate])
-
     return (
         <div>
             <div className='flex flex-col items-center'>
