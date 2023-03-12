@@ -34,14 +34,23 @@ const Courseupload = () => {
   const navigate = useNavigate();
   
   const { id } = useParams();
+  const Token = sessionStorage.getItem('token')
+  const config = {
+    withCredentials:true,
+    headers: {
+      'Authorization': `bearer ${Token}`,
+      'Content-Type': 'application/json'
+    }
+  }
   const addvideos = async (Data) => {
     try {
-      const { data } = await axios.post(`http://localhost:5000/api/video/${id}`, Data)
+      const { data } = await axios.post(`http://localhost:5000/api/video/${id}`, Data,config)
       console.log(data)
     } catch (err) {
       console.log(err)
     }
   }
+  
 
   const handleChange = async (e) => {
     const files = [...e.target.files]
@@ -63,11 +72,16 @@ const Courseupload = () => {
     })
   }
 
+  useEffect(()=>{
+    const token = localStorage.getItem('token')
+    if(!token) navigate('/signin')
+  },[navigate])
+
   useEffect(() => {
     const getvideos = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5000/api/course/${id}`,
+          `http://localhost:5000/api/course/${id}`, config
         )
         setFileupload(data.lessons)
         setCoursedata(data)
@@ -90,6 +104,7 @@ const Courseupload = () => {
           videoname: editname,
           id: editid,
         },
+        config
       )
       fileupload[i].name = editname
       setFileupload([...fileupload])
@@ -102,7 +117,7 @@ const Courseupload = () => {
   const deletevideos = async () => {
     try {
       const { data } = await axios.delete(
-        `http://localhost:5000/api/video/${id}/${deleteid}`,
+        `http://localhost:5000/api/video/${id}/${deleteid}`,config
       )
       fileupload.splice(deleteindex, 1)
       setFileupload([...fileupload])
@@ -140,7 +155,7 @@ const Courseupload = () => {
                     <div class='flex gap-1'>
                       <img src={file} alt="file" />
                       <div class='flex flex-col justify-center'>
-                        <span class='text-[14px] text-[#001356] font-[400]'>{values.name}</span>
+                        <span class='text-[14px] whitespace-nowrap overflow-hidden text-ellipsis max-w-[80px] text-[#001356] font-[400]'>{values.name}</span>
                         {loading && (i === loaderindex) && <img src={loader} alt="loader" class='w-1/2' />}
                         {!(loading && (i === loaderindex)) && <span class='text-[12px] text-[#001356] font-[400]'>{Math.round((values.size) / 1000000)}MB</span>}
                       </div>

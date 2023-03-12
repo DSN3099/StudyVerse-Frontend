@@ -1,34 +1,31 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
-import Signup from './components/Auth/SignUp/Signup'
-import Signin from './components/Auth/Signin/Signin'
-import CourseInfo from './pages/CourseInfo'
-import Landing from './pages/Landing'
-import Study from './pages/StudyPage'
-import TeachersPage from './pages/TeachersPage'
-import Courseupload from './pages/Courseupload'
+import Signup from './components/Auth/SignUp/Signup';
+import Signin from './components/Auth/Signin/Signin';
+import TeachersPage from './pages/TeachersPage';
+import CourseInfo from './pages/CourseInfo';
+import Landing from './pages/Landing';
 import CreateCourse from './components/CreateCourse'
+import Courseupload from './pages/Courseupload';
+import Study from "./pages/StudyPage";
 
 function App() {
- 
   return (
-    
-      <div className="App ">
+    <div className="App ">
         <Routes>
           <Route exact path="/" element={<Landing />}></Route>
+          <Route path="/signup" element={<Signup />}></Route>
+          <Route path="/signin" element={<Signin />}></Route>
+          <Route path="/home" element={<Home />}></Route>
           <Route exact path="/teacher" element={<TeachersPage />}></Route>
           <Route exact path="/courseinfo/:id" element={<CourseInfo />}></Route>
-          <Route path="/signup" element={<Signup />}></Route>
-          <Route path="/home" element={<Home />}></Route>
-          <Route path="/signin" element={<Signin />}></Route>
+          <Route path='/createcourse' element = {<CreateCourse />}></Route>
+          <Route path='/videoupload/:id' element = {<Courseupload />}></Route>
           <Route path="/video/:id" element={<Study />}></Route>
-          <Route path="/createcourse" element={<CreateCourse />}></Route>
-          <Route path="/videoupload/:id" element={<Courseupload />}></Route>
         </Routes>
-      </div>
-
-  )
+    </div>
+  );
 }
 
 export default App

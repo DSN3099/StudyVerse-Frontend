@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import star from '../assets/star.svg'
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -16,6 +16,7 @@ import klara from '../assets/klara.jpg'
 import images from '../images'
 import Card from './Card';
 import Footer from '../components/Footer';
+import { useNavigate } from 'react-router-dom';
 
 export const ratingData = [
     { id: 1, img: `${images.jay}`, rating: 5, name: 'Jay Rutherford', review:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Error delectus ut dolorum at cum neque quod fugit dolore rem cumque!' },
@@ -40,6 +41,13 @@ const CourseInfo = () => {
         reviews: false,
         relCourse: false,
     })
+
+    const navigate = useNavigate()
+    
+    useEffect(()=>{
+        const token = localStorage.getItem('token')
+        if(!token) navigate('/signin')
+      },[navigate])
 
     const [showAll, setShowAll] = useState(false)
 
