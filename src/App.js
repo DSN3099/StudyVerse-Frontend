@@ -3,16 +3,16 @@ import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Signup from './components/Auth/SignUp/Signup';
 import Signin from './components/Auth/Signin/Signin';
-import TeachersPage from './pages/TeachersPage';
 import CourseInfo from './pages/CourseInfo';
 import Landing from './pages/Landing';
 import CreateCourse from './components/CreateCourse'
 import Courseupload from './pages/Courseupload';
 import Study from "./pages/StudyPage";
+import TeachersPage from './pages/TeachersPage';
 
 function App() {
   return (
-    <div className="App ">
+        <div className="App ">
         <Routes>
           <Route exact path="/" element={<Landing />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
