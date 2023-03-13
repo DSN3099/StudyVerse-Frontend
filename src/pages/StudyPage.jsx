@@ -10,6 +10,8 @@ import axios from 'axios'
 import PauseIcon from '@mui/icons-material/Pause';
 import { useParams } from 'react-router-dom';
 import Discussion from './Discussion';
+import Reviews from '../components/Reviews';
+import { Button, ButtonGroup, Paper } from '@mui/material';
 
 function Study() {
     const [color, setColor] = useState(false);
@@ -19,7 +21,8 @@ function Study() {
     const [url, setUrl] = useState(0);
     const [progress, setProgress] = useState(0);
     const [initial, setInitial] = useState(true);
-    const [discussion,setdiscussion] = useState(true);
+    const [reviews, setReviews] = useState(false);
+
 
     const handleColor = (level) => {
         setColor(!color);
@@ -74,25 +77,27 @@ function Study() {
                     <div className='course_player flex w-[100%] h-[400px]'>
                         <ReactPlayer width={"100%"} height={"100%"} controls playing={playing} onPlay={() => { setPlaying(true) }} onPause={() => { setPlaying(false) }} url={url} onEnded={() => handleColor}></ReactPlayer>
                     </div>
-                    <div>
-                        <div className='flex flex-row mx-10'>
-                            <button className='flex flex-row m-8 hover:bg-slate-200 p-4'>Summary</button>
-                            <button className='flex flex-row m-8 hover:bg-slate-200 p-4' onClick={() => { setdiscussion(true) }}>Reviews</button>
-                            <button className='flex flex-row m-8 hover:bg-slate-200 p-4'>Resources & documents</button>
-                            <button className='flex flex-row m-8 hover:bg-slate-200 p-4'>Transcript</button>
-                        </div>
+                    <div className='mt-5'>
+                        <Paper elevation={3} sx={{ width: '500px', height: '40px' }}>
+                            <ButtonGroup variant='text'>
+                                <Button disableRipple sx={{ width: '155px', padding: '8px 42px', textTransform: 'capitalize', fontWeight: 'bold', }}>Comments</Button>
+                                <Button disableRipple sx={{ width: '185px', padding: '8px 42px', textTransform: 'capitalize', fontWeight: 'bold', }}>About Course</Button>
+                                <Button disableRipple sx={{ width: '158px', padding: '8px 42px', textTransform: 'capitalize', fontWeight: 'bold', backgroundColor: reviews ? '#0A0A0A' : '#ffffff', color: reviews ? '#ffffff' : '', "&:hover": { backgroundColor: "#000000", color: '#ffffff' } }} onClick={()=>{setReviews(!reviews)}}>Reviews</Button>
+                            </ButtonGroup>
+                        </Paper>
                     </div>
-                    {discussion &&
-                        <div>
-                            <Discussion />
-                        </div>}
+                    <div className='mt-9'>
+                        {reviews && 
+                        <Reviews/>
+                        }
+                    </div>
                 </div>
                 <div className='right flex mt-5 gap-6 flex-col w-[300px]'>
-                    {/* <div className='flex w-full justify-center'>
+                    <div className='flex w-full justify-center'>
                         <button className=' bg-indigo-200 hover:bg-indigo-700 hover:text-white text-[#535CE8FF] font-bold py-2 rounded  w-[97px] h-[36px] text-[14px]'>< ShareIcon className='pr-2 pb-1'></ShareIcon>Share</button>
 
                         <button className='ml-2 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 rounded w-[92px] h-[36px] text-[14px] '><FavoriteIcon className='pr-2 pb-1'></FavoriteIcon>Save</button>
-                    </div> */}
+                    </div>
                     <div className="flex flex-col w-full sticky top-0">
                         <div className='sessions_header flex justify-between bg-white w-full'>
                             <div className='text-[20px] text-[#535CE8FF] pl-2.5 font-bold'>Lectures</div>

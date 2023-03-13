@@ -13,7 +13,7 @@ import Loader from './components/Auth/SignUp/Loader';
 
 function App() {
   return (
-    <div className="App ">
+        <div className="App ">
         <Routes>
           <Route exact path="/" element={<Landing />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
