@@ -12,11 +12,10 @@ import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrow
 import PauseIcon from '@mui/icons-material/Pause';
 import { useNavigate, useParams } from 'react-router-dom';
 import Discussion from './Discussion';
+import ClearIcon from '@mui/icons-material/Clear';
 import Reviews from '../components/Reviews';
 import { Button, ButtonGroup, Paper } from '@mui/material';
-import ClearIcon from '@mui/icons-material/Clear';
 import Clear from '@mui/icons-material/Clear';
-
 
 function Study() {
     const [color, setColor] = useState(false);
@@ -28,7 +27,7 @@ function Study() {
     const [initial, setInitial] = useState(true);
     const [reviews, setReviews] = useState(false);
     const [discussion, setdiscussion] = useState(true);
-    const [theater, setTheater] = useState(false);
+    const [theater, setTheater] = useState(false)
 
     const handleColor = (level) => {
         setColor(!color);
@@ -116,25 +115,6 @@ function Study() {
                         }
                     </div>
                 </div>
-                
-                <div className='right flex mt-5 gap-6 flex-col w-[300px]'>
-                    <div className='flex w-full justify-center'>
-                        <button className=' bg-indigo-200 hover:bg-indigo-700 hover:text-white text-[#535CE8FF] font-bold py-2 rounded  w-[97px] h-[36px] text-[14px]'>< ShareIcon className='pr-2 pb-1'></ShareIcon>Share</button>
-
-                        <button className='ml-2 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 rounded w-[92px] h-[36px] text-[14px] '><FavoriteIcon className='pr-2 pb-1'></FavoriteIcon>Save</button>
-                    </div>
-                    <div className="flex flex-col w-full sticky top-0">
-                        <div className='sessions_header flex justify-between bg-white w-full'>
-                            <div className='text-[20px] text-[#535CE8FF] pl-2.5 font-bold'>Lectures</div>
-                        </div>
-                        <div className='flex flex-col w-full max-h-[380px] overflow-scroll'>
-                            {courseData?.lessons?.map((session, i) => (
-                                <div className='flex py-2 px-2 gap-2 cursor-pointer items-center text-sm my-1.5 hover:bg-gray-200 hover:rounded-md' onClick={() => handlePlay(session.url, session.id)}>
-                                    <div>{i + 1}.</div>
-                                    <div className='whitespace-nowrap overflow-hidden text-ellipsis w-full max-w-[200px]'>{session.name}</div>
-                                    <div>
-                                        {(playing && active === session.id) ? <PauseIcon color='standard' /> : <PlayArrowIcon color='primary' />}
-
                 {!theater &&
                     <div className='right flex mt-9 gap-6 flex-col w-[300px]'>
                         <div className="flex flex-col shadow-lg  w-full sticky top-[10px]">
@@ -162,4 +142,3 @@ function Study() {
 };
 
 export default Study;
-
