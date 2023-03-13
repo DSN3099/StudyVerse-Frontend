@@ -74,7 +74,7 @@ const Discussion = () => {
         <div className='flex flex-col gap-5'>
             <div className='flex items-center justify-between'>
                 <img src={jevon} class='rounded-full w-12 ' alt="profile" />
-                <TextField required value={comments} multiline={true} rows={2} onChange={(e) => setComments(e.target.value)} className='m-4 rounded-lg w-[700px] p-2' placeholder='Leave a Public Comment...' autoComplete='off' />
+                <TextField required value={comments} multiline={true} rows={2} onChange={(e) => setComments(e.target.value)} className='m-4 rounded-lg w-[90%] min-w-[700px] p-2' placeholder='Leave a Public Comment...' autoComplete='off' />
                 <SendIcon color='primary' onClick={handleSubmit} />
             </div>
             <div className='p-5 bg-gray-100 rounded-md'>

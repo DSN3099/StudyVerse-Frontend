@@ -7,11 +7,16 @@ import ShareIcon from '@mui/icons-material/Share';
 import DoneIcon from '@mui/icons-material/Done';
 import { useEffect, useState } from 'react';
 import axios from 'axios'
+import Fab from '@mui/material/Fab';
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import PauseIcon from '@mui/icons-material/Pause';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Discussion from './Discussion';
 import Reviews from '../components/Reviews';
 import { Button, ButtonGroup, Paper } from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
+import Clear from '@mui/icons-material/Clear';
+
 
 function Study() {
     const [color, setColor] = useState(false);
@@ -22,7 +27,8 @@ function Study() {
     const [progress, setProgress] = useState(0);
     const [initial, setInitial] = useState(true);
     const [reviews, setReviews] = useState(false);
-
+    const [discussion, setdiscussion] = useState(true);
+    const [theater, setTheater] = useState(false);
 
     const handleColor = (level) => {
         setColor(!color);
@@ -38,11 +44,26 @@ function Study() {
         setActive(level);
     }
     const { id } = useParams()
+    const navigate = useNavigate()
+
+    const Token = localStorage.getItem('token')
+    const config = {
+        withCredentials: true,
+        headers: {
+            'Authorization': `bearer ${Token}`,
+            'Content-Type': 'application/json'
+        }
+    }
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        if (!token) navigate('/signin')
+    }, [navigate])
 
     useEffect(() => {
         const getCourse = async () => {
             try {
-                const { data } = await axios.get(`http://localhost:5000/api/course/${id}`)
+                const { data } = await axios.get(`http://localhost:5000/api/course/${id}`,config)
                 console.log(data)
                 setCoursedata(data)
                 setUrl(data.lessons[1].url)
@@ -62,7 +83,7 @@ function Study() {
         <div className='flex flex-col w-full'>
             <Navbar type="verified"></Navbar>
             <div className='studyPage flex gap-5 justify-between px-10'>
-                <div className="left flex flex-col w-[70%] gap-2.5">
+                <div className={theater ? "left flex flex-col w-[100%] gap-2.5" : "left flex flex-col w-[70%] gap-2.5"}>
                     {/* <div className='text-sm'>My course/In Progress</div> */}
                     <div className='course_header flex items-center'>
                         <div class='font-bold text-2xl mb-1 flex-1'>{courseData?.title}</div>
@@ -74,8 +95,11 @@ function Study() {
                             <div class='flex font-bold'>4.5<span class='font-normal text-gray-500 border-r px-2'>(99 reviews)</span></div>
                         </div>
                     </div> */}
-                    <div className='course_player flex w-[100%] h-[400px]'>
-                        <ReactPlayer width={"100%"} height={"100%"} controls playing={playing} onPlay={() => { setPlaying(true) }} onPause={() => { setPlaying(false) }} url={url} onEnded={() => handleColor}></ReactPlayer>
+                    <div className='course_player flex w-[100%] h-[450px] relative'>
+                        <ReactPlayer width={"100%"} height={"100%"} controls playing={playing} onPlay={() => { setPlaying(true) }} onPause={() => { setPlaying(false) }} url={url} onEnded={() => handleColor} />
+                        {theater && <Fab size='small' sx={{ position: 'absolute', top: '10px', right: '10px' }} onClick={() => setTheater(false)}>
+                            <KeyboardDoubleArrowLeftIcon color='primary' />
+                        </Fab>}
                     </div>
                     <div className='mt-5'>
                         <Paper elevation={3} sx={{ width: '500px', height: '40px' }}>
@@ -92,6 +116,7 @@ function Study() {
                         }
                     </div>
                 </div>
+                
                 <div className='right flex mt-5 gap-6 flex-col w-[300px]'>
                     <div className='flex w-full justify-center'>
                         <button className=' bg-indigo-200 hover:bg-indigo-700 hover:text-white text-[#535CE8FF] font-bold py-2 rounded  w-[97px] h-[36px] text-[14px]'>< ShareIcon className='pr-2 pb-1'></ShareIcon>Share</button>
@@ -109,12 +134,28 @@ function Study() {
                                     <div className='whitespace-nowrap overflow-hidden text-ellipsis w-full max-w-[200px]'>{session.name}</div>
                                     <div>
                                         {(playing && active === session.id) ? <PauseIcon color='standard' /> : <PlayArrowIcon color='primary' />}
+
+                {!theater &&
+                    <div className='right flex mt-9 gap-6 flex-col w-[300px]'>
+                        <div className="flex flex-col shadow-lg  w-full sticky top-[10px]">
+                            <div className='sessions_header flex items-center justify-between bg-white w-[90%]'>
+                                <div className='text-[24px] text-[#535CE8FF] pl-2.5 font-bold'>Lectures</div>
+                                <Clear color='primary' className='cursor-pointer' onClick={() => setTheater(true)} />
+                            </div>
+                            <div className='flex flex-col gap-2 px-1.5 w-full min-h-[420px] overflow-scroll'>
+                                {courseData?.lessons?.map((session, i) => (
+                                    <div className='flex py-2 text-xl border-b border-gray-300 px-2 gap-2 cursor-pointer items-center hover:bg-gray-100 hover:rounded-md' onClick={() => handlePlay(session.url, session.id)}>
+                                        <div>{i + 1}.</div>
+                                        <div className='whitespace-nowrap overflow-hidden text-ellipsis w-full max-w-[200px]'>{session.name}</div>
+                                        <div>
+                                            {(playing && active === session.id) ? <PauseIcon color='error' /> : <PlayArrowIcon color='primary' />}
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
     )

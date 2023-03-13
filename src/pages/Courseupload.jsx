@@ -36,6 +36,7 @@ const Courseupload = () => {
   const { id } = useParams();
   const Token = sessionStorage.getItem('token')
   const config = {
+    withCredentials:true,
     headers: {
       'Authorization': `bearer ${Token}`,
       'Content-Type': 'application/json'
@@ -43,7 +44,7 @@ const Courseupload = () => {
   }
   const addvideos = async (Data) => {
     try {
-      const { data } = await axios.post(`http://localhost:5000/api/video/${id}`, Data)
+      const { data } = await axios.post(`http://localhost:5000/api/video/${id}`, Data,config)
       console.log(data)
     } catch (err) {
       console.log(err)
@@ -71,6 +72,11 @@ const Courseupload = () => {
     })
   }
 
+  useEffect(()=>{
+    const token = localStorage.getItem('token')
+    if(!token) navigate('/signin')
+  },[navigate])
+
   useEffect(() => {
     const getvideos = async () => {
       try {
@@ -88,7 +94,7 @@ const Courseupload = () => {
       getvideos()
       setInitial(false)
     }
-  }, [id, initial,config])
+  }, [id, initial])
 
   const editvideos = async (i) => {
     try {
@@ -98,6 +104,7 @@ const Courseupload = () => {
           videoname: editname,
           id: editid,
         },
+        config
       )
       fileupload[i].name = editname
       setFileupload([...fileupload])
@@ -110,7 +117,7 @@ const Courseupload = () => {
   const deletevideos = async () => {
     try {
       const { data } = await axios.delete(
-        `http://localhost:5000/api/video/${id}/${deleteid}`,
+        `http://localhost:5000/api/video/${id}/${deleteid}`,config
       )
       fileupload.splice(deleteindex, 1)
       setFileupload([...fileupload])

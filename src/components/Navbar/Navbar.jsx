@@ -30,6 +30,7 @@ const Navbar = ({ type, page }) => {
       await axios.get('http://localhost:5000/api/auth/logout',config)
       console.log("first")
       sessionStorage.clear()
+      localStorage.clear()
       navigate('/signin')
     }catch(err){
       console.log(err)

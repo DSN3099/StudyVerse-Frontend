@@ -1,5 +1,5 @@
 import { Button, MenuItem, TextField } from '@mui/material';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Navbar from './Navbar/Navbar';
 import axios from 'axios'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
@@ -36,14 +36,24 @@ const CreateCourse = () => {
     })
     document.getElementById('show').innerHTML = file.name;
   }
+
+  useEffect(()=>{
+    const token = localStorage.getItem('token')
+    if(!token) navigate('/signin')
+  },[navigate])
+
   const postData = async (post) => {
     try {
       console.log(courseData)
       const { data } = await axios.post('http://localhost:5000/api/course/', post, config)
-      console.log(data)
+      // console.log(data)
       navigate(`/videoupload/${data._id}`)
     } catch (err) {
       console.log(err)
+      if(err.response.data.name==='TokenExpiredError'||err.response.data==='Please login first'){
+          localStorage.removeItem('token');
+          navigate('/signin')
+      }
     }
   }
 

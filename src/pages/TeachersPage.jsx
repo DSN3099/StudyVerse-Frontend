@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import cpgirl from '../assets/cpgirl.jpg'
 import Footer from '../components/Footer'
@@ -8,24 +8,34 @@ import Alert from '../components/Alert'
 const TeachersPage = () => {
   const [checked, setChecked] = useState(false)
   const [disabled, setDisabled] = useState(true)
-  const [alert,setAlert] = useState(false)
+  const [alert, setAlert] = useState(false)
+  const timeOutRef = useRef()
   const checkfunction = () => {
     setChecked(!checked)
-    if(!checked) setAlert(true)
+    if (!checked) setAlert(true)
   }
   useEffect(() => {
-    if (checked ) {
+    if (checked) {
       setDisabled(false)
-    }else{
+    } else {
       setDisabled(true)
     }
   }, [checked])
 
-  useEffect(()=>{
-    setTimeout(()=>{
-      setAlert(false)
-    },3000)
-  })
+  function resetTimeOut() {
+    if (timeOutRef.current) {
+      clearTimeout(timeOutRef.current)
+    }
+  }
+
+  useEffect(() => {
+    if (alert) {
+      resetTimeOut()
+      timeOutRef.current = setTimeout(() => {
+        setAlert(false)
+      }, 3000)
+    }
+  }, [alert])
 
   const dstyle = 'text-2xl font-medium bg-blue-600 opacity-50 cursor-not-allowed p-5 rounded-md text-white '
   const style = 'text-2xl font-medium bg-blue-600 p-5 rounded-md text-white '
@@ -37,8 +47,8 @@ const TeachersPage = () => {
 
       {/* course creation button */}
       <div className="course-creation flex justify-between items-center  bg-white-100 shadow-lg shadow-slate-300 p-11 m-24 ">
-        {alert && 
-          <Alert msg='You can now create your course' type = 'SUCCESS' />
+        {alert &&
+          <Alert msg='You can now create your course' type='SUCCESS' />
         }
         <h1 className=" text-2xl font-bold">Jump Into Course Creation</h1>
         <button
@@ -83,9 +93,9 @@ const TeachersPage = () => {
             id=""
             value={checked}
             onClick={() => {
-            checkfunction()
-          }}
-          href="#course"
+              checkfunction()
+            }}
+            href="#course"
           />
           <div className="text-xl">
             "I hereby agree to all the above rules and regulations."
