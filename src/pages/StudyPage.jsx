@@ -26,6 +26,8 @@ function Study() {
     const [progress, setProgress] = useState(0);
     const [initial, setInitial] = useState(true);
     const [reviews, setReviews] = useState(false);
+    const [reviewsdata, setReviewsdata] = useState([]);
+    const [users, setUsers] = useState();
     const [discussion, setdiscussion] = useState(true);
     const [theater, setTheater] = useState(false)
 
@@ -78,6 +80,34 @@ function Study() {
         }
     }, [initial, id])
 
+    const userdata = async ()=>{
+        try{
+            const {data} = await axios.get(`http://localhost:5000/api/user`,config)
+            setUsers(data)
+            console.log(data)
+        }catch(err){
+            console.log(err)
+        }
+      }
+
+const getreviews = async ()=>{
+  try{
+    const {data} = await axios.get(`http://localhost:5000/api/review/${id}`,config)
+    setReviewsdata(data)
+    console.log(data)
+  }catch(err){
+    console.log(err)
+  }
+}
+
+
+useEffect(()=>{
+    if(initial){
+        getreviews()
+        userdata()
+    }
+},[initial])
+
     return (
         <div className='flex flex-col w-full'>
             <Navbar type="verified"></Navbar>
@@ -111,7 +141,7 @@ function Study() {
                     </div>
                     <div className='mt-9'>
                         {reviews && 
-                        <Reviews/>
+                        <Reviews reviewsdata={reviewsdata} setReviewsdata={setReviewsdata} userdata={users} />
                         }
                     </div>
                 </div>
