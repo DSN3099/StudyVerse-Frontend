@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { Rating, Typography, Avatar, Button,TextField } from '@mui/material';
+import { Rating, Typography, Avatar, Button, TextField } from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';
 import dp from '../assets/annie.jpg';
 import { amber } from '@mui/material/colors';
@@ -15,6 +15,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ClearIcon from '@mui/icons-material/Clear';
+import moment from 'moment';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 function LinearProgressWithLabel(props) {
   return (
@@ -44,40 +47,97 @@ function getLabelText(value) {
   return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
 }
 
-const reviews = [
-  {
-    id: 1, img: { dp }, name: 'Teddy Jones', review: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora at sed iusto, illum adipisci magnam ullam ipsum sapiente qui? Error quas dolore optio earum itaque blanditiis dolor minima commodi? Iusto nisi ducimus neque animi ut, quo ullam inventore commodi excepturi aspernatur facilis incidunt debitis suscipit numquam asperiores est corporis explicabo iste cum laudantium iure mollitia.',
-    likes: 2, dislikes: 4
-  },
-  {
-    id: 2, img: { dp }, name: 'Teddy Jones', review: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora at sed iusto, illum adipisci magnam ullam ipsum sapiente qui? Error quas dolore optio earum itaque blanditiis dolor minima commodi? Iusto nisi ducimus neque animi ut, quo ullam inventore commodi excepturi aspernatur facilis incidunt debitis suscipit numquam asperiores est corporis explicabo iste cum laudantium iure mollitia.',
-    likes: 2, dislikes: 4
-  },
-  {
-    id: 3, img: { dp }, name: 'Teddy Jones', review: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora at sed iusto, illum adipisci magnam ullam ipsum sapiente qui? Error quas dolore optio earum itaque blanditiis dolor minima commodi? Iusto nisi ducimus neque animi ut, quo ullam inventore commodi excepturi aspernatur facilis incidunt debitis suscipit numquam asperiores est corporis explicabo iste cum laudantium iure mollitia.',
-    likes: 2, dislikes: 4
-  },
-  {
-    id: 4, img: { dp }, name: 'Teddy Jones', review: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora at sed iusto, illum adipisci magnam ullam ipsum sapiente qui? Error quas dolore optio earum itaque blanditiis dolor minima commodi? Iusto nisi ducimus neque animi ut, quo ullam inventore commodi excepturi aspernatur facilis incidunt debitis suscipit numquam asperiores est corporis explicabo iste cum laudantium iure mollitia.',
-    likes: 2, dislikes: 4
-  },
-  {
-    id: 5, img: { dp }, name: 'Teddy Jones', review: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora at sed iusto, illum adipisci magnam ullam ipsum sapiente qui? Error quas dolore optio earum itaque blanditiis dolor minima commodi? Iusto nisi ducimus neque animi ut, quo ullam inventore commodi excepturi aspernatur facilis incidunt debitis suscipit numquam asperiores est corporis explicabo iste cum laudantium iure mollitia.',
-    likes: 2, dislikes: 4
-  },
-]
-
-
-const Reviews = () => {
+const Reviews = ({ reviewsdata,setReviewsdata,userdata }) => {
   const color = amber[400]
 
-  const [open,setOpen] = useState(false)
-  const [dialog,setDialog] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [dialog, setDialog] = useState(false)
   const [value, setValue] = useState(0.5)
   const [hover, setHover] = useState(-1)
-  const [reportdesc,setReportdesc] = useState(false)
-  const [userreport,setUserReport] = useState()
-  const [userreviews,setUserReviews] = useState()
+  const [reviewid,setReviewid] = useState(false)
+  const [reportdesc, setReportdesc] = useState(false)
+  const [userreport, setUserReport] = useState()
+  const [userreviews, setUserReviews] = useState()
+
+  const { id } = useParams()
+
+  const Token = localStorage.getItem('token')
+  const config = {
+    withCredentials: true,
+    headers: {
+      'Authorization': `bearer ${Token}`,
+      'Content-Type': 'application/json'
+    }
+  }
+
+
+  const addreviews = async () => {
+    try {
+      const { data } = await axios.post(`http://localhost:5000/api/review/${id}`, { text: userreviews, rating: value }, config)
+      data.firstname=userdata?.firstname
+      data.lastname=userdata?.lastname
+      reviewsdata.push(data)
+      setReviewsdata([...reviewsdata])
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const togglelikes = async (id) =>{
+    try{
+      const {data} = await axios.patch(`http://localhost:5000/api/review/${id}`,{action:'LIKE'},config)
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  const toggledislikes = async (id) =>{
+    try{
+      const {data} = await axios.patch(`http://localhost:5000/api/review/${id}`,{action:'DISLIKE'},config)
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  const handleLike =(id,i)=>{
+    togglelikes(id);
+    if(reviewsdata[i].likes.includes(userdata._id)){
+      const index = reviewsdata[i].likes.indexOf(userdata._id)
+      reviewsdata[i].likes.splice(index,1)
+      setReviewsdata([...reviewsdata])
+    }else{
+      reviewsdata[i].likes.push(userdata._id)
+      const index =  reviewsdata[i].dislikes.indexOf(userdata._id)
+      reviewsdata[i].dislikes.splice(index,1)
+      setReviewsdata([...reviewsdata])
+    }
+  }
+
+  const handledislike =(id,i)=>{
+    toggledislikes(id);
+    if(reviewsdata[i].dislikes.includes(userdata._id)){
+      const index =  reviewsdata[i].dislikes.indexOf(userdata._id)
+      reviewsdata[i].dislikes.splice(index,1)
+      setReviewsdata([...reviewsdata])
+    }else{
+      reviewsdata[i].dislikes.push(userdata._id)
+      const index = reviewsdata[i].likes.indexOf(userdata._id)
+      reviewsdata[i].likes.splice(index,1)
+      setReviewsdata([...reviewsdata])
+    }
+  }
+
+  const report = async () =>{
+    try{
+      const {data} = await axios.patch(`http://localhost:5000/api/review/${reviewid}`,{action:'REPORT',reportDescription:userreport},config)
+      console.log(data)
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+
+
   return (
     <div className='flex flex-col gap-3'>
       <div className='flex justify-between'>
@@ -120,77 +180,79 @@ const Reviews = () => {
               <LinearProgressWithLabel sx={{ width: "320px", height: '4px', borderRadius: '8px' }} value={25} color='error' />
             </div>
           </div>
-        </div>  
+        </div>
         <div>
-          <Button variant='contained' sx={{ textTransform: 'capitalize', padding: "0px 20px" }} onClick={()=>{setDialog(true);setOpen(true)}}>Rate this Course</Button>
+          <Button variant='contained' sx={{ textTransform: 'capitalize', padding: "0px 20px" }} onClick={() => { setDialog(true); setOpen(true) }}>Rate this Course</Button>
         </div>
       </div>
-      {reviews.map((values, i) => (
+      {reviewsdata?.map((values, i) => (
         <div className='flex flex-col justify-center'>
           <div className='flex justify-between '>
             <div className='flex items-center gap-2'>
-              <Avatar sx={{ borderRadius: "50%", width: '46px', height: '46px' }} alt='G' src={values.dp}>T</Avatar>
+              <Avatar sx={{ borderRadius: "50%", width: '46px', height: '46px' }} alt='G' src={values.dp}>{values.userData[0]?.firstname?.charAt(0)}</Avatar>
               <div className='flex flex-col'>
-                <span className='text-gray-600 text-lg mt-1'>{values.name}</span>
+                <div className='flex items-center gap-1'>
+                  <span className='text-gray-600 text-lg mt-1'>{values.userData[0]?.firstname} {values.userData[0]?.lastname}</span>
+                  <span className='text-gray-600 text-[12px] justify-self-center flex'>{moment(values.created).fromNow()}</span>
+                </div>
                 <div className='flex gap-2'>
-                  <Rating precision={0.5} readOnly defaultValue='2.5' emptyIcon={<StarBorderIcon sx={{ color: "#FAAF00" }} />} />
-                  <span className='text-gray-600 text-[12px]'>2 days ago</span>
+                  <Rating precision={0.5} readOnly defaultValue={values.rating} emptyIcon={<StarBorderIcon sx={{ color: "#FAAF00" }} />} />
                 </div>
               </div>
             </div>
-            <Button variant='text' disableRipple sx={{ textTransform: 'capitalize' }} onClick={()=>{setReportdesc(true);setOpen(true)}}>Report</Button>
+            <Button variant='text' disableRipple sx={{ textTransform: 'capitalize' }} onClick={() => { setReportdesc(true); setOpen(true);setReviewid(values._id) }}>Report</Button>
           </div>
           <div className='pl-12 flex flex-col gap-2'>
-            <span className='w-[900px]'>{values.review}</span>
+            <span className='w-[900px]'>{values.text}</span>
             <div className='flex gap-3 items-center'>
-              <div className='flex gap-1 items-center cursor-pointer'>
-                <ThumbUpAltIcon />
-                <span className='text-gray-600'>{values.likes}</span>
+              <div className='flex gap-1 items-center cursor-pointer' onClick={()=>{handleLike(values._id,i)}}>
+                {values.likes.includes(userdata._id) ? <ThumbUpAltIcon color='primary' />:<ThumbUpOutlinedIcon />}
+                <span className='text-gray-600'>{values.likes.length}</span>
               </div>
-              <div className='flex gap-1 items-center cursor-pointer'>
-                <ThumbDownAltOutlinedIcon sx={{ marginTop: '5px' }} />
-                <span className='text-gray-600'>{values.dislikes}</span>
+              <div className='flex gap-1 items-center cursor-pointer' onClick={()=>{handledislike(values._id,i)}}>
+                {values.dislikes.includes(userdata._id) ? <ThumbDownIcon color='primary' sx={{ marginTop: '5px' }} /> : <ThumbDownAltOutlinedIcon sx={{ marginTop: '5px' }}/>}
+                <span className='text-gray-600'>{values.dislikes.length}</span>
               </div>
             </div>
           </div>
         </div>
       ))}
       {dialog && (
-                    <Dialog fullWidth
-                        open={open}>
-                        <DialogTitle sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", border: "1px solid #F0EFF2" }}>
-                            Your reviews matter to us!
-                            <div>
-                                <ClearIcon onClick={() => { setDialog(false) }} sx={{ cursor: 'pointer' }} />
-                            </div>
-                        </DialogTitle>
-                        <DialogContent>
-                            <DialogContentText id="alert-dialog-slide-description" style={{ display: 'flex', flexDirection: "column", gap: "12px", marginTop: "5px" }}>
-                                {value !== null && (
-                                    <div style={{ ml: 2, color: '#282828', fontSize: '16px', fontWeight: '600' }}>{labels[hover !== -1 ? hover : value]}</div>
-                                )}
-                                <Rating
-                                    name="hover-feedback"
-                                    value={value}
+        <Dialog fullWidth
+          open={open}>
+          <DialogTitle sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", border: "1px solid #F0EFF2" }}>
+            Your reviews matter to us!
+            <div>
+              <ClearIcon onClick={() => { setDialog(false) }} sx={{ cursor: 'pointer' }} />
+            </div>
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description" style={{ display: 'flex', flexDirection: "column", gap: "12px", marginTop: "5px" }}>
+              {value !== null && (
+                <div style={{ ml: 2, color: '#282828', fontSize: '16px', fontWeight: '600' }}>{labels[hover !== -1 ? hover : value]}</div>
+              )}
+              <Rating
+                name="hover-feedback"
+                value={value}
 
-                                    getLabelText={getLabelText}
-                                    onChange={(event, newValue) => {
-                                        setValue(newValue);
-                                    }}
-                                    onChangeActive={(event, newHover) => {
-                                        setHover(newHover);
-                                    }}
-                                    emptyIcon={<StarBorderIcon style={{ opacity: 0.55, color: '#FAAF00' }} fontSize="inherit" />}
-                                />
-                                <TextField label="Type your reviews here..." rows={10} onChange={(e) => { setUserReviews(e.target.value) }}></TextField>
-                            </DialogContentText>
-                        </DialogContent>
-                        <DialogActions sx={{ padding: '10px 20px' }}>
-                            <Button variant='contained' sx={{ textTransform: "capitalize", width: '100%' }} onClick={() => {  }}>Rate Now </Button>
-                        </DialogActions>
-                    </Dialog>
+                getLabelText={getLabelText}
+                onChange={(event, newValue) => {
+                  setValue(newValue);
+                }}
+                onChangeActive={(event, newHover) => {
+                  setHover(newHover);
+                }}
+                emptyIcon={<StarBorderIcon style={{ opacity: 0.55, color: '#FAAF00' }} fontSize="inherit" />}
+              />
+              <TextField label="Type your reviews here..." rows={10} onChange={(e) => { setUserReviews(e.target.value) }}></TextField>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions sx={{ padding: '10px 20px' }}>
+            <Button variant='contained' sx={{ textTransform: "capitalize", width: '100%' }} onClick={() => { addreviews(); setDialog(false) }}>Rate Now </Button>
+          </DialogActions>
+        </Dialog>
 
-                )}
+      )}
       {reportdesc &&
         <Dialog fullWidth
           open={open}>
@@ -206,7 +268,7 @@ const Reviews = () => {
             </DialogContentText>
           </DialogContent>
           <DialogActions sx={{ padding: '10px 20px' }}>
-            <Button variant='contained' sx={{ textTransform: "capitalize", width: '100%' }} onClick={() => { setReportdesc(false) }}>Report </Button>
+            <Button variant='contained' sx={{ textTransform: "capitalize", width: '100%' }} onClick={() => { setReportdesc(false);report()}}>Report </Button>
           </DialogActions>
         </Dialog>
       }
