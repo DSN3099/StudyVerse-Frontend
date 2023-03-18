@@ -26,6 +26,13 @@ const Signin = () => {
     }, 5000);
   }, [])
 
+  useEffect(()=>{
+    const expired = localStorage.getItem('expired');
+    if(expired==='true'){
+      setError('Session has expired, please login again...')
+    }
+  },[])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -33,6 +40,7 @@ const Signin = () => {
       console.log(data)
       sessionStorage.setItem('signedin', 'true');
       localStorage.setItem('token', data.token)
+      localStorage.removeItem('expired')
       navigate('/home')
     } catch (err) {
       setError(err.response.data)

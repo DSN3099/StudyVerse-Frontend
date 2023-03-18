@@ -106,6 +106,11 @@ const Home = () => {
       }
       catch (err) {
         console.log(err)
+        if (err.response.data.name === 'TokenExpiredError' || err.response.data === 'Please login first') {
+          localStorage.removeItem('token');
+          localStorage.setItem('expired',"true")
+          navigate('/signin')
+        }
       }
     }
     if (initial) {
@@ -160,8 +165,8 @@ const Home = () => {
         </div>
         <h6 class="text-black-200 font-bold text-xl">My Courses</h6>
         <div class='flex items-center relative' onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-          <div className='absolute right-full -left-8 cursor-pointer'  onClick = {()=>{setCurrentCourse(p=>p===0?p:p-1)}}>
-            <KeyboardArrowLeftIcon color={currentCourse===0?'disabled':''} sx={{width:'40px',height:'40px'}} />
+          <div className='absolute right-full -left-8 cursor-pointer' onClick={() => { setCurrentCourse(p => p === 0 ? p : p - 1) }}>
+            <KeyboardArrowLeftIcon color={currentCourse === 0 ? 'disabled' : ''} sx={{ width: '40px', height: '40px' }} />
           </div>
           {loading &&
             <img src={spinner} alt="" width={'10%'} />
@@ -169,9 +174,9 @@ const Home = () => {
           <div className='overflow-hidden '>
             <div className='flex w-full whitespace-nowrap transition duration-[1000] ease' style={{ transform: `translate3d(${-currentCourse * 100}%, 0, 0)` }} ref={scrollCourse}>
               {
-                myCourse?.map((item,i) => {
+                myCourse?.map((item, i) => {
                   return (
-                    <div className={(i%4!==0)?'inline-block pl-10':'inline-block pl-5'}>
+                    <div className={(i % 4 !== 0) ? 'inline-block pl-10' : 'inline-block pl-5'}>
                       <Card
                         id={item._id}
                         title={item.title}
@@ -187,8 +192,8 @@ const Home = () => {
               }
             </div>
           </div>
-          {<div className='absolute left-full flex justify-start items-center -right-8 cursor-pointer' onClick = {()=>{setCurrentCourse(p=>p===Math.ceil(myCourse.length/4)-1?p:p+1)}}>
-            <KeyboardArrowRightIcon  color={currentCourse===Math.ceil(myCourse.length/4)-1?'disabled':''} sx={{width:'40px',height:'40px'}}  />
+          {<div className='absolute left-full flex justify-start items-center -right-8 cursor-pointer' onClick={() => { setCurrentCourse(p => p === Math.ceil(myCourse.length / 4) - 1 ? p : p + 1) }}>
+            <KeyboardArrowRightIcon color={currentCourse === Math.ceil(myCourse.length / 4) - 1 ? 'disabled' : ''} sx={{ width: '40px', height: '40px' }} />
           </div>}
         </div>
       </div>
