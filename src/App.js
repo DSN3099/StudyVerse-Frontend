@@ -9,6 +9,8 @@ import CreateCourse from './components/CreateCourse'
 import Courseupload from './pages/Courseupload';
 import Study from "./pages/StudyPage";
 import TeachersPage from './pages/TeachersPage';
+import Forget from './components/Auth/Signin/Forget';
+import Changepassword from './components/Auth/Signin/Changepassword';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route exact path="/" element={<Landing />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/signin" element={<Signin />}></Route>
+          <Route path="/forget" element={<Forget />}></Route>
+          <Route path="/changepass/:id" element={<Changepassword />}></Route>
           <Route path="/home" element={<Home />}></Route>
           <Route exact path="/teacher" element={<TeachersPage />}></Route>
           <Route exact path="/courseinfo/:id" element={<CourseInfo />}></Route>

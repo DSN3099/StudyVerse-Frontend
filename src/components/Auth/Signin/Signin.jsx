@@ -133,7 +133,7 @@ const Signin = () => {
                     <input class='w-4 h-4 ' type="checkbox" />
                     <span class='text-xl text-slate-600'>Remember Me</span>
                   </div>
-                  <div class='flex  cursor-pointer '>
+                  <div class='flex  cursor-pointer 'onClick={()=>{navigate('/forget')}}>
                     <span class='text-xl text-slate-600'>Forgot Password?</span>
                   </div>
                 </div>
