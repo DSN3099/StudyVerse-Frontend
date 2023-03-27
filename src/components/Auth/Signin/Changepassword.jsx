@@ -18,7 +18,7 @@ const Changepassword = () => {
     const newpassword = async () =>{
         try{
             if(pass === confirmpass){
-                const {data} = await axios.patch(`http://localhost:5000/api/auth/changepassword/${id}`,{password:pass},config)
+                const {data} = await axios.patch(`https://studyverse-su4s.onrender.com/api/auth/changepassword/${id}`,{password:pass},config)
                 navigate("/signin")
             }
         }catch(err){

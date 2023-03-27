@@ -73,7 +73,7 @@ const Reviews = ({ reviewsdata,setReviewsdata,userdata }) => {
 
   const addreviews = async () => {
     try {
-      const { data } = await axios.post(`http://localhost:5000/api/review/${id}`, { text: userreviews, rating: value }, config)
+      const { data } = await axios.post(`https://studyverse-su4s.onrender.com/api/review/${id}`, { text: userreviews, rating: value }, config)
       data.firstname=userdata?.firstname
       data.lastname=userdata?.lastname
       reviewsdata.push(data)
@@ -85,7 +85,7 @@ const Reviews = ({ reviewsdata,setReviewsdata,userdata }) => {
 
   const togglelikes = async (id) =>{
     try{
-      const {data} = await axios.patch(`http://localhost:5000/api/review/${id}`,{action:'LIKE'},config)
+      const {data} = await axios.patch(`https://studyverse-su4s.onrender.com/api/review/${id}`,{action:'LIKE'},config)
     }catch(err){
       console.log(err)
     }
@@ -93,7 +93,7 @@ const Reviews = ({ reviewsdata,setReviewsdata,userdata }) => {
 
   const toggledislikes = async (id) =>{
     try{
-      const {data} = await axios.patch(`http://localhost:5000/api/review/${id}`,{action:'DISLIKE'},config)
+      const {data} = await axios.patch(`https://studyverse-su4s.onrender.com/api/review/${id}`,{action:'DISLIKE'},config)
     }catch(err){
       console.log(err)
     }
@@ -129,7 +129,7 @@ const Reviews = ({ reviewsdata,setReviewsdata,userdata }) => {
 
   const report = async () =>{
     try{
-      const {data} = await axios.patch(`http://localhost:5000/api/review/${reviewid}`,{action:'REPORT',reportDescription:userreport},config)
+      const {data} = await axios.patch(`https://studyverse-su4s.onrender.com/api/review/${reviewid}`,{action:'REPORT',reportDescription:userreport},config)
       console.log(data)
     }catch(err){
       console.log(err)

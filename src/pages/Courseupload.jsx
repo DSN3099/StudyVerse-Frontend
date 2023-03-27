@@ -44,7 +44,7 @@ const Courseupload = () => {
   }
   const addvideos = async (Data) => {
     try {
-      const { data } = await axios.post(`http://localhost:5000/api/video/${id}`, Data,config)
+      const { data } = await axios.post(`https://studyverse-su4s.onrender.com/api/video/${id}`, Data,config)
       console.log(data)
     } catch (err) {
       console.log(err)
@@ -81,7 +81,7 @@ const Courseupload = () => {
     const getvideos = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5000/api/course/${id}`, config
+          `https://studyverse-su4s.onrender.com/api/course/${id}`, config
         )
         setFileupload(data.lessons)
         setCoursedata(data)
@@ -99,7 +99,7 @@ const Courseupload = () => {
   const editvideos = async (i) => {
     try {
       const { data } = await axios.patch(
-        `http://localhost:5000/api/video/${id}`,
+        `https://studyverse-su4s.onrender.com/api/video/${id}`,
         {
           videoname: editname,
           id: editid,
@@ -117,7 +117,7 @@ const Courseupload = () => {
   const deletevideos = async () => {
     try {
       const { data } = await axios.delete(
-        `http://localhost:5000/api/video/${id}/${deleteid}`,config
+        `https://studyverse-su4s.onrender.com/api/video/${id}/${deleteid}`,config
       )
       fileupload.splice(deleteindex, 1)
       setFileupload([...fileupload])

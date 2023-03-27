@@ -64,7 +64,7 @@ function Study() {
     useEffect(() => {
         const getCourse = async () => {
             try {
-                const { data } = await axios.get(`http://localhost:5000/api/course/${id}`,config)
+                const { data } = await axios.get(`https://studyverse-su4s.onrender.com/api/course/${id}`,config)
                 console.log(data)
                 setCoursedata(data)
                 setUrl(data.lessons[1].url)
@@ -82,7 +82,7 @@ function Study() {
 
     const userdata = async ()=>{
         try{
-            const {data} = await axios.get(`http://localhost:5000/api/user`,config)
+            const {data} = await axios.get(`https://studyverse-su4s.onrender.com/api/user`,config)
             setUsers(data)
             console.log(data)
         }catch(err){
@@ -92,7 +92,7 @@ function Study() {
 
 const getreviews = async ()=>{
   try{
-    const {data} = await axios.get(`http://localhost:5000/api/review/${id}`,config)
+    const {data} = await axios.get(`https://studyverse-su4s.onrender.com/api/review/${id}`,config)
     setReviewsdata(data)
     console.log(data)
   }catch(err){
