@@ -6,7 +6,6 @@ import Caraousel from '../components/Caraousel';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import Footer from '../components/Footer';
-import Coursecard from '../components/Coursecard';
 import spinner from '../assets/buffer.gif'
 import banner from '../assets/banner.jpeg'
 import coaching from '../assets/coaching.jpg'
@@ -73,17 +72,9 @@ const Home = () => {
   const [alert, setAlert] = useState()
   const timeOutRef = useRef(null)
   const scrollCourse = useRef(null)
-  const [hover, setHover] = useState(false)
   const navigate = useNavigate()
 
   const Token = sessionStorage.getItem('token')
-  const config = {
-    withCredentials: true,
-    headers: {
-      'Authorization': `bearer ${Token}`,
-      'Content-Type': 'application/json'
-    }
-  }
 
   function resetTimeOut() {
     if (timeOutRef.current) {
@@ -97,6 +88,13 @@ const Home = () => {
   }, [navigate])
 
   useEffect(() => {
+    const config = {
+      withCredentials: true,
+      headers: {
+        'Authorization': `bearer ${Token}`,
+        'Content-Type': 'application/json'
+      }
+    }
     const getCourses = async () => {
       try {
         const { data } = await axios.get('http://localhost:5000/api/course/', config)
@@ -116,7 +114,7 @@ const Home = () => {
     if (initial) {
       getCourses()
     }
-  }, [initial])
+  }, [initial,Token, navigate])
 
   useEffect(() => {
     if (initial) {
@@ -164,7 +162,7 @@ const Home = () => {
           </div>
         </div>
         <h6 class="text-black-200 font-bold text-xl">My Courses</h6>
-        <div class='flex items-center relative' onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+        <div class='flex items-center relative'>
           <div className='absolute right-full -left-8 cursor-pointer' onClick={() => { setCurrentCourse(p => p === 0 ? p : p - 1) }}>
             <KeyboardArrowLeftIcon color={currentCourse === 0 ? 'disabled' : ''} sx={{ width: '40px', height: '40px' }} />
           </div>
@@ -181,7 +179,7 @@ const Home = () => {
                         id={item._id}
                         title={item.title}
                         course={item.category}
-                        rating={item.rating}
+                        // rating={item.rating}
                         level={item.level}
                         img={item.image}
                         price={item.price}
