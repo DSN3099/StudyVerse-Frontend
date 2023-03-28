@@ -26,13 +26,21 @@ const Signin = () => {
     }, 5000);
   }, [])
 
+  useEffect(()=>{
+    const expired = localStorage.getItem('expired');
+    if(expired==='true'){
+      setError('Session has expired, please login again...')
+    }
+  },[])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('http://localhost:5000/api/auth/login', states, { withCredentials: true })
+      const { data } = await axios.post('https://studyverse-su4s.onrender.com/api/auth/login', states, { withCredentials: true })
       console.log(data)
       sessionStorage.setItem('signedin', 'true');
       localStorage.setItem('token', data.token)
+      localStorage.removeItem('expired')
       navigate('/home')
     } catch (err) {
       setError(err.response.data)

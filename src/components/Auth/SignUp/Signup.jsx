@@ -62,7 +62,7 @@ const Signup = () => {
   useEffect(()=>{
     const handleSignin = async() =>{
       try{
-        const data = await axios.post('http://localhost:5000/api/auth/register',states)
+        const data = await axios.post('https://studyverse-su4s.onrender.com/api/auth/register',states)
         console.log(data)
         sessionStorage.setItem('isSignUp','true')
         navigate('/signin')
