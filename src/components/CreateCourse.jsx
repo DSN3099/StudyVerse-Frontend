@@ -45,7 +45,7 @@ const CreateCourse = () => {
   const postData = async (post) => {
     try {
       console.log(courseData)
-      const { data } = await axios.post('https://studyverse-su4s.onrender.com/api/course/', post, config)
+      const { data } = await axios.post('http://localhost:5000/api/course/', post, config)
       // console.log(data)
       navigate(`/videoupload/${data._id}`)
     } catch (err) {
