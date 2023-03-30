@@ -98,7 +98,6 @@ const Home = () => {
     const getCourses = async () => {
       try {
         const { data } = await axios.get('http://localhost:5000/api/course/', config)
-        console.log(data)
         setLoading(false)
         setMyCourse(data)
       }
@@ -119,7 +118,7 @@ const Home = () => {
   useEffect(() => {
     if (initial) {
       const value = sessionStorage.getItem('signedin')
-      console.log(value)
+      // console.log(value)
       setAlert(value)
       setInitial(false)
     }
