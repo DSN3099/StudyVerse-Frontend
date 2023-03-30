@@ -98,7 +98,6 @@ const Home = () => {
     const getCourses = async () => {
       try {
         const { data } = await axios.get('http://localhost:5000/api/course/', config)
-        // console.log(data)
         setLoading(false)
         setMyCourse(data)
       }
