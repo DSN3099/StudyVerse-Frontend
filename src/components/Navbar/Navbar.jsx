@@ -27,7 +27,7 @@ const Navbar = ({ type, page }) => {
   }
   const handleLogout = async() => {
     try{
-      await axios.get('https://studyverse-su4s.onrender.com/api/auth/logout',config)
+      await axios.get('http://localhost:5000/api/auth/logout',config)
       console.log("first")
       sessionStorage.clear()
       localStorage.clear()
