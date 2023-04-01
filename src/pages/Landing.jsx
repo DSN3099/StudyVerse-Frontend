@@ -5,13 +5,69 @@ import design from '../assets/landesign.png';
 import { useNavigate } from 'react-router-dom';
 import ayush from '../assets/ayush.jpg';
 import anup from '../assets/anup.jpg';
+import rohit from '../assets/rohit.jpg';
+import sanjeev from '../assets/sanjeev.jpg';
+import dakshh from '../assets/dakshh.jpg';
+import yash from '../assets/yash.jpg';
 import gaurav from '../assets/gaurav.jpg';
+import prabhat from '../assets/prabhat.jpg';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import Footer from '../components/Footer';
+
+const data = [
+    {
+        id: 1,
+        img: anup,
+        name: 'Anup Pal',
+        position: 'Frontend and Backend Developer'
+    },
+    {
+        id: 2,
+        img: ayush,
+        name: 'Ayush Raj',
+        position: 'Frontend and Backend Developer'
+    },
+    {
+        id: 3,
+        img: gaurav,
+        name: 'Gaurav Rai',
+        position: 'Frontend and Backend Developer'
+    },
+    {
+        id: 4,
+        img: yash,
+        name: 'Yashvardhan Singh Bhadoria',
+        position: 'Frontend Developer'
+    },
+    {
+        id: 5,
+        img: rohit,
+        name: 'Rohit Gore',
+        position: 'Frontend Developer'
+    },
+    {
+        id: 6,
+        img: sanjeev,
+        name: 'Sanjeev',
+        position: 'Frontend Developer'
+    },
+    {
+        id: 7,
+        img: dakshh,
+        name: 'Dakshh',
+        position: 'Frontend Developer'
+    },
+    {
+        id: 8,
+        img: prabhat,
+        name: 'Prabhat Mishra',
+        position: 'Frontend Developer'
+    },
+]
 
 const Landing = () => {
     const navigate = useNavigate();
@@ -23,7 +79,7 @@ const Landing = () => {
     }
     return (
         <div class='w-full '>
-            <Navbar type='notVerified'/>
+            <Navbar type='notVerified' />
             <div class='flex max-h-full'>
                 <div class='flex flex-col w-2/3 '>
                     <div class='p-10'>
@@ -51,64 +107,33 @@ const Landing = () => {
                         <span class='text-4xl text-white font-semibold font-serif'>About Us</span>
                     </div>
                 </div>
-                <div class='flex p-10 justify-evenly '>
-                    <Card sx={{ maxWidth: 345 }}>
-                        <CardActionArea>
-                            <CardMedia
-                                component="img"
-                                height="100"
-                                image={anup}
-                                alt="anup"
-                            />
-                            <CardContent class='flex flex-col gap-6 p-4'>
-                                <Typography gutterBottom variant="h5" component="div" class='font-bold text-2xl'>
-                                    Anup Pal
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary" class='text-2xl text-center'>
-                                    Frontend and Backend Developer
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                    <Card sx={{ maxWidth: 345 }}>
-                        <CardActionArea>
-                            <CardMedia
-                                component="img"
-                                height="140"
-                                image={ayush}
-                                alt="ayush"
-                            />
-                            <CardContent class='flex flex-col gap-6 p-4'>
-                                <Typography gutterBottom variant="h5" component="div" class='font-bold text-2xl'>
-                                    Ayush
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary" class='text-2xl text-center'>
-                                    Frontend and Backend Developer
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                    <Card sx={{ maxWidth: 345 }}>
-                        <CardActionArea>
-                            <CardMedia
-                                component="img"
-                                height="140"
-                                image={gaurav}
-                                alt="gaurav"
-                            />
-                            <CardContent class='flex flex-col gap-6 p-4'>
-                                <Typography gutterBottom variant="h5" component="div" class='font-bold text-2xl' >
-                                    Gaurav
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary" class='text-2xl text-center' >
-                                    Frontend and Backend Developer
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
+                <div class='flex py-10 gap-10 justify-evenly flex-wrap'>
+                    {data.map((d, i) => (
+                        <Card sx={{ maxWidth: 250 }}>
+                            <CardActionArea>
+                                <CardMedia
+                                    component="img"
+                                    width='250px'
+                                    image={d.img}
+                                    alt="dp"
+                                    className='max-h-[237px]'
+                                />
+                                <CardContent class='flex flex-col gap-6 p-4'>
+                                    <Typography gutterBottom variant="h5" component="div" class='font-bold text-2xl'>
+                                        {d.name}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary" class='text-2xl text-center'>
+                                        {d.position}
+                                    </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+                    ))
+                    }
+
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     )
 }
