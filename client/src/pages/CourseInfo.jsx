@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import star from '../assets/star.svg'
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -16,6 +16,7 @@ import klara from '../assets/klara.jpg'
 import images from '../images'
 import Card from './Card';
 import Footer from '../components/Footer';
+import { useNavigate } from 'react-router-dom';
 
 export const ratingData = [
     { id: 1, img: `${images.jay}`, rating: 5, name: 'Jay Rutherford', review:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Error delectus ut dolorum at cum neque quod fugit dolore rem cumque!' },
@@ -27,10 +28,10 @@ export const ratingData = [
 ]
 
 export const cardData = [
-    { id: 1, title: 'Digital Poster Design: Best Practices', course: 'Graphic Design', img: `${images.card}`, level: 'Beginner', rating: '4.5' },
-    { id: 2, title: 'Digital Poster Design: Best Practices', course: 'Graphic Design', img: `${images.card}`, level: 'Beginner', rating: '4.5' },
-    { id: 3, title: 'Digital Poster Design: Best Practices', course: 'Graphic Design', img: `${images.card}`, level: 'Beginner', rating: '4.5' },
-    { id: 4, title: 'Digital Poster Design: Best Practices', course: 'Graphic Design', img: `${images.card}`, level: 'Beginner', rating: '4.5' },
+    { id: 1, title: 'Digital Poster Design: Best Practices', course: 'Graphic Design', img: `${images.card}`, level: 'Beginner', rating: '4.5',price : 0 },
+    { id: 2, title: 'Digital Poster Design: Best Practices', course: 'Graphic Design', img: `${images.card}`, level: 'Beginner', rating: '4.5',price : 0 },
+    { id: 3, title: 'Digital Poster Design: Best Practices', course: 'Graphic Design', img: `${images.card}`, level: 'Beginner', rating: '4.5',price : 0 },
+    { id: 4, title: 'Digital Poster Design: Best Practices', course: 'Graphic Design', img: `${images.card}`, level: 'Beginner', rating: '4.5',price : 0 },
 ]
 
 const CourseInfo = () => {
@@ -41,11 +42,18 @@ const CourseInfo = () => {
         relCourse: false,
     })
 
+    const navigate = useNavigate()
+    
+    useEffect(()=>{
+        const token = localStorage.getItem('token')
+        if(!token) navigate('/signin')
+      },[navigate])
+
     const [showAll, setShowAll] = useState(false)
 
     return (
         <div class='w-full h-full flex flex-col scroll-smooth'>
-            <Navbar />
+            <Navbar type={'verified'} />
             <div class='w-full h-full flex flex-col px-20 py-4 gap-5'>
                 <div class='font-normal text-gray-500 text-sm'>Home/Design/ <span class='font-normal text-black'>UI/UX Design</span></div>
                 <div class='font-bold text-2xl'>UI Design, A User-Centered Approach</div>
@@ -187,11 +195,13 @@ const CourseInfo = () => {
                             cardData.map((item, i) => (
                                 <div class = 'cursor-pointer'>
                                     <Card
+                                        id={item.id}
                                         title={item.title}
                                         course={item.course}
                                         rating={item.rating}
                                         level={item.level}
                                         img={item.img}
+                                        price={item.price}
                                     />
                                 </div>
                             ))
