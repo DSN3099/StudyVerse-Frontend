@@ -6,6 +6,7 @@ import Signin from './components/Auth/Signin/Signin';
 import CourseInfo from './pages/CourseInfo';
 import Landing from './pages/Landing';
 import Study from "./pages/StudyPage";
+import Teacher from "./pages/Teacher";
 function App() {
   return (
     <div className="App">
@@ -16,6 +17,7 @@ function App() {
         <Route path="/home" element={<Home/>}></Route>
         <Route path="/signin" element={<Signin/>}></Route>
         <Route path = "/study" element = {<Study/>}></Route>
+        <Route path = "/Teacher" element = {<Teacher/>}></Route>
       </Routes>
     </div>
   );
