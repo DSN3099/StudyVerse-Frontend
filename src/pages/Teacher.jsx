@@ -3,7 +3,7 @@ import Avatar from '../assets/Avatar1.jpg'
 import Place1 from '../assets/Place1.png'
 import logo3 from "../assets/coures.png"
 import Footer from "../components/Footer";
-// import { Link, Rating } from "@mui/material";
+import { Link, Rating } from "@mui/material";
 
 
 function Teacher() {
@@ -23,12 +23,12 @@ function Teacher() {
                 <Navbar type='verified' />
             </div>
 
-            <div className="relative h-12 w-72 left-36">
+            {/* <div className="relative h-12 w-72 left-36">
                 <pre className="absolute left-0 ">Home / UI/UX Design / <span className="font-semibold">Teacher Profile</span></pre>
-            </div>
+            </div> */}
 
             {/* Breadcrumb */}
-            {/* <div className="relative h-12 w-72 left-36">
+            <div className="relative h-12 w-72 left-36">
                 <pre className="absolute left-0 ">
                     <Link underline="hover" color="inherit" href="/">
                         Home
@@ -41,7 +41,7 @@ function Teacher() {
                     <span className="font-semibold"> Teacher Profile</span>
 
                 </pre>
-            </div> */}
+            </div>
 
 
 
@@ -102,7 +102,7 @@ function Teacher() {
                     <div className="pl-72 font-bold">$49</div>
                 </div>
 
-                <div className="text-[10px]">May 21 ⭐⭐⭐</div>
+                {/* <div className="text-[10px]">May 21 ⭐⭐⭐</div> */}
 
 
                 <div className="w-48 top-11 max-w-none mt-1 border-solid rounded-lg border-2 object-cover">
@@ -135,7 +135,7 @@ function Teacher() {
                         <div className="pl-72 font-bold">$49</div>
                     </div>
 
-                    <div className="text-[10px]">May 21 ⭐⭐⭐</div>
+                    {/* <div className="text-[10px]">May 21 ⭐⭐⭐</div> */}
 
 
                     <div className="w-48 top-11 max-w-none mt-1 border-solid rounded-lg border-2 object-cover">
@@ -173,8 +173,8 @@ function Teacher() {
                     <div className="relative top-12 h-24 ml-3 w-2/5">
                         <div className="font-semibold text-lg">4.8/5</div>
                         <div className="relative top-3 text-xs font-medium">(1000+review)</div>
-                        <div className="relative top-5">⭐⭐⭐</div>
-                        {/* <Rating className="half-rating relative top-5" defaultValue={2.5} precision={0.5} /> */}
+                        {/* <div className="relative top-5">⭐⭐⭐</div> */}
+                        <Rating className="half-rating relative top-5" defaultValue={2.5} precision={0.5} />
                     </div>
                     <div className="relative left-60 bottom-12 h-24 ml-3 w-2/5">
                         <div className="grid grid-rows-5 grid-flow-col gap-1">
