@@ -1,47 +1,111 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import cpgirl from '../assets/cpgirl.jpg'
-import videocreation from '../assets/videocreation.jpg'
 import Footer from '../components/Footer'
-import buildaudience from '../assets/buildaudience.jpg'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import Alert from '../components/Alert'
 
 const TeachersPage = () => {
-  const navigate=useNavigate()
+  const [checked, setChecked] = useState(false)
+  const [disabled, setDisabled] = useState(true)
+  const [alert, setAlert] = useState(false)
+  const timeOutRef = useRef()
+  const checkfunction = () => {
+    setChecked(!checked)
+    if (!checked) setAlert(true)
+  }
+  useEffect(() => {
+    if (checked) {
+      setDisabled(false)
+    } else {
+      setDisabled(true)
+    }
+  }, [checked])
+
+  function resetTimeOut() {
+    if (timeOutRef.current) {
+      clearTimeout(timeOutRef.current)
+    }
+  }
+
+  useEffect(() => {
+    if (alert) {
+      resetTimeOut()
+      timeOutRef.current = setTimeout(() => {
+        setAlert(false)
+      }, 3000)
+    }
+  }, [alert])
+
+  const dstyle = 'text-2xl font-medium bg-blue-600 opacity-50 cursor-not-allowed p-5 rounded-md text-white '
+  const style = 'text-2xl font-medium bg-blue-600 p-5 rounded-md text-white '
+
+  const navigate = useNavigate()
   return (
     <div className="main">
       <Navbar type="verified" page="Teacher" />
 
       {/* course creation button */}
-      <div className="course-creation flex justify-between items-center  bg-white-100 shadow-lg shadow-slate-300 p-11 m-24">
+      <div className="course-creation flex justify-between items-center  bg-white-100 shadow-lg shadow-slate-300 p-11 m-24 ">
+        {alert &&
+          <Alert msg='You can now create your course' type='SUCCESS' />
+        }
         <h1 className=" text-2xl font-bold">Jump Into Course Creation</h1>
-        <button className="text-2xl font-medium bg-blue-600 p-5 rounded-md text-white" onClick={()=>{
-          navigate("/createcourse")
-        }}>
+        <button
+          className={disabled ? dstyle : style}
+          disabled={disabled}
+          onClick={() => {
+            navigate('/createcourse')
+          }}
+          id="course"
+        >
           Create Your Course
         </button>
       </div>
-      <div className="text-center text-3xl font-medium">
-        Based on your experience, we think these resources will be helpful.
+      <div className="text-center text-3xl font-medium ">
+        Rules to be followed by the instructors.
       </div>
       {/* course creation */}
-      <div className="course-creation flex bg-white-100 shadow-lg shadow-slate-300 rounded-md justify-evenly items-center  p-11 m-24">
-        <img src={cpgirl} alt="" className=" mb-24" />
+      <div className="course-creation flex bg-white-100 shadow-lg shadow-slate-300 rounded-md justify-evenly items-center  p-11 mx-20 my-10">
+        <img src={cpgirl} alt="" className=" mb-20" />
         <div className="gap-5 flex  flex-col mb-24 w-1/2  p-5">
-          <h1 className="text-2xl font-medium ">Create an Engaging Course</h1>
-          <p className="text-2xl ">
-            Whether you've been teaching for years or are teaching for the first
-            time, you can make an engaging course. We've compiled resources and
-            best practices to help you get to the next level, no matter where
-            you're starting.
-          </p>
-          <button className="text-violet-500 underline-offset-4 flex ">
-            Get Started
-          </button>
+          <ul style={{ listStyleType: 'disc' }} className='text-2xl'>
+            <li>The data you provide should be valid at all cost .</li>
+            <li>
+              The courses, you upload should be unique and not copied from some
+              other site.
+            </li>
+
+            <li>
+              If found violating any of the above rules strict actions will be
+              taken against them.
+            </li>
+          </ul>
         </div>
       </div>
+      <div className="flex justify-center items-center mb-5">
+        <div
+          className="flex gap-2 justify-center items-center ">
+          <input
+            style={{ width: '20px', height: '20px' }}
+            type="checkbox"
+            name=""
+            id=""
+            value={checked}
+            onClick={() => {
+              checkfunction()
+            }}
+            href="#course"
+          />
+          <div className="text-xl">
+            "I hereby agree to all the above rules and regulations."
+          </div>
+        </div>
+      </div>
+      {/* rules checkbox */}
+
       {/* video */}
-      <div className="course-creation flex justify-between items-center gap-14 p-11   m-24">
+      {/* <div className="course-creation flex justify-between items-center gap-14 p-11   m-24">
         <div className="w-1/2 h-full gap-8 flex py-24 px-9  bg-white-100 shadow-lg shadow-slate-300">
           <div className="w-1/2 ">
             <img src={videocreation} alt="" />
@@ -72,13 +136,13 @@ const TeachersPage = () => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* simple div have questions */}
-      <div className="text-center m-11">
+      {/* <div className="text-center m-11">
         <h1 className="text-2xl font-semibold">
           Have Questions? Here are our most popular instructor resources
         </h1>
-      </div>
+      </div> */}
       {/* footer */}
       <Footer />
     </div>
