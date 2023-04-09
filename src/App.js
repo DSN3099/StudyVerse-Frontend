@@ -9,6 +9,7 @@ import CreateCourse from './components/CreateCourse'
 import Courseupload from './pages/Courseupload';
 import Study from "./pages/StudyPage";
 import TeachersPage from './pages/TeachersPage';
+import Profile from "./pages/Profile";
 import Forget from './components/Auth/Signin/Forget';
 import Changepassword from './components/Auth/Signin/Changepassword';
 import Security from './pages/Security';
@@ -30,6 +31,7 @@ function App() {
           <Route path='/createcourse' element={<CreateCourse />}></Route>
           <Route path='/videoupload/:id' element={<Courseupload />}></Route>
           <Route path="/video/:id" element={<Study />}></Route>
+          <Route path="/profile" element={<Profile />}></Route>
           <Route path="/security" element={<Security />}></Route>
         </Routes>
       </GoogleOAuthProvider>
