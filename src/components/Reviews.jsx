@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { Rating, Typography, Avatar, Button, TextField } from '@mui/material';
@@ -18,6 +18,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import moment from 'moment';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import Alert from './Alert';
 
 function LinearProgressWithLabel(props) {
   return (
@@ -62,8 +63,11 @@ const Reviews = ({ reviewsdata, setReviewsdata, userdata, courseData }) => {
   const [progress4, setProgress4] = useState(0);
   const [progress5, setProgress5] = useState(0);
   const [averagerate, setAveragerate] = useState(0);
+  const [reportmsg,setReportmsg] = useState();
+  const [alerttype,setAlerttype] = useState();
 
-  const { id } = useParams()
+  const { id } = useParams();
+  const timeOutRef = useRef();
 
   const Token = localStorage.getItem('token')
   const config = {
@@ -149,9 +153,12 @@ const Reviews = ({ reviewsdata, setReviewsdata, userdata, courseData }) => {
   const report = async () =>{
     try{
       const {data} = await axios.patch(`http://localhost:5000/api/review/${reviewid}`,{action:'REPORT',reportDescription:userreport},config)
+      setReportmsg("Reported successfully.");
+      setAlerttype('SUCCESS');
       console.log(data)
     } catch (err) {
-      console.log(err)
+      setReportmsg(err.response.data);
+      setAlerttype('ERROR');
     }
   }
 
@@ -170,6 +177,20 @@ const Reviews = ({ reviewsdata, setReviewsdata, userdata, courseData }) => {
       setAveragerate(totalstars/total);
     }
   },[reviewsdata])
+
+  function resetTimeOut() {
+    if (timeOutRef.current) {
+      clearTimeout(timeOutRef.current)
+    }
+  }
+
+  useEffect(() => {
+    resetTimeOut();
+    timeOutRef.current = setTimeout(() => {
+      setReportmsg(null)
+    }, 3000)
+  }, [reportmsg])
+
 
   return (
     <div className='flex flex-col gap-3'>
@@ -305,6 +326,12 @@ const Reviews = ({ reviewsdata, setReviewsdata, userdata, courseData }) => {
           </DialogActions>
         </Dialog>
       }
+      <div>
+        {reportmsg && 
+        <Alert msg={reportmsg} type={alerttype}/>
+
+        }
+      </div>
     </div>
   )
 }
