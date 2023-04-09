@@ -39,7 +39,6 @@ const Forget = () => {
     const verifyemail = async () => {
         try {
             const { data } = await axios.post(`http://localhost:5000/api/auth/verifyEmail`, { email: email }, config)
-            console.log(data)
             setResponse(data)
             setGetotp(true)
         } catch (err) {

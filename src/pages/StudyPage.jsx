@@ -63,7 +63,6 @@ function Study() {
         const getCourse = async () => {
             try {
                 const { data } = await axios.get(`http://localhost:5000/api/course/${id}`,config)
-                console.log(data)
                 setCoursedata(data)
                 setUrl(data.lessons[0].url)
             }
@@ -82,7 +81,6 @@ function Study() {
         try{
             const {data} = await axios.get(`http://localhost:5000/api/user`,config)
             setUsers(data)
-            // console.log(data)
         }catch(err){
             console.log(err)
         }
@@ -92,7 +90,6 @@ const getreviews = async ()=>{
   try{
     const {data} = await axios.get(`http://localhost:5000/api/review/${id}`,config)
     setReviewsdata(data)
-    // console.log(data)
   }catch(err){
     console.log(err)
   }

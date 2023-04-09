@@ -45,7 +45,6 @@ const Courseupload = () => {
   const addvideos = async (Data) => {
     try {
       const { data } = await axios.post(`http://localhost:5000/api/video/${id}`, Data,config)
-      console.log(data)
     } catch (err) {
       console.log(err)
     }
@@ -54,19 +53,16 @@ const Courseupload = () => {
 
   const handleChange = async (e) => {
     const files = [...e.target.files]
-    console.log(files)
     files.forEach(async (file, i) => {
       setLoaderindex(fileupload.length - i)
       setLoading(true)
       const fileid = v4()
       fileupload.push({ id: fileid, name: file.name, size: file.size })
       setFileupload([...fileupload])
-      // console.log(fileupload)
       const storageref = ref(storage, `video/${file.name + fileid}`)
       await uploadBytes(storageref, file)
       const url = await getDownloadURL(storageref)
       const Data = { id: fileid, name: file.name, size: file.size, url }
-      // console.log(url)
       addvideos(Data)
       setLoading(false)
     })
@@ -85,7 +81,6 @@ const Courseupload = () => {
         )
         setFileupload(data.lessons)
         setCoursedata(data)
-        console.log(data)
       } catch (err) {
         console.log(err)
       }
@@ -108,7 +103,6 @@ const Courseupload = () => {
       )
       fileupload[i].name = editname
       setFileupload([...fileupload])
-      console.log(data)
     } catch (err) {
       console.log(err)
     }
@@ -121,7 +115,6 @@ const Courseupload = () => {
       )
       fileupload.splice(deleteindex, 1)
       setFileupload([...fileupload])
-      console.log(data)
     } catch (err) {
       console.log(err)
     }
