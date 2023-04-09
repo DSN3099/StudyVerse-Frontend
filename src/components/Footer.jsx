@@ -13,7 +13,6 @@ const Footer = () => {
   const timeOutRef = useRef()
   const sendEmail = (e) => {
     e.preventDefault();
-    console.log('first')
     emailjs.sendForm('service_b4b4jnf', 'template_6ta3ezl', form.current, 'i2wpPinbB8m9ZVwLp')
       .then((result) => {
         console.log(result.text);

@@ -3,8 +3,6 @@ import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { Rating, Typography, Avatar, Button, TextField } from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';
-import dp from '../assets/annie.jpg';
-import { amber } from '@mui/material/colors';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownAltOutlinedIcon from '@mui/icons-material/ThumbDownAltOutlined';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
@@ -149,7 +147,6 @@ const Reviews = ({ reviewsdata, setReviewsdata, userdata, courseData }) => {
   const report = async () => {
     try {
       const { data } = await axios.patch(`http://localhost:5000/api/review/${reviewid}`, { action: 'REPORT', reportDescription: userreport }, config)
-      console.log(data)
     } catch (err) {
       console.log(err)
     }

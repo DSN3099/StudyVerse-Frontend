@@ -44,9 +44,7 @@ const CreateCourse = () => {
 
   const postData = async (post) => {
     try {
-      console.log(courseData)
       const { data } = await axios.post('http://localhost:5000/api/course/', post, config)
-      // console.log(data)
       navigate(`/videoupload/${data._id}`)
     } catch (err) {
       console.log(err)
