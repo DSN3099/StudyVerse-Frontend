@@ -7,6 +7,8 @@ import { useState } from 'react'
 import axios from 'axios'
 import Alert from '../../Alert'
 import Loader from '../SignUp/Loader'
+import Google from './Google';
+
 
 const Signin = () => {
 
@@ -26,18 +28,17 @@ const Signin = () => {
     }, 5000);
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     const expired = localStorage.getItem('expired');
-    if(expired==='true'){
+    if (expired === 'true') {
       setError('Session has expired, please login again...')
     }
-  },[])
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const { data } = await axios.post('http://localhost:5000/api/auth/login', states, { withCredentials: true })
-      console.log(data)
       sessionStorage.setItem('signedin', 'true');
       localStorage.setItem('token', data.token)
       localStorage.removeItem('expired')
@@ -52,7 +53,7 @@ const Signin = () => {
       clearTimeout(timeOutRef.current)
     }
   }
-
+  // const gref = useRef()
   useEffect(() => {
     resetTimeOut();
     timeOutRef.current = setTimeout(() => {
@@ -64,16 +65,17 @@ const Signin = () => {
   const handleChange = () => {
     navigate('/signup')
   }
+
   return (
     <>
       {loading &&
         <Loader />
       }
       {!loading && <div class=' flex items-center gap-8 mt-5 flex-col sm:w-full '>
-        {error && 
+        {error &&
           <Alert msg={error} type={"ERROR"} />
         }
-        <div class='flex mt-4 justify-center cursor-pointer' onClick={()=>{navigate('/')}}>
+        <div class='flex mt-4 justify-center cursor-pointer' onClick={() => { navigate('/') }}>
           <img src={logo} alt="logo" class=' w-full h-full sm:w-1/2' />
         </div>
         <div class=' flex justify-center w-full h-full sm:w-full sm:px-10 '>
@@ -81,18 +83,11 @@ const Signin = () => {
             <div class='flex  '>
               <span class='font-bold text-3xl'>Sign In</span>
             </div>
-            <div class='flex flex-col gap-1 w-full'>
-              <button class='flex items-center justify-center  gap-2 bg-blue-600 w-full p-2.5 rounded-md  '>
-                <img class='' src="https://img.icons8.com/material-sharp/30/ffffff/google-logo.png" alt='google' />
-                <span class='text-2xl text-white'>Sign in with Google.</span>
-              </button>
-            </div>
-            <div class="flex items-center justify-center">
+            {/* <div class="flex items-center justify-center">
               <div class="border-x-8 bg-slate-500 h-px w-1/2"> </div>
               <span class="text-gray-600 ">OR </span>
               <div class="border-x-8 bg-slate-500 h-px w-1/2"></div>
-            </div>
-            {/* <div> */}
+            </div> */}
             <div class='flex flex-col gap-4 '>
               <form onSubmit={handleSubmit} class='flex flex-col gap-4 '>
                 <div class='flex flex-col gap-2'>
@@ -106,7 +101,7 @@ const Signin = () => {
                         setStates({
                           ...states, email: e.target.value
                         })
-                      }}/>
+                      }} />
                     </div>
                   </div>
                 </div>
@@ -133,16 +128,22 @@ const Signin = () => {
                     <input class='w-4 h-4 ' type="checkbox" />
                     <span class='text-xl text-slate-600'>Remember Me</span>
                   </div>
-                  <div class='flex  cursor-pointer 'onClick={()=>{navigate('/forget')}}>
+                  <div class='flex  cursor-pointer ' onClick={() => { navigate('/forget') }}>
                     <span class='text-xl text-slate-600'>Forgot Password?</span>
                   </div>
                 </div>
                 <div>
                   <button type='submit' class='flex items-center justify-center  gap-2 bg-blue-600 w-full p-2.5 rounded-md'>
                     <span class='text-2xl text-white'>Sign in</span>
+                    {
+
+                    }
                   </button>
                 </div>
               </form>
+              <div class='flex justify-center gap-1 w-full'>
+                <Google />
+              </div>
               <div class='flex justify-center gap-2 mb-4'>
                 <span>Don't Have An Account?</span>
                 <span class='text-sky-500 cursor-pointer' onClick={handleChange}>Sign up</span>

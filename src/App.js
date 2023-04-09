@@ -12,10 +12,13 @@ import TeachersPage from './pages/TeachersPage';
 import Profile from "./pages/Profile";
 import Forget from './components/Auth/Signin/Forget';
 import Changepassword from './components/Auth/Signin/Changepassword';
+import Security from './pages/Security';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function App() {
   return (
-        <div className="App ">
+    <div className="App ">
+      <GoogleOAuthProvider clientId='387769380643-bbrns9vbn9r0d75148iv0dnbbtlm0h5p.apps.googleusercontent.com'>
         <Routes>
           <Route exact path="/" element={<Landing />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
@@ -25,11 +28,13 @@ function App() {
           <Route path="/home" element={<Home />}></Route>
           <Route exact path="/teacher" element={<TeachersPage />}></Route>
           <Route exact path="/courseinfo/:id" element={<CourseInfo />}></Route>
-          <Route path='/createcourse' element = {<CreateCourse />}></Route>
-          <Route path='/videoupload/:id' element = {<Courseupload />}></Route>
+          <Route path='/createcourse' element={<CreateCourse />}></Route>
+          <Route path='/videoupload/:id' element={<Courseupload />}></Route>
           <Route path="/video/:id" element={<Study />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
+          <Route path="/security" element={<Security />}></Route>
         </Routes>
+      </GoogleOAuthProvider>
     </div>
   );
 }

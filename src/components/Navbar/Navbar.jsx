@@ -9,6 +9,7 @@ import images from '../../images'
 import LogoutIcon from '@mui/icons-material/Logout'
 import Dropdown from './Dropdown'
 import axios from 'axios'
+import { googleLogout } from '@react-oauth/google';
 
 const Navbar = ({ type, page }) => {
   const navigate = useNavigate()
@@ -19,20 +20,20 @@ const Navbar = ({ type, page }) => {
   }
   const Token = sessionStorage.getItem('token')
   const config = {
-    withCredentials:true,
+    withCredentials: true,
     headers: {
       'Authorization': `bearer ${Token}`,
       'Content-Type': 'application/json'
     }
   }
-  const handleLogout = async() => {
-    try{
-      await axios.get('http://localhost:5000/api/auth/logout',config)
-      console.log("first")
+  const handleLogout = async () => {
+    try {
+      await axios.get('http://localhost:5000/api/auth/logout', config)
       sessionStorage.clear()
       localStorage.clear()
+      googleLogout()
       navigate('/signin')
-    }catch(err){
+    } catch (err) {
       console.log(err)
     }
   }
@@ -154,6 +155,7 @@ const Navbar = ({ type, page }) => {
                 <LogoutIcon />
                 <div>Log Out</div>
               </div>
+
             </div>
           </div>
         </div>
