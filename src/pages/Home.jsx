@@ -118,7 +118,6 @@ const Home = () => {
   useEffect(() => {
     if (initial) {
       const value = sessionStorage.getItem('signedin')
-      // console.log(value)
       setAlert(value)
       setInitial(false)
     }
