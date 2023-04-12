@@ -140,7 +140,7 @@ const Signup = () => {
                 <li class='text-blue-500 cursor-pointer' onClick={() => { navigate('/signin') }}>Sign in</li>
               </ul>
             </div>
-            <span className='flex justify-center cursor-pointer' onClick={() => { navigate('/signin') }}>Recover your Account?</span>
+            <span className='flex justify-center cursor-pointer' onClick={() => { navigate('/recovery') }}>Recover your Account?</span>
           </div>
         </div>
       </div>

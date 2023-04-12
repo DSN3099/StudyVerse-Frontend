@@ -8,25 +8,26 @@ import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArro
 import Alert from '../components/Alert'
 import { Button } from '@mui/material';
 import sideimg from '../assets/young.jpg';
-import InputAdornment from '@mui/material/InputAdornment';
+// import InputAdornment from '@mui/material/InputAdornment';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import { useNavigate, useParams } from 'react-router-dom';
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
 import axios from 'axios';
 
-function handleClick(event) {
-    event.preventDefault();
-    console.info('You clicked a breadcrumb.');
-}
-
-
 const Security = () => {
+    const [dialog, setDialog] = useState(false)
+    const [opendialog, setOpendialog] = useState(false);
     const [seepassword, setSeepassword] = useState(false);
     const [error, setError] = useState()
     const [spanerror, setSpanerror] = useState()
     const [type, setType] = useState()
     const [initial, setInitial] = useState(true)
-    const [confirmpassword,setConfirmpassword] = useState(false);
+    const [confirmpassword, setConfirmpassword] = useState(false);
     const [passData, setPassData] = useState({
         currentPass: "",
         newPass: "",
@@ -46,7 +47,7 @@ const Security = () => {
     }
 
     const breadcrumbs = [
-        <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
+        <Link underline="hover" key="1" color="inherit" href="/profile">
             My profile
         </Link>,
         <Typography key="3" color="text.primary" sx={{ fontWeight: 'bold' }}>
@@ -91,6 +92,17 @@ const Security = () => {
             sessionStorage.removeItem('isSignUp')
         }, 3000)
     }, [error])
+
+    const handleDeactivate = async () => {
+        try {
+            const {data}  = await axios.delete('http://localhost:5000/api/user/deactivate', config)
+            console.log(data)
+            navigate('/signup')
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     return (
         <div>
             <Navbar type='verified' />
@@ -155,8 +167,23 @@ const Security = () => {
                             <span>Deactivate Account</span>
                             <div className='border-2 border-gray-300 bg-gray-100/100 w-[570px] h-[64px] rounded-md flex items-center gap-3'>
                                 <span className='pl-3'>You can reactivate your account within 48 hours.</span>
-                                <Button variant='outlined' color='error'onClick={()=>{navigate('/signup')}}>Deactivate account</Button>
+                                <Button variant='outlined' color='error' onClick={()=>{setDialog(true);setOpendialog(true)}}>Deactivate account</Button>
                             </div>
+                            {dialog &&
+                                <Dialog
+                                    open={opendialog}>
+                                    <DialogTitle>{"Deactivate the account"}</DialogTitle>
+                                    <DialogContent>
+                                        <DialogContentText id="alert-dialog-slide-description">
+                                            {"Are you sure you want to deactivate your account!"}
+                                        </DialogContentText>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button onClick={() => { setOpendialog(false) }}>Cancel</Button>
+                                        <Button onClick={() => { handleDeactivate() ; setDialog(false) }}>OK</Button>
+                                    </DialogActions>
+                                </Dialog>
+                            }
                         </div>
                     </div>
                     <div className='absolute right-10 top-10 rounded-md'>
