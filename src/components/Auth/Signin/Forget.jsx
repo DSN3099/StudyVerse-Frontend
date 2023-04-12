@@ -8,7 +8,6 @@ import Alert from '../../Alert'
 
 
 const Forget = () => {
-
     const [getotp, setGetotp] = useState(false);
     const [otp, setOtp] = useState('')
     const [email, setEmail] = useState()
@@ -51,8 +50,8 @@ const Forget = () => {
     const validateotp = async () => {
         try {
             const { data } = await axios.post(`http://localhost:5000/api/auth/verifyOtp`, { otp: otp, otpId: response.otpId }, config)
-            console.log(data)
             if (data.message === "verified"){
+                console.log('verified')
                 navigate(`/changepass/${data.userId}`)
             }
         } catch (err) {
@@ -69,9 +68,9 @@ const Forget = () => {
                 <span class='font-bold text-3xl'>Forget Password</span>
             </div>
             <div className='flex items-center justify-center flex-col gap-5'>
-                <div className='flex flex-col w-full items-center'>
-                    <span className='text-slate-600 text-1xl font-bold pr-[728px]'>Email</span>
-                    <div class='flex border-2 border-slate-600 rounded-md w-1/2 items-center p-1'>
+                <div className='flex flex-col w-1/2'>
+                    <span className='text-slate-600 text-1xl font-bold '>Email</span>
+                    <div class='flex border-2 border-slate-600 rounded-md w-full items-center p-1'>
                         <input class='p-2 text-gray-700 font-semibold outline-none w-full' type="text" autoComplete='false' placeholder='Enter your Email' onChange={(e) => { setEmail(e.target.value) }} />
                     </div>
                 </div>

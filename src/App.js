@@ -8,6 +8,7 @@ import Landing from './pages/Landing';
 import CreateCourse from './components/CreateCourse'
 import Courseupload from './pages/Courseupload';
 import Study from "./pages/StudyPage";
+import Teacher from "./pages/Teacher";
 import TeachersPage from './pages/TeachersPage';
 import Profile from "./pages/Profile";
 import Forget from './components/Auth/Signin/Forget';
@@ -35,6 +36,7 @@ function App() {
           <Route path="/video/:id" element={<Study />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/security" element={<Security />}></Route>
+          <Route path = "/teacher/:id" element = {<Teacher/>}></Route>
         </Routes>
       </GoogleOAuthProvider>
     </div>
