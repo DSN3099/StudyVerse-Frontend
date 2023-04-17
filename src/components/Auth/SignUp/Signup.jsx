@@ -5,7 +5,9 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import validator from 'validator';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'
+import axios from 'axios';
+import Google from '../Signin/Google';
+// import {} from '@react-oauth/google'
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -35,7 +37,7 @@ const Signup = () => {
     }
     const res = !states.passerr && validator.isEmail(states.email)
     if (res)
-    setValidated(true)
+      setValidated(true)
     else
       console.log('Please fill the details properly...')
   }
@@ -59,22 +61,21 @@ const Signup = () => {
     }
   }
 
-  useEffect(()=>{
-    const handleSignin = async() =>{
-      try{
-        const data = await axios.post('http://localhost:5000/api/auth/register',states)
-        console.log(data)
-        sessionStorage.setItem('isSignUp','true')
+  useEffect(() => {
+    const handleSignin = async () => {
+      try {
+        const data = await axios.post('http://localhost:5000/api/auth/register', states)
+        sessionStorage.setItem('isSignUp', 'true')
         navigate('/signin')
       }
-      catch(err){
+      catch (err) {
         console.log(err)
       }
     }
-    if(validated){
+    if (validated) {
       handleSignin()
     }
-  },[validated,navigate,states])
+  }, [validated, navigate, states])
 
   return (
     <div class='flex flex-col gap-8 w-full items-center ' >
@@ -84,17 +85,17 @@ const Signup = () => {
       <div class='flex justify-center items-center w-full h-full '>
         <div class='flex flex-col w-1/2 h-1/2 sm:w-full sm:h-full md:w-5/6 md:gap-5 lg:w-4/6 lg:gap-5 gap-2.5'>
           <div class='font-sans text-3xl font-bold'>Sign Up</div>
-          <div class='flex flex-col gap-2 w-full'>
+          {/* <div class='flex flex-col gap-2 w-full'>
             <div class='flex w-full gap-1 rounded-md bg-blue-600 text-white items-center p-2 justify-center cursor-pointer '>
               <GoogleIcon style={{ color: 'white', width: '30px', height: '30px' }} />
               <div class='text-2xl '>Sign up with Google</div>
             </div>
-          </div>
-          <div class='flex gap-2 items-center justify-center'>
+          </div> */}
+          {/* <div class='flex gap-2 items-center justify-center'>
             <div class='w-1/2 h-px bg-slate-300'></div>
             <div class='text-gray-600'>OR</div>
             <div class='w-1/2 h-px bg-slate-300'></div>
-          </div>
+          </div> */}
           <form onSubmit={handleSubmit}>
             <div class='flex flex-col gap-2 md:gap-5 lg:gap-5'>
               <div class='flex gap-5 w-full'>
@@ -129,11 +130,17 @@ const Signup = () => {
               <button class='flex w-full bg-blue-700 text-white text-2xl py-2 items-center justify-center mt-2 rounded-md' type="submit">Sign up</button>
             </div>
           </form>
-          <div class='flex gap-1  justify-center mb-4'>
-            Already have an account?
-            <ul>
-              <li class='text-blue-500 cursor-pointer' onClick={() => { navigate('/signin') }}>Sign in</li>
-            </ul>
+          <div class='flex flex-col gap-3 justify-center mb-4'>
+            <div class='flex justify-center gap-1 w-full'>
+              <Google />
+            </div>
+            <div className='flex items-center justify-center gap-2'>
+              <span>Already have an account?</span>
+              <ul>
+                <li class='text-blue-500 cursor-pointer' onClick={() => { navigate('/signin') }}>Sign in</li>
+              </ul>
+            </div>
+            <span className='flex justify-center cursor-pointer' onClick={() => { navigate('/recovery') }}>Recover your Account?</span>
           </div>
         </div>
       </div>
