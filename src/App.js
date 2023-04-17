@@ -17,6 +17,8 @@ import Security from './pages/Security';
 import Recover from './components/Auth/SignUp/Recover'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
+import Chatbot from './components/Chatbot/Chatbot';
+
 function App() {
   return (
     <div className="App ">
@@ -38,6 +40,7 @@ function App() {
           <Route path="/security" element={<Security />}></Route>
           <Route path = "/teacher/:id" element = {<Teacher/>}></Route>
         </Routes>
+        <Chatbot/>
       </GoogleOAuthProvider>
     </div>
   );
