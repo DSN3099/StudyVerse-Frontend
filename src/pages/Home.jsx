@@ -14,6 +14,8 @@ import axios from 'axios';
 import Alert from '../components/Alert';
 import { useNavigate } from 'react-router-dom';
 
+import {ChatBot} from "react-chatbot-kit"
+
 const Home = () => {
   const images = [
     { id: 0, img: banner },

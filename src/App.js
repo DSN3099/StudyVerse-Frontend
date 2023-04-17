@@ -12,6 +12,8 @@ import TeachersPage from './pages/TeachersPage';
 import Forget from './components/Auth/Signin/Forget';
 import Changepassword from './components/Auth/Signin/Changepassword';
 
+import Chatbot from './components/Chatbot/Chatbot';
+
 function App() {
   return (
         <div className="App ">
@@ -28,6 +30,7 @@ function App() {
           <Route path='/videoupload/:id' element = {<Courseupload />}></Route>
           <Route path="/video/:id" element={<Study />}></Route>
         </Routes>
+        <Chatbot/>
     </div>
   );
 }
