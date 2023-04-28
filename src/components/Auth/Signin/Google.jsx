@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 
-const Google = () => {
+const Google = ({setError}) => {
 
     const navigate = useNavigate()
     const handleSuccess = async ({ credential }) => {
@@ -15,6 +15,7 @@ const Google = () => {
             navigate('/home')
         } catch (error) {
             console.log(error)
+            setError(error.response.data)
         }
     }
     return (
