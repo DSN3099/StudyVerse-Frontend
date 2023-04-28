@@ -131,9 +131,6 @@ const Signup = () => {
             </div>
           </form>
           <div class='flex flex-col gap-3 justify-center mb-4'>
-            <div class='flex justify-center gap-1 w-full'>
-              <Google />
-            </div>
             <div className='flex items-center justify-center gap-2'>
               <span>Already have an account?</span>
               <ul>

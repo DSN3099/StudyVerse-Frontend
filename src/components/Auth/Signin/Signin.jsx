@@ -83,11 +83,6 @@ const Signin = () => {
             <div class='flex  '>
               <span class='font-bold text-3xl'>Sign In</span>
             </div>
-            {/* <div class="flex items-center justify-center">
-              <div class="border-x-8 bg-slate-500 h-px w-1/2"> </div>
-              <span class="text-gray-600 ">OR </span>
-              <div class="border-x-8 bg-slate-500 h-px w-1/2"></div>
-            </div> */}
             <div class='flex flex-col gap-4 '>
               <form onSubmit={handleSubmit} class='flex flex-col gap-4 '>
                 <div class='flex flex-col gap-2'>
@@ -142,7 +137,7 @@ const Signin = () => {
                 </div>
               </form>
               <div class='flex justify-center gap-1 w-full'>
-                <Google />
+                <Google setError = {setError} />
               </div>
               <div class='flex justify-center gap-2 mb-4'>
                 <span>Don't Have An Account?</span>
