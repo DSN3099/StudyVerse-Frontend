@@ -18,6 +18,7 @@ import Recover from './components/Auth/SignUp/Recover'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 import Chatbot from './components/Chatbot/Chatbot';
+import Teacherform from './pages/Teacherform';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/security" element={<Security />}></Route>
           <Route path = "/teacher/:id" element = {<Teacher/>}></Route>
+          <Route path = "/teacherform" element = {<Teacherform/>}></Route>
         </Routes>
         <Chatbot/>
       </GoogleOAuthProvider>

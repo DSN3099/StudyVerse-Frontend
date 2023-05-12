@@ -122,7 +122,7 @@ const Navbar = ({ type, page }) => {
       {type === 'verified' && (
         <div class="main flex gap-5 w-full sm:px-2 px-5 justify-evenly">
           <div class="flex w-60 sm:w-max h-max">
-            <img src={logo} alt="logo" class="h-2/3 w-full sm:h-full " x />
+            <img src={logo} alt="logo" class="h-2/3 w-full sm:h-full " />
           </div>
           <div class="hidden sm:flex sm:items-center sm:justify-evenly sm:w-full sm:gap-5">
             <div class="flex cursor-pointer border-2 border-pink-500 rounded-md p-1 text-pink-500 hover:text-white hover:bg-pink-500 transition ease-in duration-300 font-semibold">
