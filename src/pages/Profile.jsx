@@ -104,10 +104,10 @@ const Profile = () => {
     }
 
     return (
-        <div className="m-0">
+        <div className="">
             <Navbar type={"verified"} user={user} />
-            <div className="flex px-20">
-                <div className="mx-20 mt-20 flex gap-0 border border-grey-500 flex-col h-max">
+            <div className="flex px-10">
+                <div className="mx-10 mt-24 flex border border-grey-500 flex-col h-max">
                     <div className="flex flex-row px-5 py-1 items-center">
                         <div className="flex overflow-clip w-20 h-20 rounded-full">
                             <Avatar sx={{ borderRadius: "50%", width: '100%', height: '100%', fontSize: '40px' }} alt="dp" src={user?.image}>{user?.firstname?.charAt(0)}</Avatar>
@@ -140,7 +140,7 @@ const Profile = () => {
                                 </Breadcrumbs>
                             </Stack>
                             <Paper elevation={2} sx={{ marginTop: '12px' }}>
-                                <div className="shadow-md  w-[768px] h-[500px] p-3 flex flex-col gap-5">
+                                <div className="shadow-md  w-[768px] h-max mb-5 p-3 flex flex-col gap-5">
                                     <div className="text-[25px] font-bold">Profile</div>
                                     <div className="flex items-stretch gap-5">
                                         <div className="flex flex-col">
