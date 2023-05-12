@@ -54,7 +54,7 @@ const Dropdown = ({ page }) => {
                 class="block text-center   w-40 whitespace-nowrap bg-transparent py-2 px-1  text-xl font-normal text-black "
                 data-te-dropdown-item-ref
               >
-                {name == 'Teacher' ? 'Student' : 'Teacher'}
+                {name ==='Teacher' ? 'Student' : 'Teacher'}
               </div>
             </li>
           </ul>

@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar/Navbar'
 import star from '../assets/star.svg'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import courseinfo1 from '../assets/courseinfo1.jpg';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
 import ShareIcon from '@mui/icons-material/Share';
 import LanguageIcon from '@mui/icons-material/Language';
@@ -16,7 +17,8 @@ import klara from '../assets/klara.jpg'
 import images from '../images'
 import Card from './Card';
 import Footer from '../components/Footer';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 export const ratingData = [
     { id: 1, img: `${images.jay}`, rating: 5, name: 'Jay Rutherford', review:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Error delectus ut dolorum at cum neque quod fugit dolore rem cumque!' },
@@ -43,6 +45,7 @@ const CourseInfo = () => {
     })
 
     const navigate = useNavigate()
+    const {id} = useParams()
     
     useEffect(()=>{
         const token = localStorage.getItem('token')
@@ -50,6 +53,25 @@ const CourseInfo = () => {
       },[navigate])
 
     const [showAll, setShowAll] = useState(false)
+
+    const token = localStorage.getItem('token')
+
+    const config = {
+        withCredentials: true,
+        headers: {
+          'Authorization': `bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+
+    const addToCart = async() => {
+        try{
+            const {data} = await axios.post(`http://localhost:5000/api/user/addToCart`,{courseId:id},config)
+            console.log(data)
+        }catch(err){
+            console.log(err)
+        }
+    }
 
     return (
         <div class='w-full h-full flex flex-col scroll-smooth'>
@@ -136,7 +158,7 @@ const CourseInfo = () => {
                             </div>
                             <div class='text-blue-500 bg-blue-500/10 rounded-md p-2 cursor-pointer'>Follow</div>
                         </div>
-                        <div class='flex flex-col px-1 w-full gap-5'>
+                        <div class='flex flex-col px-1 items-center w-full gap-5'>
                             <div class='flex items-center justify-between w-full'>
                                 <div class='font-semibold '>UX: Design with a user...</div>
                                 <div class='flex p-2 gap-1 items-center font-semibold'>
@@ -152,7 +174,10 @@ const CourseInfo = () => {
                                 <div class='flex text-sm'>Document</div>
                                 <div class='bg-teal-500 rounded-full text-sm px-4 py-1 cursor-default flex justify-center'>Free</div>
                             </div>
-                            <div class='w-full bg-blue-600 text-white flex justify-center cursor-pointer rounded-md py-2'>Add to My Courses</div>
+                            <div class='w-1/2 bg-blue-600 text-white font-medium flex justify-evenly items-center cursor-pointer rounded-md py-2' onClick={addToCart}>
+                                <AddShoppingCartIcon />
+                                <div>Add to my cart</div>
+                            </div>
                         </div>
                     </div>
                 </div>

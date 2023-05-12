@@ -4,9 +4,9 @@ import MenuIcon from '@mui/icons-material/Menu'
 import CloseIcon from '@mui/icons-material/Close'
 import { useEffect, useState } from 'react'
 import NotificationsIcon from '@mui/icons-material/Notifications'
-import images from '../../images'
 import LogoutIcon from '@mui/icons-material/Logout'
 import Dropdown from './Dropdown'
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import axios from 'axios'
 import { googleLogout } from '@react-oauth/google';
 import { Avatar } from '@mui/material';
@@ -17,8 +17,8 @@ const Navbar = ({ type, page }) => {
   const navigate = useNavigate()
   const [overlay, isOverlay] = useState(false)
   const [colour, setColour] = useState(false)
-  const [user,setUser] = useState();
-  const [initial,setInitial] = useState(true);
+  const [user, setUser] = useState();
+  const [initial, setInitial] = useState(true);
   const handleSignup = () => {
     navigate('/signin')
   }
@@ -47,21 +47,21 @@ const Navbar = ({ type, page }) => {
   const colorStyle = { color: '#FFD700' }
 
   const userdata = async () => {
-      try {
-          const { data } = await axios.get(`http://localhost:5000/api/user`, config)
-          console.log(data)
-          setUser(data)
-      } catch (err) {
-          console.log(err)
-      }
+    try {
+      const { data } = await axios.get(`http://localhost:5000/api/user`, config)
+      console.log(data)
+      setUser(data)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
-  useEffect(()=>{
-    if(initial && type === 'verified'){
+  useEffect(() => {
+    if (initial && type === 'verified') {
       setInitial(false)
       userdata();
     }
-  },[initial])
+  }, [initial])
 
   return (
     <>
@@ -120,8 +120,8 @@ const Navbar = ({ type, page }) => {
         </div>
       )}
       {type === 'verified' && (
-        <div class="main flex gap-5 w-full sm:px-2 px-5 justify-evenly">
-          <div class="flex w-60 sm:w-max h-max">
+        <div class="main flex gap-5 w-full sm:px-2 px-5 justify-evenly shadow-sm border-b border-gray-300">
+          <div class="flex w-52 sm:w-max h-max">
             <img src={logo} alt="logo" class="h-2/3 w-full sm:h-full " />
           </div>
           <div class="hidden sm:flex sm:items-center sm:justify-evenly sm:w-full sm:gap-5">
@@ -143,7 +143,7 @@ const Navbar = ({ type, page }) => {
             </ul>
 
             <div className="flex gap-9">
-              <Search/>
+              <Search />
             </div>
             <div class="flex gap-5 items-center">
               {page &&
@@ -155,8 +155,11 @@ const Navbar = ({ type, page }) => {
                   onClick={handleFill}
                 />
               </div>
-              <div class="flex items-center cursor-pointer" onClick={()=>{navigate('/profile')}}>
-              <Avatar sx={{ borderRadius: "50%" }} alt="dp" src={user?.image}>{user?.firstname?.charAt(0)}</Avatar>
+              <div onClick={()=> navigate(`/checkout/${user._id}`)}>
+                <ShoppingCartOutlinedIcon className='cursor-pointer' />
+              </div>
+              <div class="flex items-center cursor-pointer" onClick={() => { navigate('/profile') }}>
+                <Avatar sx={{ borderRadius: "50%" }} alt="dp" src={user?.image}>{user?.firstname?.charAt(0)}</Avatar>
               </div>
               <div
                 class="flex cursor-pointer border-2 border-pink-500 rounded-md p-1 text-pink-500 hover:text-white hover:bg-pink-500 transition ease-in duration-300 font-semibold"

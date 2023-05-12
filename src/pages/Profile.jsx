@@ -99,7 +99,7 @@ const Profile = () => {
     }
 
     return (
-        <div className="m-0">
+        <div className="">
             <Navbar type={"verified"} user={user} />
             <div className="flex px-20">
                 <div className="mx-20 mt-20 pb-2 flex gap-0 border border-grey-500 flex-col h-min rounded-md">
@@ -134,7 +134,7 @@ const Profile = () => {
                                 </Breadcrumbs>
                             </Stack>
                             <Paper elevation={2} sx={{ marginTop: '12px' }}>
-                                <div className="shadow-md  w-[768px] h-[400px] p-3 flex flex-col gap-5">
+                                <div className="shadow-md  w-[768px] h-max mb-5 p-3 flex flex-col gap-5">
                                     <div className="text-[25px] font-bold">Profile</div>
                                     <div className="flex items-stretch gap-5">
                                         <div className="flex flex-col">
