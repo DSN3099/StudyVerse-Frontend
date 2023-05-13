@@ -130,9 +130,6 @@ const Signin = () => {
                 <div>
                   <button type='submit' class='flex items-center justify-center  gap-2 bg-blue-600 w-full p-2.5 rounded-md'>
                     <span class='text-2xl text-white'>Sign in</span>
-                    {
-
-                    }
                   </button>
                 </div>
               </form>
