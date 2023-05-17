@@ -5,7 +5,6 @@ import axios from 'axios'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { useNavigate } from 'react-router-dom';
 import { storage } from '../Firebase';
-import Footer from './Footer';
 import courseBanner from '../assets/courseBanner.jpg'
 
 const CreateCourse = () => {

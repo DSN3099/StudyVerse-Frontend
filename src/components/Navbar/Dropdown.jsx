@@ -8,9 +8,11 @@ const Dropdown = ({ page }) => {
   const handleClick = () => {
     if (name === 'Student') {
       SetName('Teacher')
-      navigate('/teacherform')
+      localStorage.setItem('isTeacher',"true")
+      navigate('/teacher')
     } else {
       SetName('Student')
+      localStorage.setItem('isTeacher',"false")
       navigate('/home')
     }
   }

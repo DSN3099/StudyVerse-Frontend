@@ -13,12 +13,15 @@ import { Avatar } from '@mui/material';
 import Search from '../../components/Search';
 
 
-const Navbar = ({ type, page }) => {
+const Navbar = ({ type, page, isProfile }) => {
   const navigate = useNavigate()
   const [overlay, isOverlay] = useState(false)
   const [colour, setColour] = useState(false)
   const [user, setUser] = useState();
   const [initial, setInitial] = useState(true);
+
+  const isTeacher = localStorage.getItem('isTeacher')
+
   const handleSignup = () => {
     navigate('/signin')
   }
@@ -65,7 +68,7 @@ const Navbar = ({ type, page }) => {
 
   return (
     <>
-      {overlay && (
+      {/* {overlay && (
         <div class="hidden sm:flex sm:w-full sm:z-20 sm:h-full sm:absolute ">
           <Dropdown />
           <div class="flex flex-col w-2/3 h-full items-center gap-2.5 bg-white">
@@ -102,8 +105,7 @@ const Navbar = ({ type, page }) => {
             </div>
           </div>
         </div>
-      )}
-
+      )} */}
       {type === 'notVerified' && (
         <div class="main flex gap-5 w-full sm:px-2 px-5 justify-between items-center">
           <div class="flex w-60 sm:w-max h-max">
@@ -124,7 +126,7 @@ const Navbar = ({ type, page }) => {
           <div class="flex w-52 sm:w-max h-max">
             <img src={logo} alt="logo" class="h-2/3 w-full sm:h-full " />
           </div>
-          <div class="hidden sm:flex sm:items-center sm:justify-evenly sm:w-full sm:gap-5">
+          {/* <div class="hidden sm:flex sm:items-center sm:justify-evenly sm:w-full sm:gap-5">
             <div class="flex cursor-pointer border-2 border-pink-500 rounded-md p-1 text-pink-500 hover:text-white hover:bg-pink-500 transition ease-in duration-300 font-semibold">
               <LogoutIcon />
               <div>Log Out</div>
@@ -132,11 +134,23 @@ const Navbar = ({ type, page }) => {
             <div onClick={() => isOverlay(true)}>
               <MenuIcon />
             </div>
-          </div>
+          </div> */}
           <div class="flex items-center justify-between w-4/5 sm:hidden ">
             <ul class="flex gap-16 lg:gap-10 cursor-pointer font-medium ">
-              <li onClick={() => { navigate('/home') }} class="hover:text-pink-500">Home</li>
-              <li class="hover:text-pink-500">Academics</li>
+              {isTeacher !== 'true' &&
+                <li onClick={() => { navigate('/home') }} class="hover:text-pink-500">Home</li>
+              }
+              {isTeacher !== 'true' &&
+                <li class="hover:text-pink-500">Academics</li>
+              }
+              {isTeacher === 'true' &&
+                <li class="hover:text-pink-500">
+                  <a href="/teacher">Create Course</a>
+                </li>
+              }
+              {isTeacher === 'true' &&
+                <li class="hover:text-pink-500">My Course</li>
+              }
               <li class="hover:text-pink-500">
                 <a href="#form">Contact Us</a>
               </li>
@@ -155,12 +169,14 @@ const Navbar = ({ type, page }) => {
                   onClick={handleFill}
                 />
               </div>
-              <div onClick={()=> navigate(`/checkout/${user._id}`)}>
-                <ShoppingCartOutlinedIcon className='cursor-pointer' />
-              </div>
-              <div class="flex items-center cursor-pointer" onClick={() => { navigate('/profile') }}>
+              {isTeacher !== 'true' &&
+                <div onClick={() => navigate(`/checkout/${user._id}`)}>
+                  <ShoppingCartOutlinedIcon className='cursor-pointer' />
+                </div>
+              }
+              {!isProfile && <div class="flex items-center cursor-pointer" onClick={() => { const isTeacher = localStorage.getItem('isTeacher'); console.log(isTeacher); navigate(`/${isTeacher === "true" ? 'teacherform' : 'profile'}`) }}>
                 <Avatar sx={{ borderRadius: "50%" }} alt="dp" src={user?.image}>{user?.firstname?.charAt(0)}</Avatar>
-              </div>
+              </div>}
               <div
                 class="flex cursor-pointer border-2 border-pink-500 rounded-md p-1 text-pink-500 hover:text-white hover:bg-pink-500 transition ease-in duration-300 font-semibold"
                 onClick={handleLogout}
