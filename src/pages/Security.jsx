@@ -8,7 +8,6 @@ import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArro
 import Alert from '../components/Alert'
 import { Button } from '@mui/material';
 import sideimg from '../assets/young.jpg';
-// import InputAdornment from '@mui/material/InputAdornment';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import { useNavigate, useParams } from 'react-router-dom';
@@ -65,7 +64,7 @@ const Security = () => {
                 setSpanerror(null)
             }
         }
-    }, [passData.confirmPass])
+    }, [passData.confirmPass,passData.newPass,initial])
 
 
     const handleSubmit = async (e) => {
@@ -119,7 +118,7 @@ const Security = () => {
                         aria-label="breadcrumb">{breadcrumbs}
                     </Breadcrumbs>
                 </Stack>
-                <div className='flex flex-col gap-5 items-center w-full relative'>
+                <div className='flex gap-5 justify-center items-center w-full'>
                     <div className='w-1/2 gap-3 flex flex-col'>
                         <div>
                             <span className='text-3xl font-bold'>Change Password</span>
@@ -186,8 +185,8 @@ const Security = () => {
                             }
                         </div>
                     </div>
-                    <div className='absolute right-10 top-10 rounded-md'>
-                        <img src={sideimg} alt="img" className='w-[350px] h-[450px]' />
+                    <div className='flex items-center justify-center'>
+                        <img src={sideimg} alt="img" className='w-[350px] h-[450px] rounded-md' />
                     </div>
                 </div>
             </div>

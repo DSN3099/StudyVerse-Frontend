@@ -1,9 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
-import ProfilePic from "../assets/gaurav.jpg";
-import { Input, Paper, TextField, Button, InputLabel } from "@mui/material";
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import { Paper, TextField, Button} from "@mui/material";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
@@ -100,9 +97,9 @@ const Profile = () => {
 
     return (
         <div className="">
-            <Navbar type={"verified"} user={user} />
-            <div className="flex px-20">
-                <div className="mx-20 mt-20 pb-2 flex gap-0 border border-grey-500 flex-col h-min rounded-md">
+            <Navbar type={"verified"} user={user} isProfile={true} />
+            <div className="flex px-20 gap-7 justify-center">
+                <div className="mt-20 pb-2 flex gap-0 border border-grey-500 flex-col h-min rounded-md">
                     <div className="flex flex-row px-5 py-1 items-center">
                         <div className="flex overflow-clip w-20 h-20 rounded-full">
                             <Avatar sx={{ borderRadius: "50%", width: '100%', height: '100%', fontSize: '40px' }} alt="dp" src={user?.image}>{user?.firstname?.charAt(0)}</Avatar>

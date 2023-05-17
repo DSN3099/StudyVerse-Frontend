@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import cpgirl from '../assets/cpgirl.jpg'
 import Footer from '../components/Footer'
-import { useNavigate } from 'react-router-dom'
+import { useFetcher, useNavigate } from 'react-router-dom'
 import Alert from '../components/Alert'
+import axios from 'axios'
 
 const TeachersPage = () => {
   const [checked, setChecked] = useState(false)
@@ -21,6 +22,31 @@ const TeachersPage = () => {
       setDisabled(true)
     }
   }, [checked])
+
+  const token = localStorage.getItem('token')
+  const config = {
+    withCredentials: true,
+    headers: {
+      'Authorization': `bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  }
+
+  useEffect(()=>{
+    const getUser = async() =>{
+      try{
+        const {data} = await axios.get('http://localhost:5000/api/user',config)
+        console.log(data.isTeacher)
+        if(!data.isTeacher){
+          navigate('/teacherform')
+        }
+      }catch(err){
+        console.log(err)
+      }
+    }
+    getUser()
+
+  },[])
 
   function resetTimeOut() {
     if (timeOutRef.current) {

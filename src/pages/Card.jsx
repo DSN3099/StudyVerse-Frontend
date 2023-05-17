@@ -2,10 +2,10 @@ import React from 'react';
 import star from '../assets/star.png';
 import { useNavigate } from 'react-router-dom';
 
-const Card = ({title,course,level,img,price,id}) => {
+const Card = ({title,course,level,img,price,id,type}) => {
   const navigate = useNavigate()
   return (
-    <div class="flex flex-col bg-white-300 h-max w-64 rounded-md gap-2.5 border border-slate-500 shadow-lg shadow-teal-500/40  transform transition duration-500 hover:scale-[0.95] cursor-pointer" onClick={()=>{navigate(`/video/${id}`)}}>
+    <div class="flex flex-col bg-white-300 h-max w-64 rounded-md gap-2.5 border border-slate-500 shadow-lg shadow-teal-500/40  transform transition duration-500 hover:scale-[0.95] cursor-pointer" onClick={()=>{navigate(`/${type==='trending'?'courseinfo':'video'}/${id}`)}}>
       <div class="w-[254px] h-[172px] overflow-clip">
         <img class="w-full h-full object-cover" src={img} alt="cardIMG" />
       </div>

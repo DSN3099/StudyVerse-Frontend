@@ -14,7 +14,7 @@ import axios from 'axios';
 import Alert from '../components/Alert';
 import { useNavigate } from 'react-router-dom';
 
-import {ChatBot} from "react-chatbot-kit"
+import { ChatBot } from "react-chatbot-kit"
 
 const Home = () => {
   const images = [
@@ -107,7 +107,7 @@ const Home = () => {
         console.log(err)
         if (err.response.data.name === 'TokenExpiredError' || err.response.data === 'Please login first') {
           localStorage.removeItem('token');
-          localStorage.setItem('expired',"true")
+          localStorage.setItem('expired', "true")
           navigate('/signin')
         }
       }
@@ -115,7 +115,7 @@ const Home = () => {
     if (initial) {
       getCourses()
     }
-  }, [initial,Token, navigate])
+  }, [initial, Token, navigate])
 
   useEffect(() => {
     if (initial) {
@@ -179,16 +179,16 @@ const Home = () => {
                         id={item._id}
                         title={item.title}
                         course={item.category}
-                        // rating={item.rating}
                         level={item.level}
                         img={item.image}
                         price={item.price}
+                        type={'mycourse'}
                       />
                     </div>
                   )
                 })
               }
-            </div>
+            </div>  
           </div>
           {<div className='absolute left-full flex justify-start items-center -right-8 cursor-pointer' onClick={() => { setCurrentCourse(p => p === Math.ceil(myCourse.length / 4) - 1 ? p : p + 1) }}>
             <KeyboardArrowRightIcon color={currentCourse === Math.ceil(myCourse.length / 4) - 1 ? 'disabled' : ''} sx={{ width: '40px', height: '40px' }} />
@@ -216,9 +216,9 @@ const Home = () => {
         })}
       </div> */}
       {/* course carausel */}
-      <div class="">
+      {/* <div class="">
         <Caraousel />
-      </div>
+      </div> */}
       {/* popular courses */}
       {/* <div class="flex justify-between px-14">
         <h2 class="text-black-200 font-bold text-xl">Poular Courses</h2>
@@ -244,18 +244,23 @@ const Home = () => {
         <h2 class="text-black-200 font-bold text-xl">Trending Courses</h2>
         <h4 class="text-blue-500 cursor-pointer">View all {`>`}</h4>
       </div>
-      <div class="flex  justify-around  p-10">
-        {data.map((item) => {
+      <div class="flex py-10 gap-10">
+        {myCourse.map((item) => {
           return (
-            <Card
-              id={item.id}
-              title={item.title}
-              course={item.category}
-              rating={item.rating}
-              level={item.level}
-              img={item.image}
-              price={item.price}
-            />
+            <div>
+              {item.price>0 && <div>
+                <Card
+                  id={item._id}
+                  title={item.title}
+                  course={item.category}
+                  rating={item.rating}
+                  level={item.level}
+                  img={item.image}
+                  price={item.price}
+                  type={'trending'}
+                />
+              </div>}
+            </div>
           )
         })}
       </div>
