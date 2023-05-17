@@ -1,10 +1,6 @@
 import Navbar from '../components/Navbar/Navbar';
 import ReactPlayer from "react-player";
-import star from '../assets/star.png';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import ShareIcon from '@mui/icons-material/Share';
-import DoneIcon from '@mui/icons-material/Done';
 import { useEffect, useState } from 'react';
 import axios from 'axios'
 import Fab from '@mui/material/Fab';
@@ -81,6 +77,7 @@ function Study() {
         try{
             const {data} = await axios.get(`http://localhost:5000/api/user`,config)
             setUsers(data)
+            console.log(data)
         }catch(err){
             console.log(err)
         }
@@ -114,7 +111,7 @@ useEffect(()=>{
                     </div>
                     <div class='flex w-full items-center justify-between mb-3'>
                         <div class='flex gap-1 w-max'>
-                            <div class='text-blue-600 cursor-pointer pr-1'>{courseData?.authorData?.firstname} {courseData?.authorData?.lastname}</div>
+                            <div class='text-blue-600 cursor-pointer pr-1' onClick={()=>{navigate('/teacher/123')}}>{courseData?.authorData?.firstname} {courseData?.authorData?.lastname}</div>
                             {/* <img src={star} alt="" style={{ width: '20px', height: '20px' }} className="mx-2" />
                             <div class='flex font-bold'>4.5<span class='font-normal text-gray-500 border-r px-2'>(99 reviews)</span></div> */}
                         </div>
