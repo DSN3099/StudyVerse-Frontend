@@ -1,5 +1,4 @@
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import axios from 'axios'
 import React, { useState } from 'react'
 
 const PaymentForm = () => {
@@ -25,7 +24,6 @@ const PaymentForm = () => {
 
         if(error){
             setMessage(error.message)
-            console.log(error)
         }else if(paymentIntent && paymentIntent.status === "succeeded"){
             setMessage("Payment status: "+paymentIntent.status);
         }else{

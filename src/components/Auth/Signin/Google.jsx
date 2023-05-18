@@ -14,7 +14,6 @@ const Google = ({setError}) => {
             localStorage.removeItem('expired')
             navigate('/home')
         } catch (error) {
-            console.log(error)
             setError(error.response.data)
         }
     }

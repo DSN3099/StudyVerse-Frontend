@@ -244,7 +244,7 @@ const Home = () => {
         <h2 class="text-black-200 font-bold text-xl">Trending Courses</h2>
         <h4 class="text-blue-500 cursor-pointer">View all {`>`}</h4>
       </div>
-      <div class="flex py-10 gap-10">
+      <div class="flex py-10 justify-start px-[75px] gap-10">
         {myCourse.map((item) => {
           return (
             <div>

@@ -26,13 +26,10 @@ const Profile = () => {
     const handleChange = async (e) => {
         const file = e.target.files[0];
         setimage(file)
-        console.log(file)
         if (file) {
             await uploadBytes(storageRef, file)
             const firebaseUrl = await getDownloadURL(storageRef)
             user.image = firebaseUrl
-            console.log(firebaseUrl)
-            console.log(user)
             setUser(user)
             setUrl(firebaseUrl)
         }
@@ -42,7 +39,6 @@ const Profile = () => {
         const postImage = async () => {
             try {
                 const { data } = await axios.patch('http://localhost:5000/api/user/uploadImage/', { imageUrl: url }, config)
-                console.log(data)
             } catch (err) {
                 console.log(err)
             }
@@ -71,7 +67,6 @@ const Profile = () => {
     const userdata = async () => {
         try {
             const { data } = await axios.get(`http://localhost:5000/api/user`, config)
-            console.log(data)
             setUser(data)
             setBio(data.bio)
             setNewBio(data.bio)
@@ -88,7 +83,6 @@ const Profile = () => {
     const update = async () => {
         try {
             const { data } = await axios.patch('http://localhost:5000/api/user/updateprofile', { bio: bio }, config)
-            console.log(data)
             setNewBio(bio)
         } catch (err) {
             console.log(err)

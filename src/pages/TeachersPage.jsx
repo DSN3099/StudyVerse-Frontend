@@ -36,7 +36,6 @@ const TeachersPage = () => {
     const getUser = async() =>{
       try{
         const {data} = await axios.get('http://localhost:5000/api/user',config)
-        console.log(data.isTeacher)
         if(!data.isTeacher){
           navigate('/teacherform')
         }

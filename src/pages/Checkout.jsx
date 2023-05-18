@@ -32,7 +32,6 @@ const Checkout = () => {
     const getCart = async () => {
       try {
         const { data } = await axios.get('http://localhost:5000/api/user/getCart', config)
-        console.log(data)
         setorderdetails(data)
       } catch (err) {
         console.log(err)
@@ -40,8 +39,7 @@ const Checkout = () => {
     }
     const getClientSecret = async () => {
       try {
-        const { data } = await axios.post('http://localhost:5000/api/payment/create-payment-intent', { orderdetails },config)
-        console.log(data)
+        const { data } = await axios.post('http://localhost:5000/api/payment/create-payment-intent', { orderdetails }, config)
         setClientSecret(data.clientSecret)
         setGrandTotal(data.grandTotal)
       } catch (err) {
@@ -57,19 +55,19 @@ const Checkout = () => {
     }
   }, [initial, orderdetails, token])
 
-  const deleteCart = async(id)=>{
-    try{
-      axios.delete(`http://localhost:5000/api/user/deleteCart/${id}`,config)
-    }catch(err){
+  const deleteCart = async (id) => {
+    try {
+      axios.delete(`http://localhost:5000/api/user/deleteCart/${id}`, config)
+    } catch (err) {
       console.log(err)
     }
   }
- 
+
 
   return (
     <div className='flex flex-col gap-4'>
       <Navbar type={'verified'} />
-      <div className='flex px-16 pt-3 gap-10'>
+      {orderdetails.length>0 && <div className='flex px-16 pt-3 gap-10'>
         {/* left */}
         <div className='flex flex-col border h-max border-slate-300 p-5 w-2/3 rounded-md gap-5'>
           <div className='font-semibold text-lg'>Order Summary</div>
@@ -87,7 +85,7 @@ const Checkout = () => {
                 </div>
                 <div className='flex gap-2 items-center'>
                   <div className='font-semibold'>₹{value.price}</div>
-                  <div onClick={()=>{orderdetails.splice(i,1); setorderdetails([...orderdetails]);deleteCart(value._id)}}>
+                  <div onClick={() => { orderdetails.splice(i, 1); setorderdetails([...orderdetails]); deleteCart(value._id) }}>
                     <DeleteOutline sx={{ color: '#9095A0FF', cursor: "pointer" }} />
                   </div>
                 </div>
@@ -97,7 +95,7 @@ const Checkout = () => {
           <hr />
           <div className='flex justify-between px-2.5'>
             <div className='font-semibold'>Grand Total</div>
-            <div className='font-semibold'>₹{grandTotal}</div>
+            <div className='font-semibold'>₹{orderdetails.length === 0 ? 0 : grandTotal}</div>
           </div>
         </div>
         {/* right */}
@@ -107,7 +105,10 @@ const Checkout = () => {
             <PaymentForm />
           </Elements>}
         </div>
-      </div>
+      </div>}
+      {orderdetails.length===0 &&
+        <div className='w-full flex items-center justify-center text-2xl '>Your Cart is Empty..</div>
+      }
     </div>
   )
 }

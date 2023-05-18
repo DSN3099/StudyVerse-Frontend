@@ -70,7 +70,6 @@ const CreateCourse = () => {
       description: courseData.description,
     }
     postData(data)
-    console.log(url)
   }
   return (
     <div className='flex w-full flex-col items-center '>
