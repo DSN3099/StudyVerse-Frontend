@@ -20,6 +20,7 @@ import Chatbot from './components/Chatbot/Chatbot';
 import Teacherform from './pages/Teacherform';
 import Checkout from './pages/Checkout';
 import Success from './pages/Success'
+import TeacherCourse from './pages/TeacherCourse';
 
 function App() {
   return (
@@ -41,8 +42,9 @@ function App() {
             <Route path="/profile" element={<Profile />}></Route>
             <Route path="/security" element={<Security />}></Route>
             <Route path="/teacher/:id" element={<Teacher />}></Route>
+            <Route path="/teacher/mycourse" element={<TeacherCourse />}></Route>
             <Route path = "/teacherform" element = {<Teacherform/>}></Route>
-            <Route path='/checkout/:id' element={<Checkout />}></Route>
+            <Route path='/checkout' element={<Checkout />}></Route>
             <Route path='/success' element={<Success />}></Route>
           </Routes>
         <Chatbot />

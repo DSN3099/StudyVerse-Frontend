@@ -95,7 +95,6 @@ const Security = () => {
     const handleDeactivate = async () => {
         try {
             const {data}  = await axios.delete('http://localhost:5000/api/user/deactivate', config)
-            console.log(data)
             navigate('/signup')
         } catch (err) {
             console.log(err)

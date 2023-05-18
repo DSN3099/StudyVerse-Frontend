@@ -153,7 +153,6 @@ const Reviews = ({ reviewsdata, setReviewsdata, userdata, courseData }) => {
       const {data} = await axios.patch(`http://localhost:5000/api/review/${reviewid}`,{action:'REPORT',reportDescription:userreport},config)
       setReportmsg("Reported successfully.");
       setAlerttype('SUCCESS');
-      console.log(data)
     } catch (err) {
       setReportmsg(err.response.data);
       setAlerttype('ERROR');
@@ -241,7 +240,7 @@ const Reviews = ({ reviewsdata, setReviewsdata, userdata, courseData }) => {
         <div className='flex flex-col justify-center'>
           <div className='flex justify-between '>
             <div className='flex items-center gap-2'>
-              <Avatar sx={{ borderRadius: "50%", width: '46px', height: '46px' }} alt='G' src={values.dp}>{values.userData[0]?.firstname?.charAt(0)}</Avatar>
+              <Avatar sx={{ borderRadius: "50%", width: '46px', height: '46px' }} alt='G' src={values.userData[0]?.image}>{values.userData[0]?.firstname?.charAt(0)}</Avatar>
               <div className='flex flex-col'>
                 <div className='flex items-center gap-1'>
                   <span className='text-gray-600 text-lg mt-1'>{values.userData[0]?.firstname} {values.userData[0]?.lastname}</span>

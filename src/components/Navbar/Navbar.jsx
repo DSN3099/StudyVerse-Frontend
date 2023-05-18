@@ -13,10 +13,10 @@ import { Avatar } from '@mui/material';
 import Search from '../../components/Search';
 
 
-const Navbar = ({ type, page, isProfile }) => {
+const Navbar = ({ type, page, isProfile, isCart,setCart,component }) => {
   const navigate = useNavigate()
-  const [overlay, isOverlay] = useState(false)
   const [colour, setColour] = useState(false)
+  const [isCartt, setIsCartt] = useState()
   const [user, setUser] = useState();
   const [initial, setInitial] = useState(true);
 
@@ -52,60 +52,23 @@ const Navbar = ({ type, page, isProfile }) => {
   const userdata = async () => {
     try {
       const { data } = await axios.get(`http://localhost:5000/api/user`, config)
-      console.log(data)
       setUser(data)
+      setCart(data.cart)
     } catch (err) {
       console.log(err)
     }
   }
 
   useEffect(() => {
-    if (initial && type === 'verified') {
+    if (type === 'verified') {
       setInitial(false)
       userdata();
+      setIsCartt(isCart)
     }
-  }, [initial])
+  }, [initial, isCartt,isCart])
 
   return (
     <>
-      {/* {overlay && (
-        <div class="hidden sm:flex sm:w-full sm:z-20 sm:h-full sm:absolute ">
-          <Dropdown />
-          <div class="flex flex-col w-2/3 h-full items-center gap-2.5 bg-white">
-            <div class="w-3/4 flex h-max self-start pl-1 ">
-              <img src={logo} alt="" class="w-full h-full " />
-            </div>
-            <div class="w-full h-max ">
-              <div class="w-full h-max ">
-                <ul class="flex flex-col pl-5 gap-2.5 cursor-pointer ">
-                  <li onClick={() => { navigate('/home') }}> Home</li>
-                  <li>Academics</li>
-                  <li>Contact Us</li>
-                </ul>
-              </div>
-              {type === 'notVerified' && (
-                <button
-                  onClick={handleSignup}
-                  class="border-2 border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white mt-5 w-5/6 px-2 py-1 rounded-full"
-                >
-                  Login/Register
-                </button>
-              )}
-              {type === 'verified' && (
-                <div class="flex cursor-pointer border-2 border-pink-500 rounded-md p-1 text-pink-500 hover:text-white hover:bg-pink-500 transition ease-in duration-300 font-semibold">
-                  <LogoutIcon />
-                  <div>Log Out</div>
-                </div>
-              )}
-            </div>
-            <div class="flex w-1/3 h-full bg-gray-300/80">
-              <div onClick={() => isOverlay(false)} class="pt-5">
-                <CloseIcon style={{ color: 'white' }} />
-              </div>
-            </div>
-          </div>
-        </div>
-      )} */}
       {type === 'notVerified' && (
         <div class="main flex gap-5 w-full sm:px-2 px-5 justify-between items-center">
           <div class="flex w-60 sm:w-max h-max">
@@ -126,34 +89,28 @@ const Navbar = ({ type, page, isProfile }) => {
           <div class="flex w-52 sm:w-max h-max">
             <img src={logo} alt="logo" class="h-2/3 w-full sm:h-full " />
           </div>
-          {/* <div class="hidden sm:flex sm:items-center sm:justify-evenly sm:w-full sm:gap-5">
-            <div class="flex cursor-pointer border-2 border-pink-500 rounded-md p-1 text-pink-500 hover:text-white hover:bg-pink-500 transition ease-in duration-300 font-semibold">
-              <LogoutIcon />
-              <div>Log Out</div>
-            </div>
-            <div onClick={() => isOverlay(true)}>
-              <MenuIcon />
-            </div>
-          </div> */}
+      
           <div class="flex items-center justify-between w-4/5 sm:hidden ">
             <ul class="flex gap-16 lg:gap-10 cursor-pointer font-medium ">
               {isTeacher !== 'true' &&
                 <li onClick={() => { navigate('/home') }} class="hover:text-pink-500">Home</li>
               }
-              {isTeacher !== 'true' &&
+              {/* {isTeacher !== 'true' &&
                 <li class="hover:text-pink-500">Academics</li>
-              }
+              } */}
               {isTeacher === 'true' &&
                 <li class="hover:text-pink-500">
                   <a href="/teacher">Create Course</a>
                 </li>
               }
-              {isTeacher === 'true' &&
-                <li class="hover:text-pink-500">My Course</li>
-              }
-              <li class="hover:text-pink-500">
+              {/* {isTeacher === 'true' &&
+                <li class="hover:text-pink-500">
+                  <a href="/teacher/mycourse">My Course</a>
+                </li>
+              } */}
+              {component !== 'study' && <li class="hover:text-pink-500">
                 <a href="#form">Contact Us</a>
-              </li>
+              </li>}
             </ul>
 
             <div className="flex gap-9">
@@ -170,11 +127,12 @@ const Navbar = ({ type, page, isProfile }) => {
                 />
               </div>
               {isTeacher !== 'true' &&
-                <div onClick={() => navigate(`/checkout/${user._id}`)}>
+                <div className='relative' onClick={() => navigate(`/checkout`)}>
+                  {user?.cart?.length >0 && <div className='w-3 h-3 rounded-full bg-pink-500 absolute right-0 '></div>}
                   <ShoppingCartOutlinedIcon className='cursor-pointer' />
                 </div>
               }
-              {!isProfile && <div class="flex items-center cursor-pointer" onClick={() => { const isTeacher = localStorage.getItem('isTeacher'); console.log(isTeacher); navigate(`/${isTeacher === "true" ? 'teacherform' : 'profile'}`) }}>
+              {!isProfile && <div class="flex items-center cursor-pointer" onClick={() => { const isTeacher = localStorage.getItem('isTeacher'); navigate(`/${isTeacher === "true" ? 'teacherform' : 'profile'}`) }}>
                 <Avatar sx={{ borderRadius: "50%" }} alt="dp" src={user?.image}>{user?.firstname?.charAt(0)}</Avatar>
               </div>}
               <div

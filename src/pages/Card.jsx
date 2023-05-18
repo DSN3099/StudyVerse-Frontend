@@ -1,5 +1,4 @@
 import React from 'react';
-import star from '../assets/star.png';
 import { useNavigate } from 'react-router-dom';
 
 const Card = ({title,course,level,img,price,id,type}) => {

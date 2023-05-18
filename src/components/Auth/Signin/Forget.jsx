@@ -51,7 +51,6 @@ const Forget = () => {
         try {
             const { data } = await axios.post(`http://localhost:5000/api/auth/verifyOtp`, { otp: otp, otpId: response.otpId }, config)
             if (data.message === "verified"){
-                console.log('verified')
                 navigate(`/changepass/${data.userId}`)
             }
         } catch (err) {

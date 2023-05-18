@@ -171,7 +171,7 @@ const Courseupload = () => {
             </div>
             <div class='flex justify-end'>
               {/* <Button variant='outlined' sx={{ padding: '8px 30px' }} onClick={() => { navigate(`/video/${id}`) }}>Upload Files</Button> */}
-              <Button variant='contained' sx={{ padding: '8px 30px' }} onClick={() => { navigate(`/video/${id}`) }}>Go to Course</Button>
+              <Button variant='contained' sx={{ padding: '8px 30px' }} onClick={() => { navigate('/teacher') }}>Go to Course</Button>
             </div>
             {dialog &&
               <Dialog

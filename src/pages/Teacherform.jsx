@@ -40,7 +40,6 @@ const Teacherform = () => {
     const userdata = async () => {
         try {
             const { data } = await axios.get(`http://localhost:5000/api/user`, config)
-            console.log(data)
             setUser(data)
             setNewBio(data.teacherData.bio)
             setNewProfession(data.teacherData.profession)
@@ -51,7 +50,6 @@ const Teacherform = () => {
     const teacherData = async () => {
         try {
             const { data } = await axios.get(`http://localhost:5000/api/teacher/teacherdata`, config)
-            console.log(data)
             setUser(data)
         } catch (err) {
             console.log(err)
@@ -59,13 +57,11 @@ const Teacherform = () => {
     }
 
     const createdata = async () => {
-        console.log(user)
         try {
             const { data } = await axios.post(`http://localhost:5000/api/teacher/createteacher`, { profession: newProfession, bio: newBio, video: user.teacherData.video }, config)
             user.teacherData.bio = newBio
             user.teacherData.profession = newProfession
             setUser({...user})
-            console.log(data)
             navigate('/teacher')
         } catch (err) {
             console.log(err)
@@ -81,7 +77,6 @@ const Teacherform = () => {
     const postImage = async () => {
         try {
             const { data } = await axios.patch('http://localhost:5000/api/user/uploadImage/', { imageUrl: user.image }, config)
-            console.log(data)
         } catch (err) {
             console.log(err)
         }
@@ -89,7 +84,6 @@ const Teacherform = () => {
 
     const handleProfile = async (e) => {
         const file = e.target.files[0];
-        console.log(file)
         if (file) {
             const storageRef = ref(storage, `userImage/${file.name + v4()}`)
             await uploadBytes(storageRef, file)
@@ -111,13 +105,11 @@ const Teacherform = () => {
     }
 
     const updateData = async () => {
-        console.log(user)
         try {
             const { data } = await axios.patch(`http://localhost:5000/api/teacher/updateteacher`, { profession: newProfession, bio: newBio }, config)
             user.teacherData.bio = newBio
             user.teacherData.profession = newProfession
             setUser({...user})
-            console.log(data)
         } catch (err) {
             console.log(err)
         }

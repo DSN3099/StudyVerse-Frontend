@@ -77,7 +77,6 @@ function Study() {
         try{
             const {data} = await axios.get(`http://localhost:5000/api/user`,config)
             setUsers(data)
-            console.log(data)
         }catch(err){
             console.log(err)
         }
@@ -102,7 +101,7 @@ useEffect(()=>{
 
     return (
         <div className='flex flex-col w-full mb-10'>
-            <Navbar type="verified"></Navbar>
+            <Navbar type="verified" component={'study'}></Navbar>
             <div className='studyPage flex gap-5 justify-between px-10'>
                 <div className={theater ? "left flex flex-col w-[100%] gap-2.5" : "left flex flex-col w-[70%]"}>
                     {/* <div className='text-sm'>My course/In Progress</div> */}
@@ -111,7 +110,7 @@ useEffect(()=>{
                     </div>
                     <div class='flex w-full items-center justify-between mb-3'>
                         <div class='flex gap-1 w-max'>
-                            <div class='text-blue-600 cursor-pointer pr-1' onClick={()=>{navigate('/teacher/123')}}>{courseData?.authorData?.firstname} {courseData?.authorData?.lastname}</div>
+                            <div class='text-blue-600 cursor-pointer pr-1' onClick={()=>{navigate(`/teacher/${courseData?.authorData?._id}`)}}>{courseData?.authorData?.firstname} {courseData?.authorData?.lastname}</div>
                             {/* <img src={star} alt="" style={{ width: '20px', height: '20px' }} className="mx-2" />
                             <div class='flex font-bold'>4.5<span class='font-normal text-gray-500 border-r px-2'>(99 reviews)</span></div> */}
                         </div>
